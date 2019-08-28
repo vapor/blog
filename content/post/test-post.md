@@ -9,6 +9,10 @@ tags: [
 author: Jonas Schwartz
 ---
 
+![image](/img/test-img.png)
+
+---
+
 Some test `test` Some other text
 
 ---
