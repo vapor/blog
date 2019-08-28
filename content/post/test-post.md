@@ -3,12 +3,8 @@ title: "Test post"
 date: 2019-08-28T10:48:13+02:00
 archives: "2019"
 tags: [
-    "foo",
-    "bar"
-]
-categories: [
-    "Development",
-    "golang",
+    "example",
+    "syntax"
 ]
 author: Jonas Schwartz
 ---
