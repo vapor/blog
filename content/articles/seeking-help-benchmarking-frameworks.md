@@ -2,8 +2,8 @@
 title: "Seeking help benchmarking frameworks"
 date: "2016-06-02"
 tags: [
-    "Benchmark",
-    "Vapor"
+    "benchmark",
+    "framework"
 ]
 author: "Tanner Nelson"
 ---

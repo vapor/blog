@@ -2,8 +2,8 @@
 title: "Vapor 3.0.0 released"
 date: "2018-05-05"
 tags: [
-    "Announcement",
-    "Vapor"
+    "announcement",
+    "framework"
 ]
 author: "Tanner Nelson"
 cover: "/img/articles/vapor3-released.png"

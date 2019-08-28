@@ -2,8 +2,8 @@
 title: "Vapor 4: Alpha 1 Releases Begin"
 date: "2019-05-28"
 tags: [
-    "Announcement",
-    "Vapor"
+    "announcement",
+    "framework"
 ]
 author: "Tanner Nelson"
 cover: "/img/articles/vapor4-alpha.png"

@@ -2,8 +2,8 @@
 title: "Server Side Swift vs. The Other Guys — 1: Input"
 date: "2016-05-28"
 tags: [
-    "Benchmark",
-    "Vapor"
+    "benchmark",
+    "framework"
 ]
 author: "Tanner Nelson"
 ---

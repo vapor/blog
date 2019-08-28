@@ -2,8 +2,8 @@
 title: "Introducing Vapor Cloud — A Fast and Reliable Cloud Service"
 date: "2017-07-05"
 tags: [
-    "Announcement",
-    "Vapor Cloud"
+    "announcement",
+    "cloud"
 ]
 author: "Tanner Nelson"
 ---

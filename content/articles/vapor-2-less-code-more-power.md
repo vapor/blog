@@ -2,8 +2,8 @@
 title: "Vapor 2: Less code, more power."
 date: "2017-05-17"
 tags: [
-    "Announcement",
-    "Vapor"
+    "announcement",
+    "framework"
 ]
 author: "Tanner Nelson"
 cover: "/img/articles/vapor-2-less-code.png"

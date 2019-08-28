@@ -2,8 +2,8 @@
 title: "Server Side Swift vs. The Other Guys — 2: Speed"
 date: "2016-06-13"
 tags: [
-    "Benchmark",
-    "Vapor"
+    "benchmark",
+    "framework"
 ]
 author: "Tanner Nelson"
 ---

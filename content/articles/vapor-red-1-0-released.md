@@ -2,8 +2,8 @@
 title: "Vapor Red 1.0 released 🎉🎉"
 date: "2019-06-25"
 tags: [
-    "Announcement",
-    "Vapor Red"
+    "announcement",
+    "red"
 ]
 author: "Jonas Schwartz"
 cover: "/img/articles/vapor-red-1-0.png"

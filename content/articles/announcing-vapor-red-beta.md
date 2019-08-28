@@ -2,8 +2,8 @@
 title: "Announcing Vapor Red Beta"
 date: "2019-05-22"
 tags: [
-    "Announcement",
-    "Vapor Red"
+    "announcement",
+    "red"
 ]
 author: "Jonas Schwartz"
 cover: "/img/articles/vapor-red-beta.png"

@@ -2,8 +2,8 @@
 title: "Vapor Cloud 1.0 Released 🎉"
 date: "2017-10-06"
 tags: [
-    "Announcement",
-    "Vapor Cloud"
+    "announcement",
+    "cloud"
 ]
 author: "Jonas Schwartz"
 ---

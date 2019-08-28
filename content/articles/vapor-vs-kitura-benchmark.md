@@ -2,8 +2,8 @@
 title: "Vapor vs. Kitura Benchmark"
 date: "2016-08-04"
 tags: [
-    "Benchmark",
-    "Vapor"
+    "benchmark",
+    "framework"
 ]
 author: "Tanner Nelson"
 cover: "/img/articles/vapor-vs-kitura.png"

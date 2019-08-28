@@ -2,8 +2,8 @@
 title: "Hiring: Vapor Framework Developer"
 date: "2017-01-10"
 tags: [
-    "Announcement",
-    "Vapor"
+    "announcement",
+    "framework"
 ]
 author: "Tanner Nelson"
 cover: "/img/articles/hiring-vapor-developer.png"

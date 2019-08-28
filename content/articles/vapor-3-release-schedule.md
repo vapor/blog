@@ -2,8 +2,8 @@
 title: "Vapor 3 Release Schedule"
 date: "2018-01-30"
 tags: [
-    "Announcement",
-    "Vapor"
+    "announcement",
+    "framework"
 ]
 author: "Tanner Nelson"
 ---
