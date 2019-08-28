@@ -1,31 +1,30 @@
-FROM debian:jessie
-MAINTAINER yigal@publysher.nl
+FROM alpine:3.5 as build
 
-# Install pygments (for syntax highlighting) 
-RUN apt-get -qq update \
-	&& DEBIAN_FRONTEND=noninteractive apt-get -qq install -y --no-install-recommends python-pygments git ca-certificates asciidoc \
-	&& rm -rf /var/lib/apt/lists/*
-
-# Download and install hugo
 ENV HUGO_VERSION 0.57.2
-ENV HUGO_BINARY hugo_${HUGO_VERSION}_Linux-64bit.deb
+ENV HUGO_BINARY hugo_${HUGO_VERSION}_Linux-64bit.tar.gz
 
+# Install Hugo
+RUN set -x && \
+  apk add --update wget ca-certificates && \
+  wget https://github.com/spf13/hugo/releases/download/v${HUGO_VERSION}/${HUGO_BINARY} && \
+  tar xzf ${HUGO_BINARY} && \
+  rm -r ${HUGO_BINARY} && \
+  mv hugo /usr/bin && \
+  apk del wget ca-certificates && \
+  rm /var/cache/apk/*
 
-ADD https://github.com/spf13/hugo/releases/download/v${HUGO_VERSION}/${HUGO_BINARY} /tmp/hugo.deb
-RUN dpkg -i /tmp/hugo.deb \
-	&& rm /tmp/hugo.deb
+COPY ./ /site
 
-# Create working directory
-RUN mkdir /usr/share/blog
-WORKDIR /usr/share/blog
+WORKDIR /site
 
-# Expose default hugo port
-EXPOSE 80
+RUN /usr/bin/hugo
 
-# Automatically build site
-ONBUILD ADD . /usr/share/blog
-ONBUILD RUN hugo -d /usr/share/nginx/html/
+FROM nginx:alpine
 
-# By default, serve site
-ENV HUGO_BASE_URL https://blog.v2.vapor.cloud
-CMD hugo server --bind=0.0.0.0 --port 80
+LABEL maintainer Eduardo Reyes <eduardo@reyes.im>
+
+COPY ./conf/default.conf /etc/nginx/conf.d/default.conf
+
+COPY --from=build /site/public /var/www/site
+
+WORKDIR /var/www/site
