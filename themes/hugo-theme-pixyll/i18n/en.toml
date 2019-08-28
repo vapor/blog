@@ -1,0 +1,20 @@
+[about]
+other = "About"
+
+[contact]
+other = "Contact"
+
+[tags]
+other = "Tags"
+
+[search]
+other = "Search"
+
+[written]
+other = "Written by"
+
+[newer]
+other = "Newer"
+
+[older]
+other = "Older"

@@ -6,7 +6,7 @@ tags: [
     "example",
     "syntax"
 ]
-author: Jonas Schwartz
+author: "jonas"
 ---
 
 ![image](/img/test-img.png)

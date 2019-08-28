@@ -10,7 +10,7 @@ categories: [
     "Development",
     "golang",
 ]
-author: Jonas Schwartz
+author: "jonas"
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi efficitur faucibus enim nec pellentesque. Integer et eros risus. Vestibulum suscipit lacus nec sem congue, mollis euismod urna ultricies. Ut vulputate metus eu sem pellentesque congue. In at fermentum metus, eu efficitur augue. Cras sagittis ligula non justo tempor, in tincidunt risus lobortis. Sed vehicula ex a sem accumsan porttitor.

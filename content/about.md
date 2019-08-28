@@ -1,7 +1,6 @@
 +++
 title = "About"
-date = "2014-04-09"
-menu = "main"
+date = "2019-08-28"
 +++
 
 Foo

@@ -1,13 +1,44 @@
 baseURL = "https://blog.v2.vapor.cloud/"
-languageCode = "en-us"
 title = "Vapor blog"
 copyright = "Copyright © 2008–2018, codevapor"
 
-theme = "jeffprod"
+languageCode = "en-us"
+theme = "terminal"
+paginate = 5
 
-[permalinks]
-    post = "/:year/:filename"
+[params]
+  # dir name of your blog content (default is `content/posts`)
+  contentTypeName = "post"
+  # ["orange", "blue", "red", "green", "pink"]
+  themeColor = "blue"
+  # if you set this to 0, only submenu trigger will be visible
+  showMenuItems = 2
+  # show selector to switch language
+  showLanguageSelector = false
+  # set theme to full screen width
+  fullWidthTheme = true
+  # center theme with default width
+  centerTheme = false
+  # set a custom favicon (default is a `themeColor` square)
+  # favicon = "favicon.ico"
 
-[taxonomies]
-    tag = "tags"
-    archive = "archives"
+[languages]
+  [languages.en]
+    languageName = "English"
+    title = "Terminal"
+    subtitle = "A simple, retro theme for Hugo"
+    keywords = ""
+    copyright = ""
+    menuMore = "Show more"
+    readMore = "Read more"
+    readOtherPosts = "Read other posts"
+
+    [languages.en.params.logo]
+      logoText = "Vapor Blog"
+      logoHomeLink = "/"
+
+    [languages.en.menu]
+      [[languages.en.menu.main]]
+        identifier = "about"
+        name = "About"
+        url = "/about"

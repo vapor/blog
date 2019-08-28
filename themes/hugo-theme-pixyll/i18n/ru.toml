@@ -1,0 +1,20 @@
+[about]
+other = "О нас"
+
+[contact]
+other = "Контакты"
+
+[tags]
+other = "Теги"
+
+[search]
+other = "Поиск"
+
+[written]
+other = "Написал"
+
+[newer]
+other = "Следующая"
+
+[older]
+other = "Предыдущая"
