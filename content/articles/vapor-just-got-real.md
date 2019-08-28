@@ -2,7 +2,7 @@
 title: "Vapor just got real"
 date: "2016-05-07"
 tags: [
-    "Swift",
+    "Announcement",
     "Vapor"
 ]
 author: "Tanner Nelson and Logan Wright"
