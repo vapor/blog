@@ -1,4 +1,4 @@
-baseURL = "https://codevapor.blog/"
+baseURL = "https://blog-staging.v2.vapor.cloud/"
 title = "Vapor blog"
 copyright = "Copyright © 2008–2018, codevapor"
 
