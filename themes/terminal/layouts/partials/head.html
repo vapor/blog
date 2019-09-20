@@ -68,8 +68,12 @@
 {{ end }}
 
 <style>
-  #isso-thread .textarea:focus {
-    min-height: 100px;
+  #isso-thread .textarea {
+    min-height: 100px !important;
+  }
+
+  #isso-thread .textarea.placeholder {
+    min-height: 58px !important;
   }
 
   .isso-postbox > .form-wrapper .textarea, .isso-postbox > .form-wrapper .preview {
@@ -91,6 +95,11 @@
 
   #isso-thread pre {
     background: #000 !important;
+  }
+
+  .isso-postbox > .form-wrapper > .auth-section .post-action > input {
+    background: #23b0ff !important;
+    border-color: #23b0ff !important;
   }
 </style>
 
