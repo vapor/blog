@@ -19,6 +19,9 @@
       </span>
       {{ with .Params.Author }}<span class="post-author">::
         {{ . }}</span>{{ end }}
+      <span class="post-author">::
+        <a href="{{ .Permalink }}#isso-thread">Comments</a>
+      </span>
     </div>
 
     {{ if .Params.tags }}

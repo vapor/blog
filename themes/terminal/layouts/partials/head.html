@@ -29,6 +29,13 @@
 <link rel="shortcut icon" href="{{ printf "img/favicon/%s.png" $.Site.Params.ThemeColor | absURL }}">
 {{ end }}
 
+{{ "<!-- isso -->" | safeHTML }}
+  <script data-isso="https://comments.vapor.red/codevaporblog" 
+    data-isso-require-author="true"
+    data-title="codevaporblog"
+    src="https://comments.vapor.red/codevaporblog/js/embed.min.js" ></script>
+{{ "<!-- end isso -->" | safeHTML }}
+
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="{{ if .IsHome }}{{ $.Site.Title }} — {{ $.Site.Params.Subtitle }}{{ else }}{{ .Title }} :: {{ $.Site.Title }} — {{ $.Site.Params.Subtitle }}{{ end }}" />
@@ -59,6 +66,33 @@
 {{ with .OutputFormats.Get "json" }}
   <link href="{{ .RelPermalink }}" rel="alternate" type="application/json" title="{{ $.Site.Title }}" />
 {{ end }}
+
+<style>
+  #isso-thread .textarea:focus {
+    min-height: 100px;
+  }
+
+  .isso-postbox > .form-wrapper .textarea, .isso-postbox > .form-wrapper .preview {
+    box-shadow: none !important;
+    background: #1d212c !important;
+    border: 1px solid #AAA !important;
+  }
+
+  .isso-postbox > .form-wrapper > .auth-section .input-wrapper input {
+    box-shadow: none !important;
+    background: #1d212c !important;
+    border: 1px solid #AAA !important;
+    color: #FFF !important;
+  }
+
+  .isso-postbox > .form-wrapper > .auth-section .input-wrapper {
+    margin-right: 4px !important;
+  }
+
+  #isso-thread pre {
+    background: #000 !important;
+  }
+</style>
 
 <!-- Extended head section-->
 {{ partial "extended_head.html" . }}
