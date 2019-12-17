@@ -137,11 +137,44 @@ JSON output for this array of planets would look something like:
 
 ## Partial Reads & Updates
 
-Property wrappers also make it 
+Fluent's new model API also makes it possible to do partial reads and updates on the database. When models fetched from the DB are updated and saved, Fluent now sends only the updated field values to the database.
 
 ## XCTVapor
 
+Vapor 4 includes a new testing framework that makes it easier to test your application using `XCTest`. Importing `XCTVapor` adds `test` methods to your application that you can use to easily send requests.
+
+```swift
+import XCTVapor
+
+app.test(.GET, to: "hello") { res in
+    XCTAssertEqual(res.status, .ok)
+    XCTAssertEqual(res.body.string, "Hello, world!")
+}
+```
+
+Applications are tested in-memory by default. To boot an HTTP server and run the tests through an HTTP client, use `testable`.
+
+```swift
+app.testable(method: .running).test(.GET, to: ...) {
+	// verify response
+}
+```
+
 ## HTTP/2 & TLS
+
+Support for HTTP/2 and TLS is now shipped by default with Vapor 4. HTTP/2 support can be enabled by adding `.two` to the HTTP server's supported version set.
+
+```swift
+app.server.configuration.supportVersions = [.two]
+```
+
+TLS can be enabled by setting the server's TLS configuration struct.
+
+```swift
+app.server.configuration.tlsConfiguration = .forServer(...)
+```
+
+Hosting your app behind a reverse-proxy like NGINX is still recommended for production use cases. 
 
 ## Synchronous Content
 
