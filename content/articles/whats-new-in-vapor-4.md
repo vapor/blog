@@ -9,7 +9,7 @@ author: "Tanner Nelson"
 cover: "/img/articles/vapor4-alpha.png"
 ---
 
-We've been hacking away at the fourth major release of Vapor for almost a year now. The first alpha version was tagged last May with the first beta following in October. During that time, the community has done amazing work helping to test, improve, and refine this release. Over [500 issues and pull requests](https://github.com/orgs/vapor/projects/2) have been closed so far!
+We've been working on the fourth major release of Vapor for almost a year now. The first alpha version was tagged last May with the first beta following in October. During that time, the community has done amazing work helping to test, improve, and refine this release. Over [500 issues and pull requests](https://github.com/orgs/vapor/projects/2) have been closed so far!
 
 If we look at Vapor 3's pre-release timeline, there were 7 months between alpha.1 and the final release. If history repeats itself, that would mean 4.0.0 sometime in February 2020. 
 
@@ -178,17 +178,199 @@ Hosting your app behind a reverse-proxy like NGINX is still recommended for prod
 
 ## Synchronous Content
 
-## Graceful Shutdown
+Vapor's Content APIs are now synchronous.
+
+```swift
+let newUser = try req.content.decode(CreateUser.self)
+print(newUser) // CreateUser
+```
+
+This is thanks to a new default policy on route handlers to collect streaming HTTP bodies before calling the handler. HTTP body collection can be disabled when registering routes.
+
+```swift
+app.on(.POST, "streaming", body: .stream) { req in
+    // req.body.data may be nil
+    // use req.body.collect
+}
+```
 
 ## Backpressure
 
+In addition to new request body collection strategies, request body streaming now supports back pressure. `req.body.drain`, which streams incoming body data, nwow accepts a `EventLoopFuture` return value. Until this future result is completed, further request body chunks will not be requested from the operating system. 
+
+This allows for Vapor apps to stream extremely large files directly to disk without ballooning memory. 
+
+Vapor's multipart parsing package `MultipartKit` has been rewritten to support streaming `multipart/form-data` uploads. This means you can benefit from backpressure with both direct and form-based file uploads. 
+
+## Graceful Shutdown
+
+Close attention to graceful shutdown has been given to all Vapor types that deal with long-lived resources. `Application`, and many other types, have `close()` or `shutdown()` methods that now must be called before they deinitialize. 
+
+```swift
+let app = Application()
+defer { app.shutdown() }
+```
+
+Using explicit shutdown methods is a pattern adopted from SwiftNIO and can help reduce bugs. These shutdown methods also help to prevent reference cycles from leaking memory in your application.
+
+Beyond stricter adherence to good graceful shutdown practices, Vapor's HTTP server now supports NIO's `ServerQuiescingHelper` by default. This handler helps to ensure that any in-flight HTTP requests are given time to complete after a server initiates shutdown. 
+
 ## New Command API
+
+Vapor's Command APIs have also seen improvements thanks to property wrappers. Commands now define `Signature` structs that use wrapped properties to declare accepted arguments. When the command is run, the signature is decoded automatically and passed to the run function.
+
+Available property wrappers are `@Argument`, `@Option`, and `@Flag`. 
+
+```swift
+final class ServeCommand: Command {
+    struct Signature: CommandSignature {
+        @Option(name: "hostname", short: "H", help: "Set the hostname")
+        var hostname: String?
+        
+        @Option(name: "port", short: "p", help: "Set the port")
+        var port: Int?
+        
+        @Option(name: "bind", short: "b", help: "Set hostname and port together")
+        var bind: String?
+    }
+
+    func run(using context: CommandContext, signature: Signature) throws {
+    	print(signature.hostname) // String?
+    }
+}
+````
 
 ## APNS
 
+A new [APNS](https://developer.apple.com/library/archive/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/APNSOverview.html) integration package will ship its first release alongside Vapor 4. This package is built on the great work done by Kyle Browning with [APNSwift](https://github.com/kylebrowning/APNSwift).
+
+This package integrates APNSwift into Vapor's application and request types, making it easy to configure and use. 
+
+```swift
+import APNS
+import Vapor
+
+try app.apns.configuration = .init(
+    keyIdentifier: "...",
+    teamIdentifier: "...",
+    signer: .init(file: ...),
+    topic: "codes.vapor.example",
+    environment: .sandbox
+)
+
+app.get("send-push") { req -> EventLoopFuture<HTTPStatus> in
+    req.apns.send(
+        .init(title: "Hello", subtitle: "This is a test from vapor/apns"),
+        to: "..."
+    ).map { .ok }
+}
+```
+
+The new package is located at [vapor/apns](https://github.com/vapor/apns).
+
 ## Leaf Syntax
 
-## Streaming Multipart
+As first [described](https://forums.swift.org/t/pitch-new-leaf-body-syntax/18188) on the Swift forums, Leaf's new body syntax is complete and will ship with Vapor 4.
+
+This change replaces Leaf's usage of curly braces with an `#end` prefix syntax.
+
+```leaf
+#for(user in users)
+   Hello #(user.name)!
+#endfor
+```
+
+Leaf also has a new syntax for template inheritance. 
+
+base.leaf:
+```html
+<html>
+    <head><title>#import("title")</title><head>
+    <body>#import("body")</body>
+</html>
+```
+
+hello.leaf:
+```leaf
+#extend("base"):
+    #export("title", "Welcome")
+    #export("body"):
+        Hello, #(name)!
+    #endexport
+#endextend
+```
+
+result when compiled with context `["name": "Vapor"]`
+
+```html
+<html>
+    <head><title>Welcome</title><head>
+    <body>Hello, Vapor!</body>
+</html>
+```
 
 ## Jobs
 
+Jobs, a queue system for Vapor, will be seeing its 1.0 release alongside Vapor 4. This package allows you to define job handlers that can handle long-running tasks in a separate process. Your Vapor route handlers can quickly dispatch jobs to these handlers to keep your application fast without compromising error handling.
+
+Job handlers are declared using the `Job` protocol and must implement a `dequeue` method.
+
+```swift
+struct Email: Codable {
+    var to: String
+    var message: String
+}
+
+struct EmailJob: Job {
+    func dequeue(_ context: JobContext, _ email: Email) -> EventLoopFuture<Void> {
+    	print("sending email to \(email.to)")
+    	...
+    }
+}
+```
+
+Job handlers are then configure using Jobs' convenience APIs.
+
+```swift
+import Jobs
+import Vapor
+
+app.jobs.add(EmailJob())
+```
+
+When booting your app, start up the jobs handling process using the new `jobs` command.
+
+```sh
+swift run Run jobs
+```
+
+Once setup, you can easily dispatch jobs from route handlers using the request.
+
+```swift
+app.get("send-email") { req in
+    req.jobs.dispatch(EmailJob.self, Email(...))
+        .map { HTTPStatus.ok }
+}
+```
+
+Once dispatched, the job will be later dequeued and run in the separate jobs process. If any errors occur, the `EmailJob` handler will be notified. 
+
+Jobs also supports scheduling jobs to run at certain times using a new, fluent schedule building API. 
+
+```swift
+// weekly
+app.jobs.schedule(Cleanup())
+    .weekly()
+    .on(.monday)
+    .at("3:13am")
+
+// daily
+app.jobs.schedule(Cleanup())
+    .daily()
+    .at("5:23pm")
+
+// hourly
+app.jobs.schedule(Cleanup())
+    .hourly()
+    .at(30)
+```
