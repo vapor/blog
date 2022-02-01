@@ -22,4 +22,4 @@ struct Blog: Website {
 }
 
 // This will generate your website using the built-in Foundation theme:
-try Blog().publish(withTheme: .foundation)
+try Blog().publish(withTheme: .vapor)
