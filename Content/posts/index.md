@@ -1,1 +1,1 @@
-# Vapo Blog Posts
+# Vapor Blog Posts
