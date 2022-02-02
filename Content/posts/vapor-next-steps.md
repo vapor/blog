@@ -1,7 +1,7 @@
 ---
 date: 2022-02-01 10:22
 description: Discussing the future of Vapor and the next steps in Vapor's Life
-tags: first, article
+tags: framework, growth
 ---
 # The next steps for Vapor
 
