@@ -9,7 +9,7 @@ Over the last six (6!) years, Vapor has grown from a small experimental project 
 
 ## Vapor 5
 
-We're currently in the early stages of planning Vapor 5. This will be the next major release of Vapor and will complete several years of work of migrating Vapor from a synchronous, blocking framework to an asynchronous framework. We don't know much of what it will look like yet, but `EventLoopFuture`s will no longer be a feature, that's for certain 🎉. Vapor 5 will allow us to make use of the latest Swift Concurrency features like `AsyncSequence`s for streaming bodies,`Actor`s for shared state and `Sendable` conformances to prevent data race conditions. We're extremely excited to see how Vapor 5 turns out and for everyone to use it.
+We're currently in the early stages of planning Vapor 5. This will be the next major release of Vapor and will complete several years of work of migrating Vapor from a synchronous, blocking framework to an asynchronous framework. We don't know much of what it will look like yet, but `EventLoopFuture`s will no longer be a feature, that's for certain 🎉. Vapor 5 will allow us to make use of the latest Swift Concurrency features like `AsyncSequence`s for streaming bodies, `Actor`s for shared state and `Sendable` conformances to prevent data race conditions. We're extremely excited to see how Vapor 5 turns out and for everyone to use it.
 
 **Note**: the timeline for Vapor 5 is still very much unknown and at the time of writing is waiting on a future version of NIO and Swift 6.
 

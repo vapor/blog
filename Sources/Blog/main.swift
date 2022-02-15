@@ -16,7 +16,7 @@ struct Blog: Website {
     // Update these properties to configure your website:
     var url = URL(string: "https://blog.vapor.codes")!
     var name = "The Vapor Blog"
-    var description = "Wlecome to the blog of Vapor, the Swift Web Framework"
+    var description = "Wlecome to the blog of Vapor, the Swift HTTP/Web Framework"
     var language: Language { .english }
     var imagePath: Path? { nil }
     var favicon: Favicon? {
