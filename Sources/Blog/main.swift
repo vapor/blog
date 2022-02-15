@@ -19,6 +19,9 @@ struct Blog: Website {
     var description = "Wlecome to the blog of Vapor, the Swift Web Framework"
     var language: Language { .english }
     var imagePath: Path? { nil }
+    var favicon: Favicon? {
+        Favicon(path: "/favicon.ico", type: "image/x-icon")
+    }
 }
 
 // This will generate your website using the built-in Foundation theme:
