@@ -14,7 +14,7 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
                        context: PublishingContext<Site>) throws -> HTML {
         HTML(
             .lang(context.site.language),
-            .head(for: index, on: context.site),
+            buildHead(for: index, context: context),
             .body {
                 SiteHeader(context: context, selectedSelectionID: nil)
                 Wrapper {
@@ -39,7 +39,7 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
                          context: PublishingContext<Site>) throws -> HTML {
         HTML(
             .lang(context.site.language),
-            .head(for: section, on: context.site),
+            buildHead(for: section, context: context),
             .body {
                 SiteHeader(context: context, selectedSelectionID: section.id)
                 Wrapper {
@@ -55,7 +55,7 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
                       context: PublishingContext<Site>) throws -> HTML {
         HTML(
             .lang(context.site.language),
-            .head(for: item, on: context.site),
+            buildHead(for: item, context: context),
             .body(
                 .class("item-page"),
                 .components {
@@ -77,7 +77,7 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
                       context: PublishingContext<Site>) throws -> HTML {
         HTML(
             .lang(context.site.language),
-            .head(for: page, on: context.site),
+            buildHead(for: page, context: context),
             .body {
                 SiteHeader(context: context, selectedSelectionID: nil)
                 Wrapper(page.body)
@@ -90,7 +90,7 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
                          context: PublishingContext<Site>) throws -> HTML? {
         HTML(
             .lang(context.site.language),
-            .head(for: page, on: context.site),
+            buildHead(for: page, context: context),
             .body {
                 SiteHeader(context: context, selectedSelectionID: nil)
                 Wrapper {
@@ -114,7 +114,7 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
                             context: PublishingContext<Site>) throws -> HTML? {
         HTML(
             .lang(context.site.language),
-            .head(for: page, on: context.site),
+            buildHead(for: page, context: context),
             .body {
                 SiteHeader(context: context, selectedSelectionID: nil)
                 Wrapper {
@@ -141,6 +141,15 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
             }
         )
     }
+    
+    func buildHead(for page: Location, context: PublishingContext<Blog>) -> Node<HTML.DocumentContext> {
+            .head(for: page, on: context.site, stylesheetPaths: [
+                "/static/styles/styles.css",
+                "/static/styles/syntax.css",
+                "https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap",
+                "https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
+            ])
+        }
 }
 
 private struct Wrapper: ComponentContainer {
@@ -158,8 +167,11 @@ private struct SiteHeader<Site: Website>: Component {
     var body: Component {
         Header {
             Wrapper {
-                Link(context.site.name, url: "/")
-                    .class("site-name")
+                Node.a(
+                    .href("/"),
+                    .img(.alt("Vapor Logo"), .src("/static/images/header-logo.png"), .class("d-iblock va-baseline")),
+                    .h1("The Vapor Blog", .class("d-iblock ml-4 va-text-bottom"))
+                ).class("site-name d-iblock")
 
                 if Site.SectionID.allCases.count > 1 {
                     navigation
