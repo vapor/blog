@@ -167,7 +167,7 @@ header .site-name:hover {
 }
 
 .item-list > li {
-    background-color: #0d0d0d;
+    background-color: #1b1b1b;
 }
 
 .d-iblock {
@@ -205,8 +205,4 @@ a:hover {
 
 h3 {
     margin-bottom: 1rem;
-}
-
-.item-list > li {
-    background-color: #0d0d0d;
 }
