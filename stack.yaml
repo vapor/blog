@@ -18,6 +18,8 @@ Resources:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: !Ref 'S3BucketName'
+      WebsiteConfiguration:
+        IndexDocument: index.html
   # Configure the bucket as a CloudFront Origin
   ReadPolicy:
     Type: 'AWS::S3::BucketPolicy'
