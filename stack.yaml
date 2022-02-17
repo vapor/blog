@@ -1,0 +1,78 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Create a static website on S3 served by CloudFront'
+Parameters:
+  DomainName:
+    Type: String
+    Description: The domain name for the site
+    AllowedPattern: (?!-)[a-zA-Z0-9-.]{1,63}(?<!-)
+    ConstraintDescription: must be a valid DNS zone name.
+  AcmCertificateArn:
+    Type: String
+    Description: the Amazon Resource Name (ARN) of an AWS Certificate Manager (ACM) certificate.
+    AllowedPattern: "arn:aws:acm:.*"
+  S3BucketName:
+    Type: String
+    Description: Name for the bucket
+Resources:
+  S3BucketForWebsiteContent:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref 'S3BucketName'
+  # Configure the bucket as a CloudFront Origin
+  ReadPolicy:
+    Type: 'AWS::S3::BucketPolicy'
+    Properties:
+      Bucket: !Ref S3BucketForWebsiteContent
+      PolicyDocument:
+        Statement:
+        - Action: 's3:GetObject'
+          Effect: Allow
+          Resource: !Sub 'arn:aws:s3:::${S3BucketForWebsiteContent}/*'
+          Principal:
+            CanonicalUser: !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId
+  CloudFrontOriginAccessIdentity:
+    Type: 'AWS::CloudFront::CloudFrontOriginAccessIdentity'
+    Properties:
+      CloudFrontOriginAccessIdentityConfig:
+        Comment: !Ref S3BucketForWebsiteContent
+  WebsiteCloudfront:
+    Type: AWS::CloudFront::Distribution
+    DependsOn:
+    - CloudFrontOriginAccessIdentity
+    - ReadPolicy
+    Properties:
+      DistributionConfig:
+        Comment: Cloudfront Distribution pointing to S3 bucket
+        Origins:
+        - DomainName: !GetAtt 'S3BucketForWebsiteContent.DomainName'
+          Id: S3Origin
+          S3OriginConfig:
+            OriginAccessIdentity: !Sub 'origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}'
+        Enabled: true
+        HttpVersion: 'http2'
+        DefaultRootObject: index.html
+        Aliases:
+        - !Ref 'DomainName'
+        DefaultCacheBehavior:
+          AllowedMethods:
+          - GET
+          - HEAD
+          - OPTIONS
+          Compress: true
+          TargetOriginId: S3Origin
+          ForwardedValues:
+            QueryString: false
+            Cookies:
+              Forward: none
+          ViewerProtocolPolicy: redirect-to-https
+        PriceClass: PriceClass_All
+        ViewerCertificate:
+          AcmCertificateArn: !Ref 'AcmCertificateArn'
+          SslSupportMethod: sni-only
+Outputs:
+  CloudfrontURL:
+    Description: 'Cloudfront URL'
+    Value: !GetAtt WebsiteCloudfront.DomainName
+  BucketName:
+    Value: !Ref 'S3BucketForWebsiteContent'
+    Description: Name of S3 bucket to hold website content
