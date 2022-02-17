@@ -2,44 +2,32 @@
 
 This is the official code repository for the Vapor Blog.
 
+## Install Publish
+
+Make sure you have publish installed:
+
+```bash
+brew install publish
+```
+
 ## Creating a new blog post
 
-Make sure you have the gohugo CLI installed locally.
+Open the Swift Package:
 
-MacOS:
-
-```
-brew install hugo
-```
-
-Linux:
-
-```
-snap install hugo
+```bash
+open Package.swift
 ```
 
 ### Creating file
 
-Clone this repository locally:
-
-```
-git clone git@github.com:qutheory/vapor-blog.git
-cd vapor-blog
-```
-
-Now create the file
-
-```
-hugo new articles/my-blog-post-title.md
-```
-
-You can now edit the file `articles/my-blog-post-title.md`
+Now create the file in `Content/posts/my-blog-post-title` and add the new content. Run the Swift Package to generate the new content.
 
 ### Spin up local server
 
 To spin up the project locally run
 
 ```
-hugo server
+publish run
 ```
-You can now access http://localhost:1313/
+
+You can now access http://localhost:8000/
