@@ -69,7 +69,7 @@ Finally, we're going to be resurrecting the Vapor shop and actually helping peop
 
 Last and not least we have a fair amount of work to do to improve the infrastructure that we rely on for Vapor. We have a surprising amount of stuff we run for Vapor, including the various websites, documentation sites, Discord and GitHub bots.
 
-At the moment most of it is across a mismatch of services and most sites are run on a single VPS! We'll be updating everything to run on a modern architecture to ensure that random failures don't mean all things Vapor are off line!
+At the moment most of it is across a mishmash of services and most sites are run on a single VPS! We'll be updating everything to run on a modern architecture to ensure that random failures don't mean all things Vapor are off line!
 
 ## Next Steps
 
