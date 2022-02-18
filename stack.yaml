@@ -20,36 +20,18 @@ Resources:
       BucketName: !Ref 'S3BucketName'
       WebsiteConfiguration:
         IndexDocument: index.html
-  # Configure the bucket as a CloudFront Origin
-  ReadPolicy:
-    Type: 'AWS::S3::BucketPolicy'
-    Properties:
-      Bucket: !Ref S3BucketForWebsiteContent
-      PolicyDocument:
-        Statement:
-        - Action: 's3:GetObject'
-          Effect: Allow
-          Resource: !Sub 'arn:aws:s3:::${S3BucketForWebsiteContent}/*'
-          Principal:
-            CanonicalUser: !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId
-  CloudFrontOriginAccessIdentity:
-    Type: 'AWS::CloudFront::CloudFrontOriginAccessIdentity'
-    Properties:
-      CloudFrontOriginAccessIdentityConfig:
-        Comment: !Ref S3BucketForWebsiteContent
   WebsiteCloudfront:
     Type: AWS::CloudFront::Distribution
     DependsOn:
-    - CloudFrontOriginAccessIdentity
-    - ReadPolicy
+    - S3BucketForWebsiteContent
     Properties:
       DistributionConfig:
         Comment: Cloudfront Distribution pointing to S3 bucket
         Origins:
-        - DomainName: !GetAtt 'S3BucketForWebsiteContent.DomainName'
+        - DomainName: !Join [ '', !Split [ 'http://', !GetAtt 'S3BucketForWebsiteContent.WebsiteURL' ] ]
           Id: S3Origin
-          S3OriginConfig:
-            OriginAccessIdentity: !Sub 'origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}'
+          CustomOriginConfig:
+            OriginProtocolPolicy: 'http-only'
         Enabled: true
         HttpVersion: 'http2'
         DefaultRootObject: index.html
