@@ -29,25 +29,25 @@ Outside of Vapor 5, we also have a number of other initiatives that we are rolli
 
 The [website for Vapor](https://vapor.codes) is certainly due an overhaul. We are going to expand it and update it with links to more docs, more tutorial sites and more community initiatives. There have been plenty of conference talks on Vapor over the years and we should feature these on the site. We also have several large companies building applications using Vapor with very large user bases. These will be highlighted in a new showcase section to show that Vapor can and does handle large production apps.
 
- This blog is also a part of an increased focus on showing off Vapor and helping people understand it. We're going to be posting regular blog posts about both the development of Vapor and short form tutorials that don't fit into the documentation site. This should also help with people Googling for Vapor answers!
+This blog is also a part of an increased focus on showing off Vapor and helping people understand it. We're going to be posting regular blog posts about both the development of Vapor and short form tutorials that don't fit into the documentation site. This should also help with people Googling for Vapor answers!
  
- Both the main website and blog will be getting a full redesign in the coming weeks. If you have ideas, then send them our way in the `#design` channel in Discord.
+Both the main website and blog will be getting a full redesign in the coming weeks. If you have ideas, then send them our way in the `#design` channel in Discord.
+
+### Improving the developer experience
  
- ### Improving the developer experience
+Speaking of documentation, there are several fronts where we can improve the developer experience for new and experienced developers. First, we plan on further growing the [documentation](https://docs.vapor.codes) with more expansive docs. Whether it's examples of more complex use cases or more unusual uses of Fluent, they should be easily discoverable. If you have any ideas for what you'd like to see, please [raise an issue on GitHub](https://github.com/vapor/docs/issues/new/choose). And as always, contributions are more than welcome!
  
- Speaking of documentation, there are several fronts where we can improve the developer experience for new and experienced developers. First, we plan on further growing the [documentation](https://docs.vapor.codes) with more expansive docs. Whether it's examples of more complex use cases or more unusual uses of Fluent, they should be easily discoverable. If you have any ideas for what you'd like to see, please [raise an issue on GitHub](https://github.com/vapor/docs/issues/new/choose). And as always, contributions are more than welcome!
+We also need to do a better job of aggregating all of the useful information out there. The [SSWG guides](https://github.com/swift-server/guides) for instance contain a ton of useful information, both for deploying applications and measuring performance. There are lots of blog posts, GitHub projects, books, tutorials, videos and many other useful things for learning about Vapor we should link to. Having somewhere either on the website or a regular blog post to link to them would be a great start in helping the community learn about each other.
  
- We also need to do a better job of aggregating all of the useful information out there. The [SSWG guides](https://github.com/swift-server/guides) for instance contain a ton of useful information, both for deploying applications and measuring performance. There are lots of blog posts, GitHub projects, books, tutorials, videos and many other useful things for learning about Vapor we should link to. Having somewhere either on the website or a regular blog post to link to them would be a great start in helping the community learn about each other.
+Currently the Vapor docs are available in English and Chinese. We'd love to expand this to more languages, so if you're interested in translating the docs into another language please get in touch!
  
- Currently the Vapor docs are available in English and Chinese. We'd love to expand this to more languages, so if you're interested in translating the docs into another language please get in touch!
- 
- Finally, we are planning on adding a jobs section to the website. There are Vapor jobs out there and also Vapor developers out there. We can help facilitate linking these two groups up!
+Finally, we are planning on adding a jobs section to the website. There are Vapor jobs out there and also Vapor developers out there. We can help facilitate linking these two groups up!
 
 ### Introducing Vapor Evangelists
 
 One of the best ways for developers to hear and learn about Vapor is at conference talks. There have been plenty over the years by several different people but we want to encourage and grow this, and not just at iOS conferences. We are introducing a Vapor evangelist program for those helping to spread the Vapor word! Not only will you feature on the website with your talk linked, we'll also send you t-shirts to wear at the conferences and stickers to give away when there!
 
- If you want to talk at a conference feel free to contact Tim (@0xTim on Discord) as he's done plenty and can advise.
+If you want to talk at a conference feel free to contact Tim (@0xTim on Discord) as he's done plenty and can advise.
 
 ## Securing Vapor's Future
 
