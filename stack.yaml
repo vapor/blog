@@ -34,7 +34,7 @@ Resources:
             OriginProtocolPolicy: 'http-only'
         Enabled: true
         HttpVersion: 'http2'
-        DefaultRootObject: index.html
+        # DefaultRootObject: index.html
         Aliases:
         - !Ref 'DomainName'
         DefaultCacheBehavior:

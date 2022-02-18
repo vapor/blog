@@ -17,7 +17,7 @@ jobs:
     - name: Deploy to S3
       uses: jakejarvis/s3-sync-action@master
       with:
-        args: --follow-symlinks --delete
+        args: --acl public-read --follow-symlinks --delete
       env:
         AWS_S3_BUCKET: 'vapor-blog-site'
         AWS_ACCESS_KEY_ID: ${{ secrets.BLOG_DEPLOYER_AWS_ACCESS_KEY_ID }}
