@@ -53,7 +53,7 @@ If you want to talk at a conference feel free to contact Tim (@0xTim on Discord)
 
 Running an open source project on Vapor's scale is not an easy prospect. Whilst Vapor is in a good position currently to weather any storms we want to ensure we're in the best possible place we can be. We have an amazing selection of [sponsors](https://github.com/sponsors/vapor) and want to continue to grow that. If you have found Vapor useful personally and are interested in supporting us then please take a look.
 
-If you are using Vapor in your company then consider sponsoring us at one of our corporate tiers. You'll get dedicated time from the core team and a dedicated line to be able to ask questions. More sponsors would allow us to fund more full-time core engineers, more work like the redesign and build a better product.
+If you are using Vapor in your company then consider sponsoring us at one of our corporate tiers. You'll get dedicated time from the core team and a dedicated line to be able to ask questions. Sponsors are by far the best way to support the project and ensure it continues to grow and succeed. Whether it is an individual supporting at $5 a month or a company supporting us at a corporate tier we are incredible grateful. More sponsors would allow us to fund more full-time core engineers, more work like the redesign and build a better product.
 
 ### The Vapor Support Program
 
