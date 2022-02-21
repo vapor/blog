@@ -1,7 +1,7 @@
 ---
-date: 2022-02-01 10:22
+date: 2022-02-21 10:22
 description: Discussing the future of Vapor and the next steps in Vapor's Life
-tags: framework, growth
+tags: framework, growth, business
 ---
 # The next steps for Vapor
 
@@ -23,7 +23,7 @@ We'll post regular updates on this blog when things start in earnest and detail 
 
 ## Expanding the Community
 
-Outside of Vapor 5, we also have a number of other initiatives that we are rolling out. As a community there's a lot more we can do to 'sell' Vapor and server-side Swift in general. We are also aware that Vapor has reached a maturity level now where it is in production use by a number of companies, but we are missing some key features that will encourage more to try it out.
+Outside of Vapor 5, we also have a number of other initiatives that we are rolling out. As a community there's a lot more we can do to 'sell' Vapor and server-side Swift in general. We are also aware that Vapor has reached a maturity level now where it is being used in production by a number of companies, but we are missing some key features that will encourage more to try it out.
 
 ### Website Overhaul
 
@@ -59,7 +59,7 @@ If you are using Vapor in your company then consider sponsoring us at one of our
 
 Whilst Vapor is being used by several large companies we know that one of the things that holds companies back sometimes from choosing Vapor is the uncertainty of both what happens when things go wrong and how to teach Vapor to new developers. To combat this, we're launching the Vapor Support Program. We're going to be partnering with a number of companies who offer training courses and professional support for Vapor. That means that if a company needs any kind of help, either in the form of an SLA contract, custom work or a training workshop, they can pick one of the companies vetted and approved by Vapor for this. We'll have a dedicated section on the website to showcase this and for companies to find the support they need.
 
-[Broken Hands](https://brokenhands.io) will be the first company to join the Vapor Support Program but if you're interested in becoming a part of it, please get it touch.
+[Broken Hands](https://brokenhands.io) will be the first company to join the Vapor Support Program but if you're interested in becoming a part of it, please get in touch.
 
 ### The Vapor Shop
 
@@ -69,7 +69,7 @@ Finally, we're going to be resurrecting the Vapor shop and actually helping peop
 
 Last and not least we have a fair amount of work to do to improve the infrastructure that we rely on for Vapor. We have a surprising amount of stuff we run for Vapor, including the various websites, documentation sites, Discord and GitHub bots.
 
-At the moment most of it is across a mishmash of services and most sites are run on a single VPS! We'll be updating everything to run on a modern architecture to ensure that random failures don't mean all things Vapor are off line!
+At the moment most of it is across a mishmash of services and most sites are run on a single VPS! We'll be updating everything to run on a modern architecture to ensure that random failures don't mean all things Vapor are offline!
 
 ## Next Steps
 
