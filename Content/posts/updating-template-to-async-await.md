@@ -13,7 +13,7 @@ Today we're updating [Vapor's template](https://github.com/vapor/template) to us
 The downside to the update is that it requires macOS 12. We know that not everyone is able to update their machines to macOS 12 to there's a `macos10-15` branch you can use for new  projects:
 
 ```bash
-vapor new --branch macos10-15 MyProject
+vapor new MyProject --branch macos10-15
 ```
 
 Happy coding!
