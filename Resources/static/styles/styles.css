@@ -206,3 +206,9 @@ a:hover {
 h3 {
     margin-bottom: 1rem;
 }
+
+pre {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    overflow: auto;
+}

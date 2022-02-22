@@ -67,6 +67,8 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
                             ItemTagList(item: item, site: context.site)
                         }
                     }
+                    Script(url: "/static/scripts/syntax.js")
+                    Script(url: "/static/scripts/start-syntax.js")
                     SiteFooter()
                 }
             )
@@ -150,87 +152,4 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
                 "https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
             ])
         }
-}
-
-private struct Wrapper: ComponentContainer {
-    @ComponentBuilder var content: ContentProvider
-
-    var body: Component {
-        Div(content: content).class("wrapper")
-    }
-}
-
-private struct SiteHeader<Site: Website>: Component {
-    var context: PublishingContext<Site>
-    var selectedSelectionID: Site.SectionID?
-
-    var body: Component {
-        Header {
-            Wrapper {
-                Node.a(
-                    .href("/"),
-                    .img(.alt("Vapor Logo"), .src("/static/images/header-logo.png"), .class("d-iblock va-baseline")),
-                    .h1("The Vapor Blog", .class("d-iblock ml-4 va-text-bottom"))
-                ).class("site-name d-iblock")
-
-                if Site.SectionID.allCases.count > 1 {
-                    navigation
-                }
-            }
-        }
-    }
-
-    private var navigation: Component {
-        Navigation {
-            List(Site.SectionID.allCases) { sectionID in
-                let section = context.sections[sectionID]
-
-                return Link(section.title,
-                    url: section.path.absoluteString
-                )
-                .class(sectionID == selectedSelectionID ? "selected" : "")
-            }
-        }
-    }
-}
-
-private struct SiteFooter: Component {
-    var body: Component {
-        Footer {
-            Paragraph {
-                Text("Copyright © Vapor")
-            }
-            Paragraph {
-                Link("RSS feed", url: "/feed.rss")
-            }
-        }
-    }
-}
-
-private struct ItemList<Site: Website>: Component {
-    var items: [Item<Site>]
-    var site: Site
-
-    var body: Component {
-        List(items) { item in
-            Article {
-                H1(Link(item.title, url: item.path.absoluteString))
-                ItemTagList(item: item, site: site)
-                Paragraph(item.description)
-            }
-        }
-        .class("item-list")
-    }
-}
-
-private struct ItemTagList<Site: Website>: Component {
-    var item: Item<Site>
-    var site: Site
-
-    var body: Component {
-        List(item.tags) { tag in
-            Link(tag.string, url: site.path(for: tag).absoluteString)
-        }
-        .class("tag-list")
-    }
 }
