@@ -1,5 +1,6 @@
 import Plot
 import Publish
+import Foundation
 
 extension Theme where Site == Blog {
     static var vapor: Self {
@@ -9,6 +10,12 @@ extension Theme where Site == Blog {
 
 private struct VaporThemeHTMLFactory: HTMLFactory {
     typealias Site = Blog
+    var dateFormatter: DateFormatter
+    init() {
+         dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "dd MMMM yyyy"
+    }
     
     func makeIndexHTML(for index: Index,
                        context: PublishingContext<Site>) throws -> HTML {
@@ -27,7 +34,7 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
                             sortedBy: \.date,
                             order: .descending
                         ),
-                        site: context.site
+                        site: context.site, dateFormatter: dateFormatter
                     )
                 }
                 SiteFooter()
@@ -44,7 +51,7 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
                 SiteHeader(context: context, selectedSelectionID: section.id)
                 Wrapper {
                     H1(section.title)
-                    ItemList(items: section.items, site: context.site)
+                    ItemList(items: section.items, site: context.site, dateFormatter: dateFormatter)
                 }
                 SiteFooter()
             }
@@ -136,7 +143,7 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
                             sortedBy: \.date,
                             order: .descending
                         ),
-                        site: context.site
+                        site: context.site, dateFormatter: dateFormatter
                     )
                 }
                 SiteFooter()

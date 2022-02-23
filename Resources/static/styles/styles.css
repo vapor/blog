@@ -87,7 +87,7 @@ p {
 }
 
 .item-list h1 {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     font-size: 1.3em;
 }
 
@@ -211,4 +211,9 @@ pre {
     margin-top: 0;
     margin-bottom: 1rem;
     overflow: auto;
+}
+
+.post-date {
+    font-size: 0.9em;
+    margin-bottom: 10px;
 }
