@@ -49,10 +49,37 @@ Resources:
             Cookies:
               Forward: none
           ViewerProtocolPolicy: redirect-to-https
+          ResponseHeadersPolicyId: !Ref WebsiteCloudFrontPolicies
         PriceClass: PriceClass_All
         ViewerCertificate:
           AcmCertificateArn: !Ref 'AcmCertificateArn'
           SslSupportMethod: sni-only
+  WebsiteCloudFrontPolicies:
+    Type: AWS::CloudFront::ResponseHeadersPolicy
+    Properties:
+      ResponseHeadersPolicyConfig:
+        Name: Blog-Security-Header-Policy
+        Comment: The Vapor Blog security header policy
+        CustomHeadersConfig:
+          Items:
+            - Header: Content-Security-Policy-Report-Only
+              Value: default-src 'none'; script-src 'self'; img-src 'self'; style-src 'self'; font-src 'self'
+              Override: false
+        SecurityHeadersConfig:
+          ContentTypeOptions:
+            Override: false
+          FrameOptions:
+            FrameOption: DENY
+            Override: false
+          StrictTransportSecurity:
+            AccessControlMaxAgeSec: 63072000
+            IncludeSubdomains: true
+            Preload: false
+            Override: false
+          XSSProtection:
+            ModeBlock: true
+            Protection: true
+            Override: false
 Outputs:
   CloudfrontURL:
     Description: 'Cloudfront URL'
