@@ -12,8 +12,7 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
     typealias Site = Blog
     var dateFormatter: DateFormatter
     init() {
-         dateFormatter = DateFormatter()
-        
+        dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd MMMM yyyy"
     }
     
