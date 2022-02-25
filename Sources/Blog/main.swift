@@ -2,6 +2,9 @@ import Foundation
 import Publish
 import Plot
 
+// TODO: Add date to individual post
+// TODO: Add author to invidual post
+
 // This type acts as the configuration for your website.
 struct Blog: Website {
     enum SectionID: String, WebsiteSectionID {
@@ -11,6 +14,8 @@ struct Blog: Website {
 
     struct ItemMetadata: WebsiteItemMetadata {
         // Add any site-specific metadata that you want to use here.
+        var author: String
+        var leggings: String?
     }
 
     // Update these properties to configure your website:

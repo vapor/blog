@@ -72,6 +72,7 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
                             Div(item.content.body).class("content")
                             Span("Tagged with: ")
                             ItemTagList(item: item, site: context.site)
+                            Div("Written by \(item.metadata.author) - \(dateFormatter.string(from: item.date))")
                         }
                     }
                     Script(url: "/static/scripts/syntax.js")
