@@ -11,12 +11,13 @@ struct Blog: Website {
 
     struct ItemMetadata: WebsiteItemMetadata {
         // Add any site-specific metadata that you want to use here.
+        var author: String
     }
 
     // Update these properties to configure your website:
     var url = URL(string: "https://blog.vapor.codes")!
     var name = "The Vapor Blog"
-    var description = "Wlecome to the blog of Vapor, the Swift HTTP/Web Framework"
+    var description = "Welcome to the blog of Vapor, the Swift HTTP/Web Framework"
     var language: Language { .english }
     var imagePath: Path? { nil }
     var favicon: Favicon? {
@@ -26,3 +27,4 @@ struct Blog: Website {
 
 // This will generate your website using the built-in Foundation theme:
 try Blog().publish(withTheme: .vapor)
+    
