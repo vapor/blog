@@ -147,9 +147,7 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
     func buildHead(for page: Location, context: PublishingContext<Blog>) -> Node<HTML.DocumentContext> {
             .head(for: page, on: context.site, stylesheetPaths: [
                 "/static/styles/styles.css",
-                "/static/styles/syntax.css",
-                "https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap",
-                "https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
+                "/static/styles/syntax.css"
             ])
         }
 }
