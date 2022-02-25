@@ -70,9 +70,10 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
                     Wrapper {
                         Article {
                             Div(item.content.body).class("content")
+                            Div(dateFormatter.string(from: item.date))
+                            Div("Written by \(item.metadata.author)")
                             Span("Tagged with: ")
                             ItemTagList(item: item, site: context.site)
-                            Div("Written by \(item.metadata.author) - \(dateFormatter.string(from: item.date))")
                         }
                     }
                     Script(url: "/static/scripts/syntax.js")
