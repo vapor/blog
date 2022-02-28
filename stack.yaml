@@ -60,6 +60,14 @@ Resources:
       ResponseHeadersPolicyConfig:
         Name: Blog-Security-Header-Policy
         Comment: The Vapor Blog security header policy
+        CustomHeadersConfig:
+          Items:
+            - Header: Permission-Policy
+              Value:
+              Override: false
+            - Header: server
+              Value: 'Vapor Blog'
+              Override: true
         SecurityHeadersConfig:
           ContentSecurityPolicy:
               ContentSecurityPolicy: default-src 'none'; script-src 'self'; img-src 'self'; style-src 'self'; font-src 'self'
