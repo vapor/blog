@@ -63,7 +63,7 @@ Resources:
         CustomHeadersConfig:
           Items:
             - Header: Permission-Policy
-              Value:
+              Value: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()
               Override: false
             - Header: server
               Value: 'Vapor Blog'
@@ -76,6 +76,9 @@ Resources:
             Override: false
           FrameOptions:
             FrameOption: DENY
+            Override: false
+          ReferrerPolicy:
+            ReferrerPolicy: strict-origin-when-cross-origin
             Override: false
           StrictTransportSecurity:
             AccessControlMaxAgeSec: 63072000
