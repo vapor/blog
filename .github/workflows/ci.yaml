@@ -1,7 +1,5 @@
 name: Build and deploy blog.vapor.codes
 
-# TODO: Add linter for yaml file
-
 on:
   pull_request:
     branches:
