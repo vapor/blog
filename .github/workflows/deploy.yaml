@@ -27,10 +27,10 @@ jobs:
       with:
         name: vapor-blog-stack
         template: stack.yaml
-        parameters-overrides: |
-          "DomainName=blog.vapor.codes,
-           S3BucketName=vapor-blog-site,
-           AcmCertificateArn=${{ secrets.CERTIFICATE_ARN }}" 
+        parameters-overrides: >-
+          DomainName=blog.vapor.codes, 
+          S3BucketName=vapor-blog-site, 
+          AcmCertificateArn=${{ secrets.CERTIFICATE_ARN }}
       if: steps.cred.outcome == 'success'
     - name: Deploy to S3
       id: s3deploy
