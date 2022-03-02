@@ -1,0 +1,14 @@
+[
+    {
+        "ParameterKey": "DomainName",
+        "ParameterValue": "blog.vapor.codes"
+    },
+    {
+        "ParameterKey": "S3BucketName",
+        "ParameterValue": "vapor-blog-site"
+    },
+    {
+        "ParameterKey": "AcmCertificateArn",
+        "ParameterValue": "${{ secrets.CERTIFICATE_ARN }}"
+    }
+]
