@@ -22,8 +22,6 @@ Resources:
         IndexDocument: index.html
   WebsiteCloudfront:
     Type: AWS::CloudFront::Distribution
-    DependsOn:
-    - S3BucketForWebsiteContent
     Properties:
       DistributionConfig:
         Comment: Cloudfront Distribution pointing to S3 bucket
