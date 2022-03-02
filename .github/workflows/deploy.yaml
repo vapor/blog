@@ -29,7 +29,7 @@ jobs:
         parameters-overrides: |
           "DomainName=blog.vapor.codes,
            S3BucketName=vapor-blog-site,
-           AcmCertificateArn= ${{ secrets.CERTIFICATE_ARN }}" 
+           AcmCertificateArn=${{ secrets.CERTIFICATE_ARN }}" 
     - name: Deploy to S3
       uses: jakejarvis/s3-sync-action@master
       with:
