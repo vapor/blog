@@ -44,6 +44,10 @@ Resources:
         # DefaultRootObject: index.html
         Aliases:
         - !Ref 'DomainName'
+        CustomErrorResponses:
+          - ErrorCode: 403
+            ResponseCode: 404
+            ResponsePagePath: '/error/404/index.html'
         DefaultCacheBehavior:
           AllowedMethods:
           - GET
