@@ -25,8 +25,10 @@ Resources:
         RoutingRules:
           - RoutingRuleCondition:
               HttpErrorCodeReturnedEquals: '404'
+              KeyPrefixEquals: /
             RedirectRule:
-              HostName: blog.vapor.codes/error/404/
+              HostName: !Ref 'DomainName'
+              ReplaceKeyPrefixWith: error/404/
   WebsiteCloudfront:
     Type: AWS::CloudFront::Distribution
     Properties:
