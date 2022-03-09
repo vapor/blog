@@ -6,9 +6,7 @@ author: Tim
 ---
 # We're looking for a designer!
 
-As [announced recently](https://blog.vapor.codes/posts/vapor-next-steps/), we're currently doing a lot of work behind the scenes at Vapor to both improve the experience for developers and users, build the community and grow Vapor and server-side Swift. 
-
-Over the last six (6!) years, Vapor has grown from a small experimental project for Swift developers to a full-featured, popular web framework depended upon by thousands and thousands of people. It has been quite a ride. Today we want to share the next steps for Vapor, both in terms of the framework itself and the Vapor community as a whole.
+As [announced recently](https://blog.vapor.codes/posts/vapor-next-steps/), we're currently doing a lot of work behind the scenes at Vapor to both improve the experience for developers and users, build the community and grow Vapor and server-side Swift.
 
 As part of this, we're going to be updating our sites and are looking for a designer to help us do this! This will be a large project encompassing the [main site](https://vapor.codes), this blog, [the docs](https://docs.vapor.codes/4.0/) and some new sites and pages we have in the works.
 
