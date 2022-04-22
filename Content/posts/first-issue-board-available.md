@@ -12,7 +12,7 @@ So you want to contribute to Vapor but you're a beginner. Or maybe you want to d
 
 As new developers or even experienced developers, we've probably all been in a position of wanting to create something or wanting to contribute to a project but not really knowing where to start.  
 
-That's why not too long ago we've implemented a workflow that takes issues labeled with the `good first issue` label from all repositories in the Vapor project and creates them as cards on the [Beginner Issues projectboard](https://github.com/orgs/vapor/projects/10). These issues are generally not too hard to solve but they're a great gateway into contributing and getting to work on Vapor. So do check it out if you're interested.  
+That's why not too long ago we implemented a workflow that takes issues labeled with the `good first issue` label from all repositories in the Vapor organisation and creates them as cards on the [Beginner Issues Project Board](https://github.com/orgs/vapor/projects/10). These issues are generally not too hard to solve but they're a great gateway into contributing to Vapor. So do check the board out if you're interested.  
   
 The project board does 3 things automatically so it's easy to keep track of these issues. Create a card when an issue is tagged with `good first issue`. Move the card to the `In progress` column if the issue has been assigned to someone and lastly move closed issues to the `Done` column.
 
