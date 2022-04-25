@@ -11,7 +11,7 @@ jobs:
     steps:
       - id: set-matrix 
         run: |
-          echo '::set-output name=matrix::${{ toJson(github.event.issue.labels.*.name) }}'
+          echo '::set-output name=matrix::${{ toJson(github.event.issue.labels_url) }}'
     outputs:
       issueTags: ${{ steps.set-matrix.outputs.matrix }}
 
@@ -23,8 +23,9 @@ jobs:
     #    issueTag: ${{ fromJson(needs.setup_matrix_input.outputs.issueTags) }}
     
     steps:
-      - run: |
-          echo "${{ needs.setup_matrix_input.outputs.issueTags }}"
+      - name: retrieve labels and print those labels
+        run: |
+          echo curl ${{ needs.setup_matrix_input.outputs.issueTags }} | jq '.[] | .name'
     #uses: vapor/ci/.github/workflows/issues-to-project-board.yml@main
     #with:
     #  typeOfIssue: 'good first issue'
