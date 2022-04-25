@@ -25,7 +25,7 @@ jobs:
     steps:
       - name: retrieve labels and print those labels
         run: |
-          output = curl ${{ github.event.issue.labels_url }} | jq '.[] | .name'
+          output=$(curl ${{ github.event.issue.labels_url }} | jq '.[] | .name')
           echo $output
     #uses: vapor/ci/.github/workflows/issues-to-project-board.yml@main
     #with:
