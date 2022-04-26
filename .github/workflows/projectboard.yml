@@ -11,6 +11,18 @@ jobs:
     steps:
       - id: set-matrix 
         run: |
+          output=$(curl ${{ github.event.issue.url }}/labels | jq '.[] | .name')
+          echo '==================================='
+          echo 'Process incoming multiline'
+          echo '==================================='
+          SAVEIFS=$IFS
+          IFS=$'\n'
+          labels=($output)
+          IFS=$SAVEIFS
+          for (( i=0; i<${#labels[@]}; i++)) ; do labels[$i]=`sed -e 's/^"//' -e 's/"$//' <<<"${labels[$i]}"`; done
+          for (( i=0; i<${#labels[@]}; i++)) ; do labels[$i]="name: ${labels[$i]}"; done
+          for (( i=0; i<${#labels[@]}; i++)) ; do echo "$i: ${labels[$i]}"; done
+          
           echo '::set-output name=matrix::${{ toJson(github.event.issue.labels_url) }}'
     outputs:
       issueTags: ${{ steps.set-matrix.outputs.matrix }}
@@ -25,14 +37,6 @@ jobs:
     steps:
       - name: retrieve labels and print those labels
         run: |
-          output=$(curl ${{ github.event.issue.url }}/labels | jq '.[] | .name')
-          echo '==================================='
-          echo 'Process incoming multiline'
-          echo '==================================='
-          SAVEIFS=$IFS
-          IFS=$'\n'
-          labels=($output)
-          IFS=$SAVEIFS
           for i in $labels; do echo $i; done
     # Output is a singular line with newlines, we have to split this into an array and use that for the matrix input
 
