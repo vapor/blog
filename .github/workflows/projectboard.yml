@@ -20,7 +20,7 @@ jobs:
     outputs:
       issueTags: ${{ steps.set-matrix.outputs.matrix }}
 
-  manage_project_issues:
+  Sanity_check:
     runs-on: ubuntu-latest
     needs: setup_matrix_input 
     strategy:
@@ -30,7 +30,8 @@ jobs:
       - name: Sanity check to retrieve matrix name variable
         run: |
           echo ${{ matrix.name }}
-      - name: Manage issues with reusable workflow
-        uses: vapor/ci/.github/workflows/issues-to-project-board.yml@main
-        with:
-          typeOfIssue: ${{ matrix.name }}
+  Manage_project_issues:
+    needs: setup_matrix_input
+    uses: vapor/ci/.github/workflows/issues-to-project-board.yml@main
+    with:
+      labelsJson: ${{ needs.setup_matrix_input.outputs.issueTags }}
