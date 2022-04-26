@@ -11,11 +11,13 @@ jobs:
     steps:
       - id: set-matrix 
         run: |
-          output=$(curl https://api.github.com/repos/BennyDeBock/blog/issues/1/labels | jq '.[] | {name: .name}')
-          output="[$output]"
-          replacement="},{"
-          json=${output//\}
-          \{/$replacement}
+          output=$(curl https://api.github.com/repos/BennyDeBock/blog/issues/1/labels | jq '.[] | .name')
+          json=$(echo [$output] | sed 's/"\s"/","/g')
+
+          echo '======================'
+          echo 'Process incoming data'
+          echo '======================'
+          echo $json
           echo "::set-output name=matrix::{\"include\":$(echo $json)}"
     outputs:
       issueTags: ${{ steps.set-matrix.outputs.matrix }}
