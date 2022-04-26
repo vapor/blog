@@ -11,19 +11,8 @@ jobs:
     steps:
       - id: set-matrix 
         run: |
-          output=$(curl ${{ github.event.issue.url }}/labels | jq '.[] | .name')
-          echo '==================================='
-          echo 'Process incoming multiline'
-          echo '==================================='
-          SAVEIFS=$IFS
-          IFS=$'\n'
-          labels=($output)
-          IFS=$SAVEIFS
-          for (( i=0; i<${#labels[@]}; i++)) ; do labels[$i]=`sed -e 's/^"//' -e 's/"$//' <<<"${labels[$i]}"`; done
-          for (( i=0; i<${#labels[@]}; i++)) ; do labels[$i]="name: ${labels[$i]}"; done
-          for (( i=0; i<${#labels[@]}; i++)) ; do echo "$i: ${labels[$i]}"; done
-
-          echo '::set-output name=matrix::{\"include\":${{ toJson(${labels}) }}}'
+          output=$(curl https://api.github.com/repos/BennyDeBock/blog/issues/1/labels | jq '.[] | {name: .name}')
+          echo "::set-output name=matrix::{\"include\":$(echo $output)}"
     outputs:
       issueTags: ${{ steps.set-matrix.outputs.matrix }}
 
