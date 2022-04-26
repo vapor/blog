@@ -12,7 +12,9 @@ jobs:
       - id: set-matrix 
         run: |
           output=$(curl https://api.github.com/repos/BennyDeBock/blog/issues/1/labels | jq '.[] | {name: .name}')
-          echo "::set-output name=matrix::{\"include\":$(echo $output)}"
+          output="[$output]"
+          echo $output
+          echo "::set-output name=matrix::{$(echo $output)}"
     outputs:
       issueTags: ${{ steps.set-matrix.outputs.matrix }}
 
