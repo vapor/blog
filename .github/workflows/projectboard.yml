@@ -22,17 +22,16 @@ jobs:
           for (( i=0; i<${#labels[@]}; i++)) ; do labels[$i]=`sed -e 's/^"//' -e 's/"$//' <<<"${labels[$i]}"`; done
           for (( i=0; i<${#labels[@]}; i++)) ; do labels[$i]="name: ${labels[$i]}"; done
           for (( i=0; i<${#labels[@]}; i++)) ; do echo "$i: ${labels[$i]}"; done
-          
-          echo '::set-output name=matrix::${{ toJson(github.event.issue.labels_url) }}'
+
+          echo '::set-output name=matrix::{\"include\":${{ toJson($labels) }}}'
     outputs:
       issueTags: ${{ steps.set-matrix.outputs.matrix }}
 
   manage_project_issues:
     runs-on: ubuntu-latest
     needs: setup_matrix_input 
-    #strategy:
-    #  matrix:
-    #    issueTag: ${{ fromJson(needs.setup_matrix_input.outputs.issueTags) }}
+    strategy:
+      matrix: ${{ fromJson(needs.setup_matrix_input.outputs.issueTags) }}
     
     steps:
       - name: retrieve labels and print those labels
