@@ -32,6 +32,6 @@ jobs:
           echo ${{ matrix.name }}
   Manage_project_issues:
     needs: setup_matrix_input
-    uses: vapor/ci/.github/workflows/issues-to-project-board.yml@main
+    uses: BennyDeBock/ci/.github/workflows/issues-to-project-board.yml@main
     with:
       labelsJson: ${{ needs.setup_matrix_input.outputs.issueTags }}
