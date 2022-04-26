@@ -23,7 +23,7 @@ jobs:
           for (( i=0; i<${#labels[@]}; i++)) ; do labels[$i]="name: ${labels[$i]}"; done
           for (( i=0; i<${#labels[@]}; i++)) ; do echo "$i: ${labels[$i]}"; done
 
-          echo '::set-output name=matrix::{\"include\":${{ toJson($labels) }}}'
+          echo '::set-output name=matrix::{\"include\":${{ toJson(${labels}) }}}'
     outputs:
       issueTags: ${{ steps.set-matrix.outputs.matrix }}
 
