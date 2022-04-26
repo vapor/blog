@@ -11,31 +11,26 @@ jobs:
     steps:
       - id: set-matrix 
         run: |
-          echo '::set-output name=matrix::${{ toJson(github.event.issue.labels_url) }}'
+          output=$(curl https://api.github.com/repos/BennyDeBock/blog/issues/1/labels | jq '.[] | {name: .name}')
+          output="[$output]"
+          replacement="},{"
+          json=${output//\}
+          \{/$replacement}
+          echo "::set-output name=matrix::{\"include\":$(echo $json)}"
     outputs:
       issueTags: ${{ steps.set-matrix.outputs.matrix }}
 
   manage_project_issues:
     runs-on: ubuntu-latest
     needs: setup_matrix_input 
-    #strategy:
-    #  matrix:
-    #    issueTag: ${{ fromJson(needs.setup_matrix_input.outputs.issueTags) }}
+    strategy:
+      matrix: ${{ fromJson(needs.setup_matrix_input.outputs.issueTags) }}
     
     steps:
-      - name: retrieve labels and print those labels
+      - name: Sanity check to retrieve matrix name variable
         run: |
-          output=$(curl ${{ github.event.issue.url }}/labels | jq '.[] | .name')
-          echo '==================================='
-          echo 'Process incoming multiline'
-          echo '==================================='
-          SAVEIFS=$IFS
-          IFS=$'\n'
-          labels=($output)
-          IFS=$SAVEIFS
-          for i=0; i<${#labels[@]}; i++; do echo "Label $i: ${labels[$i]}"; done
-    # Output is a singular line with newlines, we have to split this into an array and use that for the matrix input
-
-    #uses: vapor/ci/.github/workflows/issues-to-project-board.yml@main
-    #with:
-    #  typeOfIssue: 'good first issue'
+          echo ${{ matrix.name }}
+      - name: Manage issues with reusable workflow
+        uses: vapor/ci/.github/workflows/issues-to-project-board.yml@main
+        with:
+          typeOfIssue: ${{ matrix.name }}
