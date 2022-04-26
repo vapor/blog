@@ -29,7 +29,7 @@ jobs:
     steps:
       - name: retrieve labels and print those labels
         run: |
-          for i in $labels; do echo $i; done
+          echo ${{ matrix.name }}
     # Output is a singular line with newlines, we have to split this into an array and use that for the matrix input
 
     #uses: vapor/ci/.github/workflows/issues-to-project-board.yml@main
