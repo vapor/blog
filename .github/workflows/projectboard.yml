@@ -12,12 +12,24 @@ jobs:
       - id: set-matrix 
         run: |
           output=$(curl https://api.github.com/repos/BennyDeBock/blog/issues/1/labels | jq '.[] | .name')
-          json=$(echo [$output] | sed 's/"\s"/","/g')
 
           echo '======================'
           echo 'Process incoming data'
           echo '======================'
+          json=$(echo [$output] | sed 's/"\s"/","/g')
           echo $json
+
+          echo '======================'
+          echo 'Split string into array'
+          echo '======================'
+          SAVEIFS=$IFS
+          IFS=',' read -ra my_array <<< "$json"
+          IFS=$SAVEIFS
+
+          for i in "${my_array[@]}"
+          do
+              echo $i 
+          done
           echo "::set-output name=matrix::{\"include\":$(echo $json)}"
     outputs:
       issueTags: ${{ steps.set-matrix.outputs.matrix }}
