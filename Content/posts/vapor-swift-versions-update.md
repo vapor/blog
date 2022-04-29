@@ -10,4 +10,4 @@ Vapor will be dropping support for older Swift versions over the coming weeks to
 
 We will continue to backport any security fixes for the next 6 months for older versions of Swift that affect Vapor.
 
-We will continue to follow Swift NIO's Swift version support in Vaopr 4, supporting the current release of Swift and two previous minor versions. We may update this as we adopt `Sendable` but will announce any changes here in advance.
+We will continue to follow Swift NIO's Swift version support in Vapor 4, supporting the current release of Swift and two previous minor versions. We may update this as we adopt `Sendable` but will announce any changes here in advance.
