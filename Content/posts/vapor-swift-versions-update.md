@@ -6,7 +6,7 @@ author: Tim
 ---
 # Updating Vapor's Supported Swift Versions
 
-Vapor will be dropping support for older Swift versions over the coming weeks to [match our dependencies](https://forums.swift.org/t/swiftnio-swift-version-support/53232). Vapor and it's related packages will soon move to support Swift 5.4 and above. This allows us to ensure we can use the newest APIs and features from our dependencies.
+Vapor will be dropping support for older Swift versions over the coming weeks to [match our dependencies](https://forums.swift.org/t/swiftnio-swift-version-support/53232). Vapor and its related packages will soon move to support Swift 5.4 and above. This allows us to ensure we can use the newest APIs and features from our dependencies.
 
 We will continue to backport any security fixes for the next 6 months for older versions of Swift that affect Vapor.
 
