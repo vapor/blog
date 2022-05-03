@@ -24,7 +24,7 @@ jobs:
       
   Manage_project_issues:
     needs: setup_matrix_input
-    uses: BennyDeBock/ci/.github/workflows/issues-to-project-board.yml@main
+    uses: vapor/ci/.github/workflows/issues-to-project-board.yml@main
     with:
       labelsJson: ${{ needs.setup_matrix_input.outputs.issueTags }}
     secrets: 
