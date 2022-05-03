@@ -25,7 +25,5 @@ jobs:
   Manage_project_issues:
     needs: setup_matrix_input
     uses: BennyDeBock/ci/.github/workflows/issues-to-project-board.yml@main
-    secrets:
-      PROJECT_BOARD_AUTOMATION_PAT: ${{ secrets.PROJECT_BOARD_AUTOMATION_PAT }}
     with:
       labelsJson: ${{ needs.setup_matrix_input.outputs.issueTags }}
