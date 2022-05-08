@@ -10,7 +10,7 @@ As part of the [recently announced](/posts/vapor-next-steps/) updates to Vapor a
 
 First, we've migrated the docs to a more modern stack. Rather than everything running on a single Digital Ocean box, the docs now live in S3 running behind a CDN. This should mean faster loading times for users and more stability. And of course deployments and updates are [all automated](https://github.com/vapor/docs/blob/main/.github/workflows/deploy.yml).
 
-Next, the documentation for Vapor 1 to Vapor 3 - all versions that are end of life - is moving to https://legacy.docs.vapor.codes. The docs here are old and no longer really updated but we're keeping them up for posterity. In the coming days, these docs will be removed from the [main documentation site](https://docs.vapor.codes/).
+Next, the documentation for Vapor 1 to Vapor 3 - all versions that are end of life - is moving to [https://legacy.docs.vapor.codes/](https://legacy.docs.vapor.codes/). The docs here are old and no longer really updated but we're keeping them up for posterity. In the coming days, these docs will be removed from the [main documentation site](https://docs.vapor.codes/).
 
 The [main documentation site](https://docs.vapor.codes/) is also undergoing some changes. With the removal of the old docs, we will no longer put the latest documentation behind the `/4.0` path. This will make linking to the docs much simpler and should fix the issue of old and broken links when people try to search for stuff. We'll set up redirects for the `/4.0` docs to make sure that no links are broken.
 
