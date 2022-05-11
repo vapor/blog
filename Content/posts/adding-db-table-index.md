@@ -29,3 +29,5 @@ struct CreateTodoTitleIndex: AsyncMigration {
 ```
 
 This creates an index called `todo_index` on the table named `todos` for the column `title`. 
+
+> Note: this code example is for Postgres. For MySQL you need to pass the table name to call with `.on("todos")`
