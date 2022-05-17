@@ -317,3 +317,10 @@ pre {
     font-weight: 700;
     font-style: normal;
 }
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1em;
+}
