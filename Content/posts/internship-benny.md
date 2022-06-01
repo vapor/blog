@@ -28,10 +28,10 @@ Another big factor was that the internship was entirely in Swift. Having just a 
 
 ### Some statistics
 
-During my internship I've done:  
-- 30+ GitHub Issues  
-- 160+ Pull Requests  
-- 500+ Commits
+During my internship I've:  
+- Closed 30+ GitHub Issues  
+- Created 160+ Pull Requests  
+- Made 500+ Commits
 
 ### Projects
 
