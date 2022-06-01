@@ -45,8 +45,7 @@ On the documentation website, I've added a 404 page and deployed the website to 
 
 #### Project boards  
   
-One of the bigger project I've undertaken is the project boards. 
-The assignment was to create a GitHub Action workflow that, on creation of an issue with the label 'good first issue' or the label 'help wanted', would create a project card on the corresponding project board.
+One of the bigger project I've undertaken is the project boards. The assignment was to create a GitHub Action workflow that, on creation of an issue with the label 'good first issue' or the label 'help wanted', would create a project card on the corresponding project board. This makes it easier for people to discover issues to work on in Vapor.
 
 To start this project off, I first went through the documentation of GitHub Actions to see which information we were getting on the creation of an issue. Following this it was a case of finding out how to create the project cards from this information. For this there was a marketplace action available made by [Alex Page](https://github.com/alex-page) that could automatically do this for us. Once we got this figured out, it was time to make the workflow reusable. This was needed as otherwise, we'd need to update every workflow in every repo that contains it if there's a mistake or change. For this, I've made a workflow that passes the labels on an issue to the reusable workflow. And behold, the project boards have come alive.
 
