@@ -14,7 +14,7 @@ As part of my studies we were tasked with finding an internship to gain some rea
 
 ### Why this internship and not another?
 
-The internship task was described as followed:
+The internship task was described as follows:
 
 > *Helping with the development of the Vapor framework (https://vapor.codes) using the Swift programming language. Work may include implementing new features, fixing bugs, writing documentation, improving tests, integrating with external services for testing, standardising our CI/CD across multiple repos and building custom actions to automatically deploy new templates of Vapor apps. Everything will be open source. Other potential tasks include improving the tooling for server-side Swift in general. E.g. writing a Visual Studio Code plugin or a Swift version of Rustup. Interns can choose which tasks they work on. Students will be required to learn Swift before starting their internship. For more information, please contact your lecturer Steven before applying.*
 
