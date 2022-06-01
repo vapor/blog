@@ -41,21 +41,21 @@ One of my first projects was working on the Blog site, the site you are on right
 
 #### Documentation website  
   
-On the documentation website, I've added a 404 page and deployed the website to AWS. Next to that I have also added the i18n plugin that makes translating for the documentation a smoother experience as we don't need to create multiple repositories anymore per language.
+On the documentation website, I've added a 404 page and deployed the website to AWS. Next to that I have also added the i18n plugin that makes translating for the documentation a smoother experience as we don't need to create multiple repositories anymore per language. This also creates a better experience for readers as it's easy to switch languages on the main site.
 
 #### Project boards  
   
 One of the bigger project I've undertaken is the project boards. The assignment was to create a GitHub Action workflow that, on creation of an issue with the label 'good first issue' or the label 'help wanted', would create a project card on the corresponding project board. This makes it easier for people to discover issues to work on in Vapor.
 
-To start this project off, I first went through the documentation of GitHub Actions to see which information we were getting on the creation of an issue. Following this it was a case of finding out how to create the project cards from this information. For this there was a marketplace action available made by [Alex Page](https://github.com/alex-page) that could automatically do this for us. Once we got this figured out, it was time to make the workflow reusable. This was needed as otherwise, we'd need to update every workflow in every repo that contains it if there's a mistake or change. For this, I've made a workflow that passes the labels on an issue to the reusable workflow. And behold, the project boards have come alive.
+To start this project off, I first went through the documentation of GitHub Actions to see which information we were getting on the creation of an issue. Following this it was a case of finding out how to create the project cards from this information. For this there was a marketplace action available made by [Alex Page](https://github.com/alex-page/github-project-automation-plus) that could automatically do this for us. Once we got this figured out, it was time to make the workflow reusable. This was needed as otherwise, we'd need to update every workflow in every repo that contains it if there's a mistake or change. For this, I've made a workflow that passes the labels on an issue to the reusable workflow. And behold, the project boards have come alive.
 
 Since this workflow has been in place, the 'good first issue' issues project board has been halfway completed.
 
 #### Template generation  
   
-Another project entirely made in GitHub Actions that I've taken upon me was the automatic template creation. This was a suggestion made by Tim so people wouldn't have to install the toolbox to get a Vapor project created anymore. Overall this workflow was straightforward since the templates could be replaced easily. 
+Another project entirely made in GitHub Actions that I worked on was the automatic template creation. This was a suggestion made by Tim so people wouldn't have to install the toolbox to get a Vapor project created anymore. Overall this workflow was straightforward since the templates could be replaced easily. 
 
-A harder part of this project was testing the template in a pull request. This is because GitHub Actions doesn't allow some actions when they come from a fork as they may be malicious code. For this I've had to extract the source repository of the pull request. Once we had the information of where the source came from, we needed to create 2 steps that so almost exactly the same. However creates a template from a branch, where the other creates the template from the fork. If in any of the cases, the template fails to generate, then the PR cannot be accepted. This makes sure that every template that is generated, is actually able to generate without problems.
+A harder part of this project was testing the template in a pull request. This is because GitHub Actions doesn't allow some actions when they come from a fork as they may be malicious code. For this I've had to extract the source repository of the pull request. Once we had the information of where the source came from, we needed to create 2 steps that are almost exactly the same. However, one creates a template from a branch, where the other creates the template from the fork. If in any of the cases, the template fails to generate, then the PR cannot be accepted. This makes sure that every commit to the template that is generated, is actually able to generate without problems.
 
 #### Penny discord bot  
   
