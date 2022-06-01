@@ -72,7 +72,7 @@ A decision made for the new Penny bot, was that our API would be hosted on AWS w
 
 ##### The database  
   
-Coming from a PostgreSQL database, the plans were to move to dynamoDB as out schema was not that complicated. This started by thinking about how the model should look. Once the model was set up, it was time to create a local DynamoDB database in Docker. This could be used for testing the data handling of our API functions. Once this was done we could create our online database and test that with our API.
+Coming from a PostgreSQL database, the plans were to move to DynamoDB as it was a good fit for the data we store and completely serverless. This started by thinking about how the model should look. Once the model was set up, it was time to create a local DynamoDB database in Docker. This could be used for testing the data handling of our API functions. Once this was done we could create our online database and test that with our API.
 
 One thing I needed to figure out was how to convert the data from the PostgreSQL database to the DynamoDB model. For this I've created a program that migrates the data to the new database. This was tested with the local DynamoDB.
 
