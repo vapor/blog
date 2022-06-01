@@ -10,7 +10,7 @@ author: Benny
 
 So to start off with, I'll briefly introduce myself and I'll explain how I came to be working on Vapor. My name is Benny, I'm 24 years old and I'm studying Applied Computer Science at HOGENT in Belgium. Outside of that I was also the IT-manager for my student fraternity Heimdal. 
 
-As part of my studies we were tasked with finding an internship to gain some real-world experience. Before I began on my search, my iOS teacher, Steven, sent us all a message telling us he had two opportunities to work with Swift in an open-source context and that he could bring us in contact with the people involved. That is how I came to talk to , who's the founder of Broken Hands Technologies Limited. We had an interview together and he told me he'd be glad to take me up as an intern. Eventually I decided to take the opportunity and do my internship at Broken Hands Technologies Limited.
+As part of my studies we were tasked with finding an internship to gain some real-world experience. Before I began on my search, my iOS teacher, Steven, sent us all a message telling us he had two opportunities to work with Swift in an open-source context and that he could bring us in contact with the people involved. That is how I came to talk to Tim, who's the founder of Broken Hands. We had an interview together and he told me he'd be glad to take me up as an intern. Eventually I decided to take the opportunity and do my internship at Broken Hands.
 
 ### Why this internship and not another?
 
