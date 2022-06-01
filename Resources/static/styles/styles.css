@@ -207,6 +207,14 @@ h3 {
     margin-bottom: 1rem;
 }
 
+h4 {
+    margin-bottom: 0.5rem;
+}
+
+h5 {
+    margin-bottom: 0.3rem;
+}
+
 pre {
     margin-top: 0;
     margin-bottom: 1rem;
@@ -216,6 +224,21 @@ pre {
 .post-date {
     font-size: 0.9em;
     margin-bottom: 10px;
+}
+
+blockquote:before{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -0.6rem;
+    content:"";
+    width: 2px;
+    background-color: #8a8a8a
+}
+
+blockquote {
+    margin-left: 0.6rem;
+    position: relative;
 }
 
 /* ==================== */
