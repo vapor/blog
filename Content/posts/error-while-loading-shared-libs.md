@@ -39,6 +39,6 @@ When your app executable has been linked to the dynamic library for either `libc
 * If your app or its dependencies import `FoundationNetworking`, you'll need `libcurl4`.
 * If your app or its dependencies import `FoundationXML`, you'll need `libxml2`.
 
-Start by omitting both `libcurl4` and `libxml2` if you're unsure that your app needs them. Then, build and run your app image. Your app will crash immediately on load if either or both are needed. (You can also inspect your binary's dynamic dependencies using `ldd`.)
+Start by omitting both `libcurl4` and `libxml2` if you're unsure that your app needs them. Then, build and run your app image. If it crashes you'll need to add either or both. (You can also inspect your binary's dynamic dependencies using `ldd`.)
 
 See the full [Dockerfile](https://github.com/vapor/template-bare/blob/main/Dockerfile) for the latest recommended practices.
