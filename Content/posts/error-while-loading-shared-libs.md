@@ -1,7 +1,7 @@
 ---
 date: 2099-07-18 09:00
 description: As little as possible, but no less
-tags: TBD
+tags: tips, docker
 author: Galen
 ---
 # Docker image: Error while loading shared libraries: libcurl4 or libxml2
