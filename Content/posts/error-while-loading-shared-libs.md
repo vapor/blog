@@ -1,10 +1,10 @@
 ---
 date: 2099-07-18 09:00
-description: As little as possible, but no less
+description: A simple fix for when you happen upon an "error while loading shared libraries" libcurl4 or libxml2
 tags: tips, docker
 author: Galen
 ---
-# Docker image: Error while loading shared libraries: libcurl4 or libxml2
+# Dockerfile makes adding optional Swift dependencies easier
 
 Most Vapor apps can run without `libcurl4` and `libxml2`, and omitting them from your Docker image makes the run image significantly smaller (189 MB vs. 233 MB). When they are needed, Vapor's default `Dockerfile` [now makes installing them easier](https://github.com/vapor/template-bare/commit/829f5fb2a3dc6e5c623cfec7ccdacf5517ff5c1c), while also drawing attention to the fact that they have been omitted in the first place:
 
