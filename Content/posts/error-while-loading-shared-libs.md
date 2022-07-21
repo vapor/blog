@@ -1,8 +1,9 @@
 ---
-date: 2099-07-18 09:00
+date: 2022-07-21 09:00
 description: A simple fix for when you happen upon an "error while loading shared libraries" libcurl4 or libxml2
 tags: tips, docker
 author: Galen
+author_github: gohanlon
 ---
 # Dockerfile makes adding optional Swift dependencies easier
 
