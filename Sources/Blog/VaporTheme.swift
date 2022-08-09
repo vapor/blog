@@ -102,20 +102,7 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
             .lang(context.site.language),
             buildHead(for: page, context: context),
             .body {
-                SiteHeader(context: context, selectedSelectionID: nil)
-                Wrapper {
-                    H1("Browse all tags")
-                    List(page.tags.sorted()) { tag in
-                        ListItem {
-                            Link(tag.string,
-                                 url: context.site.path(for: tag).absoluteString
-                            )
-                        }
-                        .class("tag")
-                    }
-                    .class("all-tags")
-                }
-                SiteFooter()
+                TagsPage(selectedTag: nil, context: context, dateFormatter: dateFormatter)
             }
         )
     }
@@ -126,28 +113,7 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
             .lang(context.site.language),
             buildHead(for: page, context: context),
             .body {
-                SiteHeader(context: context, selectedSelectionID: nil)
-                Wrapper {
-                    H1 {
-                        Text("Tagged with ")
-                        Span(page.tag.string).class("tag")
-                    }
-
-                    Link("Browse all tags",
-                        url: context.site.tagListPath.absoluteString
-                    )
-                    .class("browse-all")
-
-                    ItemList(
-                        items: context.items(
-                            taggedWith: page.tag,
-                            sortedBy: \.date,
-                            order: .descending
-                        ),
-                        site: context.site, dateFormatter: dateFormatter
-                    )
-                }
-                SiteFooter()
+                TagsPage(selectedTag: page.tag, context: context, dateFormatter: dateFormatter)
             }
         )
     }
