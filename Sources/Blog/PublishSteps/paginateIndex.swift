@@ -2,7 +2,7 @@ import Publish
 
 extension PublishingStep where Site == Blog {
     static func generatePaginatedIndexPages() -> Self {
-        .step(named: "Add paginated index pages") { context in
+        .step(named: "Generate paginated index pages") { context in
             let paginatedItems = context.allPaginatedItems(
                 sortedBy: \.date,
                 order: .descending
