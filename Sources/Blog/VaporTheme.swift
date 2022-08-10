@@ -10,11 +10,6 @@ extension Theme where Site == Blog {
 
 private struct VaporThemeHTMLFactory: HTMLFactory {
     typealias Site = Blog
-    var dateFormatter: DateFormatter
-    init() {
-        dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMMM yyyy"
-    }
     
     func makeIndexHTML(for index: Index,
                        context: PublishingContext<Site>) throws -> HTML {
@@ -24,16 +19,9 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
             .body {
                 SiteHeader(context: context, selectedSelectionID: nil)
                 Wrapper {
-                    H1(index.title)
-                    Paragraph(context.site.description)
-                        .class("description")
-                    H2("Latest content")
-                    ItemList(
-                        items: context.allItems(
-                            sortedBy: \.date,
-                            order: .descending
-                        ),
-                        site: context.site, dateFormatter: dateFormatter
+                    PaginatedIndexPage(
+                        activePageIndex: 0,
+                        context: context
                     )
                 }
                 SiteFooter()
@@ -50,7 +38,7 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
                 SiteHeader(context: context, selectedSelectionID: section.id)
                 Wrapper {
                     H1(section.title)
-                    ItemList(items: section.items, site: context.site, dateFormatter: dateFormatter)
+                    ItemList(items: section.items, site: context.site, dateFormatter: .dayMonthYear)
                 }
                 SiteFooter()
             }
@@ -69,7 +57,7 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
                     Wrapper {
                         Article {
                             Div(item.content.body).class("content")
-                            Div(dateFormatter.string(from: item.date))
+                            Div(DateFormatter.dayMonthYear.string(from: item.date))
                             Div("Written by \(item.metadata.author)")
                             Span("Tagged with: ")
                             ItemTagList(item: item, site: context.site)
@@ -102,7 +90,7 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
             .lang(context.site.language),
             buildHead(for: page, context: context),
             .body {
-                TagsPage(selectedTag: nil, context: context, dateFormatter: dateFormatter)
+                TagsPage(selectedTag: nil, context: context, dateFormatter: .dayMonthYear)
             }
         )
     }
@@ -113,7 +101,7 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
             .lang(context.site.language),
             buildHead(for: page, context: context),
             .body {
-                TagsPage(selectedTag: page.tag, context: context, dateFormatter: dateFormatter)
+                TagsPage(selectedTag: page.tag, context: context, dateFormatter: .dayMonthYear)
             }
         )
     }
