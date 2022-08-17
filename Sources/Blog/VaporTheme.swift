@@ -19,8 +19,9 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
             .body {
                 SiteHeader(context: context, selectedSelectionID: nil)
                 Wrapper {
-                    PaginatedIndexPage(
-                        activePageIndex: 0,
+                    IndexPage(
+                        pageNumber: 1,
+                        items: context.paginatedItems.first ?? [],
                         context: context
                     )
                 }
@@ -90,7 +91,16 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
             .lang(context.site.language),
             buildHead(for: page, context: context),
             .body {
-                TagsPage(selectedTag: nil, context: context, dateFormatter: .dayMonthYear)
+                SiteHeader(context: context, selectedSelectionID: nil)
+                Wrapper {
+                    TagsPage(
+                        selectedTag: nil,
+                        pageNumber: 1,
+                        items: context.paginatedItems.first ?? [],
+                        context: context
+                    )
+                }
+                SiteFooter()
             }
         )
     }
@@ -101,7 +111,16 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
             .lang(context.site.language),
             buildHead(for: page, context: context),
             .body {
-                TagsPage(selectedTag: page.tag, context: context, dateFormatter: .dayMonthYear)
+                SiteHeader(context: context, selectedSelectionID: nil)
+                Wrapper {
+                    TagsPage(
+                        selectedTag: page.tag,
+                        pageNumber: 1,
+                        items: context.paginatedItems(for: page.tag).first ?? [],
+                        context: context
+                    )
+                }
+                SiteFooter()
             }
         )
     }

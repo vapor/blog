@@ -1,10 +1,11 @@
 import Publish
 
-extension PublishingContext {
-    func allPaginatedItems<T: Comparable>(
-        sortedBy sortingKeyPath: KeyPath<Item<Site>, T>,
-        order: SortOrder = .ascending
-    ) -> [[Item<Site>]] {
-        allItems(sortedBy: sortingKeyPath, order: order).chunked(into: Constants.numberOfItemsPerIndexPage)
+extension PublishingContext where Site == Blog {
+    var paginatedItems: [[Item<Blog>]] {
+        allItems(sortedBy: \.date, order: .descending).chunked(into: Constants.numberOfItemsPerIndexPage)
+    }
+
+    func paginatedItems(for tag: Tag) -> [[Item<Blog>]] {
+        items(taggedWith: tag, sortedBy: \.date, order: .descending).chunked(into: Constants.numberOfItemsPerTagsPage)
     }
 }
