@@ -1,4 +1,4 @@
 struct Constants {
-    static let numberOfItemsPerIndexPage: Int = 5
-    static let numberOfItemsPerTagsPage: Int = 2
+    static let numberOfItemsPerIndexPage: Int = 7
+    static let numberOfItemsPerTagsPage: Int = 7
 }
