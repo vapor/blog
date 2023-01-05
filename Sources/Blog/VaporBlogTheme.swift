@@ -40,7 +40,7 @@ private struct VaporBlogThemeHTMLFactory: HTMLFactory {
                 SiteHeader(context: context, selectedSelectionID: section.id)
                 Wrapper {
                     H1(section.title)
-                    ItemList(items: section.items, site: context.site, dateFormatter: .dayMonthYear)
+                    ItemList(items: section.items, site: context.site)
                 }
 //                SiteFooter()
             }
@@ -51,8 +51,9 @@ private struct VaporBlogThemeHTMLFactory: HTMLFactory {
                       context: PublishingContext<Site>) throws -> HTML {
         let currentSite: CurrentSite = .blog
         let authorImageURL = "https://design.vapor.codes/images/author-image-placeholder.png"
-        #warning("Date should be like 3rd January 2023")
-        let publishDate = DateFormatter.dayMonthYear.string(from: item.date)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = item.date.dateFormatWithSuffix()
+        let publishDate = dateFormatter.string(from: item.date)
         let blogPostData = BlogPostExtraData(length: "\(item.readingTime.minutes) minutes read", author: .init(name: item.metadata.author, imageURL: authorImageURL), publishedDate: publishDate)
         let body: Node<HTML.DocumentContext> = .body {
             #warning("is Demo should default to false, current page should be main current page")

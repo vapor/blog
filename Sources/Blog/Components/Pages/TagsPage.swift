@@ -27,8 +27,7 @@ struct TagsPage: Component {
 
         ItemList(
             items: items,
-            site: context.site,
-            dateFormatter: .dayMonthYear
+            site: context.site
         )
 
         if let selectedTag = selectedTag {

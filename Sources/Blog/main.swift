@@ -26,6 +26,13 @@ struct Blog: Website {
     }
 }
 
-// This will generate your website using the built-in Foundation theme:
-try Blog().publish(withTheme: .vaporBlog, additionalSteps: [.generatePaginatedPages()], plugins: [.readingTime()])
-    
+try Blog().publish(using: [
+    .optional(.copyResources()),
+    .addMarkdownFiles(),
+    .installPlugin(.readingTime()),
+    .sortItems(by: \.date, order: .descending),
+    .group([.generatePaginatedPages()]),
+    .generateHTML(withTheme: .vaporBlog),
+    .generateRSSFeed(including: Set(Blog.SectionID.allCases)),
+    .generateSiteMap(),
+])

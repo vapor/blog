@@ -16,7 +16,7 @@ struct IndexPage: Component {
             .class("description")
         H2("Latest content")
 
-        ItemList(items: items, site: context.site, dateFormatter: .dayMonthYear)
+        ItemList(items: items, site: context.site)
 
         PaginationList(
             numberOfPages: context.paginatedItems.count,
