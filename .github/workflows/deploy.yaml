@@ -23,7 +23,7 @@ jobs:
         aws-region: 'eu-west-2'
     - name: Deploy to AWS Cloudformation
       id: clouddeploy
-      uses: aws-actions/aws-cloudformation-github-deploy@v1.0.3
+      uses: aws-actions/aws-cloudformation-github-deploy@v1.1.0
       with:
         name: vapor-blog-stack
         template: stack.yaml
