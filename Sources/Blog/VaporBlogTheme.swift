@@ -14,23 +14,12 @@ private struct VaporBlogThemeHTMLFactory: HTMLFactory {
     
     func makeIndexHTML(for index: Index,
                        context: PublishingContext<Site>) throws -> HTML {
-        buildIndexPage(index: index, context: context)
+        buildIndexPage(page: index, context: context)
     }
 
     func makeSectionHTML(for section: Section<Site>,
                          context: PublishingContext<Site>) throws -> HTML {
-        HTML(
-            .lang(context.site.language),
-            buildHead(for: section, context: context),
-            .body {
-                SiteHeader(context: context, selectedSelectionID: section.id)
-                Wrapper {
-                    H1(section.title)
-                    ItemList(items: section.items, site: context.site)
-                }
-//                SiteFooter()
-            }
-        )
+        buildIndexPage(page: section, context: context)
     }
 
     func makeItemHTML(for item: Item<Site>,
@@ -54,15 +43,15 @@ private struct VaporBlogThemeHTMLFactory: HTMLFactory {
 
     func makePageHTML(for page: Page,
                       context: PublishingContext<Site>) throws -> HTML {
-        HTML(
-            .lang(context.site.language),
-            buildHead(for: page, context: context),
-            .body {
-                SiteHeader(context: context, selectedSelectionID: nil)
-                Wrapper(page.body)
-//                SiteFooter()
-            }
-        )
+        let body: Node<HTML.DocumentContext> = .body {
+            SiteNavigation(context: context, selectedSelectionID: nil, currentSite: .blog, currentMainSitePage: nil)
+            Div {
+                page.body
+            }.class("container vapor-container")
+            SiteFooter(currentSite: .blog)
+        }
+        let builder = VaporDesign<Site>(siteLanguage: context.site.language)
+        return builder.buildHTML(for: page, context: context, body: body)
     }
 
     func makeTagListHTML(for page: TagListPage,
@@ -105,7 +94,7 @@ private struct VaporBlogThemeHTMLFactory: HTMLFactory {
         )
     }
     
-    func buildIndexPage(index: Index, context: PublishingContext<Site>) -> HTML {
+    func buildIndexPage(page: Location, context: PublishingContext<Site>) -> HTML {
         let currentSite: CurrentSite = .blog
         let body: Node<HTML.DocumentContext> = .body {
             SiteNavigation(context: context, selectedSelectionID: nil, currentSite: .blog, currentMainSitePage: nil)
@@ -132,7 +121,7 @@ private struct VaporBlogThemeHTMLFactory: HTMLFactory {
         }
         
         let builder = VaporDesign<Site>(siteLanguage: context.site.language)
-        return builder.buildHTML(for: index, context: context, body: body)
+        return builder.buildHTML(for: page, context: context, body: body)
     }
     
     func buildHead(for page: Location, context: PublishingContext<Blog>) -> Node<HTML.DocumentContext> {
