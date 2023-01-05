@@ -24,7 +24,7 @@
       "location" : "https://github.com/vapor/design.git",
       "state" : {
         "branch" : "main",
-        "revision" : "8c4279a56563cff0c8c383c35f4c2dee86cf8fe1"
+        "revision" : "50dfd522d82b4cfa490c538cac18b4af612aab64"
       }
     },
     {
@@ -50,8 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/johnsundell/plot.git",
       "state" : {
-        "revision" : "c27f6857deeb4c4623db294172a8ec572790a9be",
-        "version" : "0.10.0"
+        "revision" : "b358860fe565eb53e98b1f5807eb5939c8124547",
+        "version" : "0.11.0"
       }
     },
     {
