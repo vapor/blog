@@ -3,6 +3,7 @@ date: 2022-08-16 18:00
 description: The next steps for embracing async/await in Vapor
 tags: vapor, framework
 author: Tim
+authorImageURL: /author-images/tim.jpg
 ---
 # Vapor's Next Steps with `async`/`await`
 

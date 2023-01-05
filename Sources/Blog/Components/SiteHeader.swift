@@ -1,5 +1,6 @@
 import Plot
 import Publish
+import VaporDesign
 
 struct SiteHeader<Site: Website>: Component {
     var context: PublishingContext<Site>
@@ -7,7 +8,7 @@ struct SiteHeader<Site: Website>: Component {
 
     var body: Component {
         Header {
-            Wrapper {
+            ComponentGroup {
                 Node.a(
                     .href("/"),
                     .img(.alt("Vapor Logo"), .src("/static/images/header-logo.png"), .class("d-iblock va-baseline")),

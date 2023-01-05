@@ -3,6 +3,7 @@ date: 2022-05-11 12:55
 description: See how to add a database table index using SQLKit
 tags: tips, Fluent
 author: Tim
+authorImageURL: /author-images/tim.jpg
 ---
 # Adding a database table index
 

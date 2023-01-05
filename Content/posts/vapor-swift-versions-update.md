@@ -3,6 +3,7 @@ date: 2022-04-29 17:00
 description: Updating Vapor's Supported Swift Versions
 tags: vapor, framework
 author: Tim
+authorImageURL: /author-images/tim.jpg
 ---
 # Updating Vapor's Supported Swift Versions
 

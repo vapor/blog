@@ -16,13 +16,12 @@ extension PublishingStep where Site == Blog {
                 context.addPage(
                     Page(
                         path: context.index.paginatedPath(pageIndex: pageIndex),
-                        content: .init(body: .init(components: {
+                        content: .init(title: context.index.title, description: context.index.description, body: .init(components: {
                             IndexPage(
                                 pageNumber: pageIndex + 1,
-                                items: context.paginatedItems[pageIndex],
                                 context: context
                             )
-                        }))
+                        }), date: context.index.date, lastModified: context.index.lastModified, imagePath: context.index.imagePath)
                     )
                 )
             }
@@ -36,7 +35,7 @@ extension PublishingStep where Site == Blog {
                     context.addPage(
                         Page(
                             path: context.site.paginatedPath(for: tag, pageIndex: pageIndex),
-                            content: .init(body: .init(components: {
+                            content: .init(title: "Blog Tags", description: "Tags for the Vapor Blog", body: .init(components: {
                                 TagsPage(
                                     selectedTag: tag,
                                     pageNumber: pageIndex + 1,
@@ -58,7 +57,7 @@ extension PublishingStep where Site == Blog {
                 context.addPage(
                     Page(
                         path: context.site.paginatedTagListPath(pageIndex: pageIndex),
-                        content: .init(body: .init(components: {
+                        content: .init(title: "Blog Tags", description: "Tags for the Vapor Blog", body: .init(components: {
                             TagsPage(
                                 selectedTag: nil,
                                 pageNumber: pageIndex + 1,

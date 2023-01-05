@@ -3,6 +3,7 @@ date: 2022-05-31 10:22
 description: We've fixed an issue in Vapor's FileMiddleware - CVE-2022-31005
 tags: framework, security update
 author: Tim
+authorImageURL: /author-images/tim.jpg
 ---
 # Vapor `FileMiddleware` Security Vulnerability
 

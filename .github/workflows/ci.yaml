@@ -9,12 +9,22 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.BLOG_DEPLOYER_AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.BLOG_DEPLOYER_AWS_SECRET_ACCESS_KEY }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Setup cloudformation lint
       uses: ScottBrenner/cfn-lint-action@v2.2.1
     - name: Run cloudformation lint
       run: cfn-lint -t stack.yaml
     - name: Build site
-      run: swift build
+      run: swift run
+    - name: Deploy S3 Website
+      uses: danburtenshaw/s3-website-pr-action@v2
+      if: ${{ github.event.pull_request.head.repo.full_name == 'vapor/blog' }}
+      with:
+        bucket-prefix: "vapor-blog-pulls"
+        folder-to-copy: "./Output"

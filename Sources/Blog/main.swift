@@ -1,6 +1,7 @@
 import Foundation
 import Publish
 import Plot
+import ReadingTimePublishPlugin
 
 // This type acts as the configuration for your website.
 struct Blog: Website {
@@ -12,6 +13,7 @@ struct Blog: Website {
     struct ItemMetadata: WebsiteItemMetadata {
         // Add any site-specific metadata that you want to use here.
         var author: String
+        var authorImageURL: String?
     }
 
     // Update these properties to configure your website:
@@ -25,6 +27,13 @@ struct Blog: Website {
     }
 }
 
-// This will generate your website using the built-in Foundation theme:
-try Blog().publish(withTheme: .vapor, additionalSteps: [.generatePaginatedPages()])
-    
+try Blog().publish(using: [
+    .optional(.copyResources()),
+    .addMarkdownFiles(),
+    .installPlugin(.readingTime()),
+    .sortItems(by: \.date, order: .descending),
+    .group([.generatePaginatedPages()]),
+    .generateHTML(withTheme: .vaporBlog),
+    .generateRSSFeed(including: Set(Blog.SectionID.allCases)),
+    .generateSiteMap(),
+])
