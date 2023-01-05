@@ -3,6 +3,7 @@ date: 2022-02-21 10:22
 description: Discussing the future of Vapor and the next steps in Vapor's Life
 tags: framework, growth, business
 author: Tim
+authorImageURL: /author-images/tim.jpg
 ---
 # The next steps for Vapor
 

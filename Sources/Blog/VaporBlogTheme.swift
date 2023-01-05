@@ -25,8 +25,7 @@ private struct VaporBlogThemeHTMLFactory: HTMLFactory {
     func makeItemHTML(for item: Item<Site>,
                       context: PublishingContext<Site>) throws -> HTML {
         let currentSite: CurrentSite = .blog
-        #warning("Fix")
-        let authorImageURL = "https://design.vapor.codes/images/author-image-placeholder.png"
+        let authorImageURL = item.metadata.authorImageURL ?? "https://design.vapor.codes/images/author-image-placeholder.png"
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = item.date.dateFormatWithSuffix()
         let publishDate = dateFormatter.string(from: item.date)

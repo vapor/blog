@@ -3,6 +3,7 @@ date: 2022-03-09 17:00
 description: Vapor is looking for a designer to help update our sites and branding
 tags: growth, business
 author: Tim
+authorImageURL: /author-images/tim.jpg
 ---
 # We're looking for a designer!
 

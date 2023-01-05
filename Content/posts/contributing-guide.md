@@ -3,6 +3,7 @@ date: 2022-07-17 01:30
 description: We've added a Contributing Guide to the docs site to make contributing to Vapor even easier!
 tags: contributing, github
 author: Tim
+authorImageURL: /author-images/tim.jpg
 ---
 # Vapor's Contributing Guide
 

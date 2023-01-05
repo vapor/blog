@@ -3,6 +3,7 @@ date: 2022-06-06 17:22
 description: We've fixed an issue in Vapor's URLEncodedFormDecoder - CVE-2022-31019
 tags: framework, security update
 author: Tim
+authorImageURL: /author-images/tim.jpg
 ---
 # Vapor `URLEncodedFormDecoder` Security Vulnerability
 

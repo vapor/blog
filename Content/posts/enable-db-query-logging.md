@@ -3,6 +3,7 @@ date: 2022-07-13 14:00
 description: Learn how to enable query logging in Fluent to see the generated SQL queries
 tags: Fluent, tips
 author: Tim
+authorImageURL: /author-images/tim.jpg
 ---
 # Enable SQL Query Logging
 

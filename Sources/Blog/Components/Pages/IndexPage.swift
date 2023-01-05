@@ -17,8 +17,7 @@ struct IndexPage: Component {
             Div {
                 for item in context.paginatedItems[pageNumber - 1] {
                     Div {
-                        #warning("Fix")
-                        let authorImageURL = "https://design.vapor.codes/images/author-image-placeholder.png"
+                        let authorImageURL = item.metadata.authorImageURL ?? "https://design.vapor.codes/images/author-image-placeholder.png"
                         let publishDate = DateFormatter.short.string(from: item.date)
                         let blogPostData = BlogPostExtraData(length: "\(item.readingTime.minutes) minutes read", author: .init(name: item.metadata.author, imageURL: authorImageURL), publishedDate: publishDate)
                         BlogCard(blogPostData: blogPostData, item: item, site: context.site)
