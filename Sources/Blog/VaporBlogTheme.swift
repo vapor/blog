@@ -1,14 +1,15 @@
 import Plot
 import Publish
 import Foundation
+import VaporDesign
 
 extension Theme where Site == Blog {
-    static var vapor: Self {
-        Theme(htmlFactory: VaporThemeHTMLFactory())
+    static var vaporBlog: Self {
+        Theme(htmlFactory: VaporBlogThemeHTMLFactory())
     }
 }
 
-private struct VaporThemeHTMLFactory: HTMLFactory {
+private struct VaporBlogThemeHTMLFactory: HTMLFactory {
     typealias Site = Blog
     
     func makeIndexHTML(for index: Index,
@@ -25,7 +26,7 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
                         context: context
                     )
                 }
-                SiteFooter()
+//                SiteFooter()
             }
         )
     }
@@ -41,35 +42,27 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
                     H1(section.title)
                     ItemList(items: section.items, site: context.site, dateFormatter: .dayMonthYear)
                 }
-                SiteFooter()
+//                SiteFooter()
             }
         )
     }
 
     func makeItemHTML(for item: Item<Site>,
                       context: PublishingContext<Site>) throws -> HTML {
-        HTML(
-            .lang(context.site.language),
-            buildHead(for: item, context: context),
-            .body(
-                .class("item-page"),
-                .components {
-                    SiteHeader(context: context, selectedSelectionID: item.sectionID)
-                    Wrapper {
-                        Article {
-                            Div(item.content.body).class("content")
-                            Div(DateFormatter.dayMonthYear.string(from: item.date))
-                            Div("Written by \(item.metadata.author)")
-                            Span("Tagged with: ")
-                            ItemTagList(item: item, site: context.site)
-                        }
-                    }
-                    Script(url: "/static/scripts/syntax.js")
-                    Script(url: "/static/scripts/start-syntax.js")
-                    SiteFooter()
-                }
-            )
-        )
+        let currentSite: CurrentSite = .blog
+        let authorImageURL = "https://design.vapor.codes/images/author-image-placeholder.png"
+        #warning("Date should be like 3rd January 2023")
+        let publishDate = DateFormatter.dayMonthYear.string(from: item.date)
+        let blogPostData = BlogPostExtraData(length: "\(item.readingTime.minutes) minutes read", author: .init(name: item.metadata.author, imageURL: authorImageURL), publishedDate: publishDate)
+        let body: Node<HTML.DocumentContext> = .body {
+            #warning("is Demo should default to false, current page should be main current page")
+            SiteNavigation(context: context, selectedSelectionID: item.sectionID, currentSite: .blog, currentPage: nil, isDemo: false)
+            BlogPost(blogPostData: blogPostData, item: item, site: context.site)
+            SiteFooter(currentSite: currentSite)
+        }
+        
+        let builder = VaporDesign<Site>(siteLanguage: context.site.language)
+        return builder.buildHTML(for: item, context: context, body: body)
     }
 
     func makePageHTML(for page: Page,
@@ -80,7 +73,7 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
             .body {
                 SiteHeader(context: context, selectedSelectionID: nil)
                 Wrapper(page.body)
-                SiteFooter()
+//                SiteFooter()
             }
         )
     }
@@ -100,7 +93,7 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
                         context: context
                     )
                 }
-                SiteFooter()
+//                SiteFooter()
             }
         )
     }
@@ -120,7 +113,7 @@ private struct VaporThemeHTMLFactory: HTMLFactory {
                         context: context
                     )
                 }
-                SiteFooter()
+//                SiteFooter()
             }
         )
     }
