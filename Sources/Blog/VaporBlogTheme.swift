@@ -14,21 +14,7 @@ private struct VaporBlogThemeHTMLFactory: HTMLFactory {
     
     func makeIndexHTML(for index: Index,
                        context: PublishingContext<Site>) throws -> HTML {
-        HTML(
-            .lang(context.site.language),
-            buildHead(for: index, context: context),
-            .body {
-                SiteHeader(context: context, selectedSelectionID: nil)
-                Wrapper {
-                    IndexPage(
-                        pageNumber: 1,
-                        items: context.paginatedItems.first ?? [],
-                        context: context
-                    )
-                }
-//                SiteFooter()
-            }
-        )
+        buildIndexPage(index: index, context: context)
     }
 
     func makeSectionHTML(for section: Section<Site>,
@@ -50,6 +36,7 @@ private struct VaporBlogThemeHTMLFactory: HTMLFactory {
     func makeItemHTML(for item: Item<Site>,
                       context: PublishingContext<Site>) throws -> HTML {
         let currentSite: CurrentSite = .blog
+        #warning("Fix")
         let authorImageURL = "https://design.vapor.codes/images/author-image-placeholder.png"
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = item.date.dateFormatWithSuffix()
@@ -116,6 +103,36 @@ private struct VaporBlogThemeHTMLFactory: HTMLFactory {
 //                SiteFooter()
             }
         )
+    }
+    
+    func buildIndexPage(index: Index, context: PublishingContext<Site>) -> HTML {
+        let currentSite: CurrentSite = .blog
+        let body: Node<HTML.DocumentContext> = .body {
+            SiteNavigation(context: context, selectedSelectionID: nil, currentSite: .blog, currentMainSitePage: nil)
+            Div {
+                H1("Articles, tools & resources for Vapor devs").class("vapor-blog-page-heading")
+                
+                Div {
+                    for item in context.paginatedItems.first ?? [] {
+                        Div {
+                            #warning("Fix")
+                            let authorImageURL = "https://design.vapor.codes/images/author-image-placeholder.png"
+                            let publishDate = DateFormatter.short.string(from: item.date)
+                            let blogPostData = BlogPostExtraData(length: "\(item.readingTime.minutes) minutes read", author: .init(name: item.metadata.author, imageURL: authorImageURL), publishedDate: publishDate)
+                            BlogCard(blogPostData: blogPostData, item: item, site: context.site)
+                        }.class("col")
+                    }
+                }.class("row row-cols-1 row-cols-lg-2 g-4 mb-5")
+                
+                Pagination(activePage: 1, numberOfPages: context.paginatedItems.count, pageURL: { pageNumber in
+                    context.index.paginatedPath(pageIndex: pageNumber - 1).absoluteString
+                })
+            }.class("container blog-container")
+            SiteFooter(currentSite: currentSite)
+        }
+        
+        let builder = VaporDesign<Site>(siteLanguage: context.site.language)
+        return builder.buildHTML(for: index, context: context, body: body)
     }
     
     func buildHead(for page: Location, context: PublishingContext<Blog>) -> Node<HTML.DocumentContext> {

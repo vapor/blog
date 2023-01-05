@@ -13,6 +13,7 @@ struct Blog: Website {
     struct ItemMetadata: WebsiteItemMetadata {
         // Add any site-specific metadata that you want to use here.
         var author: String
+        var authorImageURL: String?
     }
 
     // Update these properties to configure your website:

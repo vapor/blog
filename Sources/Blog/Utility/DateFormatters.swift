@@ -22,3 +22,11 @@ extension Date {
         }
     }
 }
+
+extension DateFormatter {
+    static let short: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d MMM yyyy"
+        return dateFormatter
+    }()
+}
