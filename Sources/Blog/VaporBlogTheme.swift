@@ -59,42 +59,22 @@ private struct VaporBlogThemeHTMLFactory: HTMLFactory {
 
     func makeTagListHTML(for page: TagListPage,
                          context: PublishingContext<Site>) throws -> HTML? {
-        HTML(
-            .lang(context.site.language),
-            buildHead(for: page, context: context),
-            .body {
-                SiteHeader(context: context, selectedSelectionID: nil)
-                ComponentGroup {
-                    TagsPage(
-                        selectedTag: nil,
-                        pageNumber: 1,
-                        items: context.paginatedItems.first ?? [],
-                        context: context
-                    )
-                }
-//                SiteFooter()
-            }
-        )
+        let body: Node<HTML.DocumentContext> = .body {
+            TagsPage(selectedTag: nil, pageNumber: 1, items: context.paginatedItems.first ?? [], context: context)
+        }
+        
+        let builder = VaporDesign<Site>(siteLanguage: context.site.language)
+        return builder.buildHTML(for: page, context: context, body: body)
     }
 
     func makeTagDetailsHTML(for page: TagDetailsPage,
                             context: PublishingContext<Site>) throws -> HTML? {
-        HTML(
-            .lang(context.site.language),
-            buildHead(for: page, context: context),
-            .body {
-                SiteHeader(context: context, selectedSelectionID: nil)
-                ComponentGroup {
-                    TagsPage(
-                        selectedTag: page.tag,
-                        pageNumber: 1,
-                        items: context.paginatedItems(for: page.tag).first ?? [],
-                        context: context
-                    )
-                }
-//                SiteFooter()
-            }
-        )
+        let body: Node<HTML.DocumentContext> = .body {
+            TagsPage(selectedTag: page.tag, pageNumber: 1, items: context.paginatedItems(for: page.tag).first ?? [], context: context)
+        }
+        
+        let builder = VaporDesign<Site>(siteLanguage: context.site.language)
+        return builder.buildHTML(for: page, context: context, body: body)
     }
     
     func buildIndexPage(page: Location, context: PublishingContext<Site>) -> HTML {
@@ -105,10 +85,6 @@ private struct VaporBlogThemeHTMLFactory: HTMLFactory {
         let builder = VaporDesign<Site>(siteLanguage: context.site.language)
         return builder.buildHTML(for: page, context: context, body: body)
     }
-    
-//    func buildTagPage(page: Location, context: PublishingContext<Site>) -> HTML {
-//        
-//    }
     
     func buildHead(for page: Location, context: PublishingContext<Blog>) -> Node<HTML.DocumentContext> {
             .head(for: page, on: context.site, stylesheetPaths: [
