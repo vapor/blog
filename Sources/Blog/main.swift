@@ -1,6 +1,7 @@
 import Foundation
 import Publish
 import Plot
+import ReadingTimePublishPlugin
 
 // This type acts as the configuration for your website.
 struct Blog: Website {
@@ -26,5 +27,5 @@ struct Blog: Website {
 }
 
 // This will generate your website using the built-in Foundation theme:
-try Blog().publish(withTheme: .vapor, additionalSteps: [.generatePaginatedPages()])
+try Blog().publish(withTheme: .vapor, additionalSteps: [.generatePaginatedPages()], plugins: [.readingTime()])
     
