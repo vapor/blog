@@ -79,13 +79,10 @@ Resources:
             - Header: server
               Value: 'Vapor Blog'
               Override: true
-            - Header: Content-Security-Policy-Report-Only
-              Value: default-src 'none'; script-src 'self' https://design.vapor.codes; style-src 'self' https://design.vapor.codes; img-src 'self' https://design.vapor.codes; font-src 'self' https://design.vapor.codes; media-src 'self' https://design.vapor.codes; prefetch-src 'self' https://design.vapor.codes; upgrade-insecure-requests; block-all-mixed-content; manifest-src 'self' https://design.vapor.codes
-              Override: false
         SecurityHeadersConfig:
-          # ContentSecurityPolicy:
-          #     ContentSecurityPolicy: default-src 'none'; script-src 'self' https://design.vapor.codes; style-src 'self' https://design.vapor.codes; img-src 'self' https://design.vapor.codes; font-src 'self' https://design.vapor.codes; media-src 'self' https://design.vapor.codes; prefetch-src 'self' https://design.vapor.codes; upgrade-insecure-requests; block-all-mixed-content; manifest-src 'self' https://design.vapor.codes
-          #     Override: false
+          ContentSecurityPolicy:
+              ContentSecurityPolicy: default-src 'none'; script-src 'self' https://design.vapor.codes; style-src 'self' https://design.vapor.codes; img-src 'self' https://design.vapor.codes; font-src 'self' https://design.vapor.codes; media-src 'self' https://design.vapor.codes; upgrade-insecure-requests; block-all-mixed-content; manifest-src 'self' https://design.vapor.codes
+              Override: false
           ContentTypeOptions:
             Override: false
           FrameOptions:
