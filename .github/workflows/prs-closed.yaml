@@ -1,0 +1,23 @@
+name: PR - Closed
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [closed]
+
+jobs:
+  delete-s3:
+    name: Delete S3 Website
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.head.repo.full_name == 'vapor/blog' }}
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.BLOG_DEPLOYER_AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.BLOG_DEPLOYER_AWS_SECRET_ACCESS_KEY }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Delete Website Bucket
+        uses: danburtenshaw/s3-website-pr-action@v2
+        with:
+          bucket-prefix: "vapor-blog-pulls"
