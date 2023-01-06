@@ -29,7 +29,13 @@ private struct VaporBlogThemeHTMLFactory: HTMLFactory {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = item.date.dateFormatWithSuffix()
         let publishDate = dateFormatter.string(from: item.date)
-        let blogPostData = BlogPostExtraData(length: "\(item.readingTime.minutes) minutes read", author: .init(name: item.metadata.author, imageURL: authorImageURL), publishedDate: publishDate)
+        let readingText: String
+        if item.readingTime.minutes == 1 {
+            readingText = "minute read"
+        } else {
+            readingText = "minutes read"
+        }
+        let blogPostData = BlogPostExtraData(length: "\(item.readingTime.minutes) \(readingText)", author: .init(name: item.metadata.author, imageURL: authorImageURL), publishedDate: publishDate)
         let body: Node<HTML.DocumentContext> = .body {
             SiteNavigation(context: context, selectedSelectionID: item.sectionID, currentSite: .blog, currentMainSitePage: nil)
             BlogPost(blogPostData: blogPostData, item: item, site: context.site)
