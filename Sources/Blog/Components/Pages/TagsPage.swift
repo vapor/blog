@@ -35,9 +35,15 @@ struct TagsPage: Component {
                     Div {
                         for item in items {
                             Div {
-                                let authorImageURL = item.metadata.authorImageURL ?? "https://design.vapor.codes/images/author-image-placeholder.png"
+                                let authors = item.metadata.allAuthors
+                                let authorImageURLs = item.metadata.allAuthorImageURLs
                                 let publishDate = DateFormatter.short.string(from: item.date)
-                                let blogPostData = BlogPostExtraData(length: "\(item.readingTime.minutes) minutes read", author: .init(name: item.metadata.author, imageURL: authorImageURL), publishedDate: publishDate)
+                                let blogPostData = BlogPostExtraData(
+                                    length: "\(item.readingTime.minutes) minutes read",
+                                    author: .init(name: authors[0], imageURL: authorImageURLs[0]),
+                                    contributingAuthors: zip(authors, authorImageURLs).dropFirst().map { .init(name: $0, imageURL: $1) },
+                                    publishedDate: publishDate
+                                )
                                 BlogCard(blogPostData: blogPostData, item: item, site: context.site)
                             }.class("col")
                         }

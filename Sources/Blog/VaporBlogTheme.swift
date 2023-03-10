@@ -25,7 +25,6 @@ private struct VaporBlogThemeHTMLFactory: HTMLFactory {
     func makeItemHTML(for item: Item<Site>,
                       context: PublishingContext<Site>) throws -> HTML {
         let currentSite: CurrentSite = .blog
-        let authorImageURL = item.metadata.authorImageURL ?? "https://design.vapor.codes/images/author-image-placeholder.png"
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = item.date.dateFormatWithSuffix()
         let publishDate = dateFormatter.string(from: item.date)
@@ -35,7 +34,14 @@ private struct VaporBlogThemeHTMLFactory: HTMLFactory {
         } else {
             readingText = "minutes read"
         }
-        let blogPostData = BlogPostExtraData(length: "\(item.readingTime.minutes) \(readingText)", author: .init(name: item.metadata.author, imageURL: authorImageURL), publishedDate: publishDate)
+        let authors = item.metadata.allAuthors
+        let authorImageURLs = item.metadata.allAuthorImageURLs
+        let blogPostData = BlogPostExtraData(
+            length: "\(item.readingTime.minutes) \(readingText)",
+            author: .init(name: authors[0], imageURL: authorImageURLs[0]),
+            contributingAuthors: zip(authors, authorImageURLs).dropFirst().map { .init(name: $0, imageURL: $1) },
+            publishedDate: publishDate
+        )
         let body: Node<HTML.DocumentContext> = .body {
             SiteNavigation(context: context, selectedSelectionID: item.sectionID, currentSite: .blog, currentMainSitePage: nil)
             BlogPost(blogPostData: blogPostData, item: item, site: context.site)
