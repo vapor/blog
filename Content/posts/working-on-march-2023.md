@@ -1,7 +1,7 @@
 ---
 date: 2023-03-05 14:00
 description: Learn about what we're working on this month for Vapor and what our goals are for the next 6 months.
-tags: framework, growth, what we're working on
+tags: framework, growth, working on
 authors: Tim; Gwynne
 authorImageURLs: /author-images/tim.jpg; /author-images/gwynne.jpg
 ---
