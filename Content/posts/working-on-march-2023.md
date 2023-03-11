@@ -2,8 +2,8 @@
 date: 2023-03-05 14:00
 description: Learn about what we're working on this month for Vapor and what our goals are for the next 6 months.
 tags: framework, growth, what we're working on
-author: Tim
-authorImageURL: /author-images/tim.jpg
+authors: Tim; Gwynne
+authorImageURLs: /author-images/tim.jpg; /author-images/gwynne.jpg
 ---
 # What We're Working On: March 2023
 
@@ -27,9 +27,9 @@ Vapor's [new design](https://github.com/vapor/design/tree/main-site-components) 
 
 If you want to help contribute then feel free to get involved! We have some outstanding issues on the [design site](https://github.com/vapor/design) that could be good to start with.
 
-### MySQL Rewrite
+### MySQLNIO Rewrite
 
-Over the last few months we (and when I saw we, I mean Gwynne) have been working on a rewrite of the MySQL driver. There are a number of flawed assumption and outdated concepts which compared to the Postgres Driver, are starting to show some signs of age. The plan is to bring it into line with the Postgres driver and take a lot of the lessons learned from there and new concurrency support.
+Over the last few months we ("we", of course, being Gwynne) have been working on a rewrite of the [MySQLNIO](https://github.com/vapor/mysql-nio) package, which provides the low-level MySQL wire protocol implementation for Fluent. It's a long overdue task, focused on filling in major gaps in basic feature support, fixing some (hopefully all!) of the literally dozens of known bugs and limitations, and improving in a big way the increasingly inadequate runtime performance. Basically the idea is to bring the package up to par with the truly inspired work that was done on [PostgresNIO](https://github.com/vapor/postgres-nio) by [Fabian Fett](https://github.com/fabianfett), particularly emphasizing the Concurrency support and robust error handling.
 
 ### Full Concurrency Support in Vapor
 
