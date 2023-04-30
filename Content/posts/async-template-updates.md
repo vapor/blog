@@ -21,7 +21,9 @@ We held off migrating to this new syntax partly for backwards compatibility, to 
 
 Vapor's toolbox was built in a time when Swift Package Manager wasn't as capable as it was today. We had to pass `--enable-test-discovery` flags to all `swift build`, `swift test` and `swift run` commands to make your code run. We also had old commands for making it easy to setup Heroku, Vapor Cloud, supervisor etc when deploying your app wasn't as easy as it is today.
 
-These commands have been discouraged for a while now and you should only really use the toolbox for generating a new project. We've now updated all the documentation to reflect this and the commands in the toolbox all have deprecation warnings. If you're still relying on the toolbox to build, test or run your app, you should migrate to using Swift Package Manager directly. As ever if you encounter any issues, either running your applications or with the documentation, please let us know on GitHub or Discord.
+These commands have been discouraged for a while now and you should only really use the toolbox for generating a new project. We've now updated all the documentation to reflect this and the commands in the toolbox all have deprecation warnings. We've also updated the toolbox to be a bit more clever about whether you have a `Run` executable target or an `App` executable target so it picks the right one to run.
+
+If you're still relying on the toolbox to build, test or run your app, you should migrate to using Swift Package Manager directly. However there is a new [toolbox release](https://github.com/vapor/toolbox/releases/tag/18.7.0) for those that need it. As ever if you encounter any issues, either running your applications or with the documentation, please let us know on GitHub or Discord.
 
 ## Future Changes
 
