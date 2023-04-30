@@ -18,6 +18,6 @@ jobs:
 
     steps:
       - name: Delete Website Bucket
-        uses: muzmatch/s3-website-pr-action@master
+        uses: muzmatch/s3-website-pr-action@v1
         with:
           bucket-prefix: "vapor-blog-pulls"
