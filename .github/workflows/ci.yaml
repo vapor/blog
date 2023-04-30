@@ -23,7 +23,7 @@ jobs:
     - name: Build site
       run: swift run
     - name: Deploy S3 Website
-      uses: danburtenshaw/s3-website-pr-action@v2
+      uses: muzmatch/s3-website-pr-action@master
       if: ${{ github.event.pull_request.head.repo.full_name == 'vapor/blog' }}
       with:
         bucket-prefix: "vapor-blog-pulls"
