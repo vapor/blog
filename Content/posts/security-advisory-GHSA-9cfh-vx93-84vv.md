@@ -15,4 +15,4 @@ Any user of PostgresNIO connecting to servers with TLS enabled is vulnerable to 
 
 Special thanks to PostgreSQL's Tom Lane <tgl@sss.pgh.pa.us> for reporting the original issue and [Fabian Fett](https://github.com/fabianfett) for the fix in PostgresNIO!
 
-For more information, see the [security advisory on GitHub](https://github.com/vapor/postgres-nio/security/advisories/GHSA-9cfh-vx93-84vv#event-96604).
+For more information, see the [security advisory on GitHub](https://github.com/vapor/postgres-nio/security/advisories/GHSA-9cfh-vx93-84vv).
