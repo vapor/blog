@@ -13,6 +13,6 @@ We released [PostgresNIO 1.14.2](https://github.com/vapor/postgres-nio/releases/
 
 Any user of PostgresNIO connecting to servers with TLS enabled is vulnerable to a man-in-the-middle attacker injecting false responses to the client's first few queries, despite the use of TLS certificate verification and encryption. This is related to the issue in PostgreSQL itself, [CVE-2021-23222](https://www.postgresql.org/support/security/CVE-2021-23222/).
 
-Special thanks to PostgreSQL's Tom Lane <tgl@sss.pgh.pa.us> for reporting the original issue and [Fabian Fett](https://github.com/fabianfett) for the fix in PostgresNIO!
+Special thanks to PostgreSQL's Tom Lane &lt;tgl@sss.pgh.pa.us&gt; for reporting the original issue and [Fabian Fett](https://github.com/fabianfett) for the fix in PostgresNIO!
 
-For more information, see the [security advisory on GitHub](https://github.com/vapor/postgres-nio/security/advisories/GHSA-9cfh-vx93-84vv#event-96604).
+For more information, see the [security advisory on GitHub](https://github.com/vapor/postgres-nio/security/advisories/GHSA-9cfh-vx93-84vv).
