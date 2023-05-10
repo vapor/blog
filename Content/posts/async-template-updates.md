@@ -1,11 +1,13 @@
 ---
-date: 2023-04-30 12:00
+date: 2023-05-10 12:00
 description: You may notice some changes in Vapor's templates - we've updated then for Swift 5.8, with a unified target and using the latest `@main` syntax.
 tags: templates
 authors: Tim; Gwynne
 authorImageURLs: /author-images/tim.jpg; /author-images/gwynne.jpg
 ---
 # Updating Vapor's Templates for Swift 5.8
+
+> Apologies for the delay in publishing this post - we had to work around some changes in AWS to make the deployment work!
 
 If you've run `vapor new` recently, you may have noticed some changes to the templates. We've updated them for Swift 5.8, with a unified target and using the latest `@main` syntax.
 
