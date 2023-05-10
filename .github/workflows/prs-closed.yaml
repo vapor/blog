@@ -20,4 +20,4 @@ jobs:
       - name: Delete Website Bucket
         uses: danburtenshaw/s3-website-pr-action@v2
         with:
-          bucket-prefix: "vapor-blog-pulls"
+          bucket-prefix: "vapor-blog-pull"
