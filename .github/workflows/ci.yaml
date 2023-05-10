@@ -25,18 +25,18 @@ jobs:
       run: swift run
     - name: Create Bucket with correct permissions
       run: |
-          if aws s3api head-bucket --bucket vapor-blog-pulls-pr${{github.event.number}} 2>/dev/null; then
+          if aws s3api head-bucket --bucket vapor-blog-pull-pr${{github.event.number}} 2>/dev/null; then
             echo "Bucket already exists"
           else
-            aws s3 mb s3://vapor-blog-pulls-pr${{github.event.number}}
-            aws s3api delete-public-access-block --bucket vapor-blog-pulls-pr${{github.event.number}}
-            aws s3api delete-bucket-ownership-controls --bucket vapor-blog-pulls-pr${{github.event.number}}
-            aws s3api put-bucket-website --bucket vapor-blog-pulls-pr${{github.event.number}}  \
+            aws s3 mb s3://vapor-blog-pull-pr${{github.event.number}}
+            aws s3api delete-public-access-block --bucket vapor-blog-pull-pr${{github.event.number}}
+            aws s3api delete-bucket-ownership-controls --bucket vapor-blog-pull-pr${{github.event.number}}
+            aws s3api put-bucket-website --bucket vapor-blog-pull-pr${{github.event.number}}  \
               --website-configuration '{"IndexDocument":{"Suffix":"index.html"},"ErrorDocument":{"Key":"404.html"}}'
           fi
     - name: Deploy S3 Website
       uses: danburtenshaw/s3-website-pr-action@v2
       if: ${{ github.event.pull_request.head.repo.full_name == 'vapor/blog' }}
       with:
-        bucket-prefix: "vapor-blog-pulls"
+        bucket-prefix: "vapor-blog-pull"
         folder-to-copy: "./Output"
