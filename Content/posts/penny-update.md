@@ -20,16 +20,18 @@ It was 9 months ago that I noticed Tim mention Penny is having problems staying 
 
 ## How Is She Looking Right Now?
 Penny uses an automated process for deployments.   
-Whenever there is an update to Penny's repository, the CI will:    
-- Run the tests to make sure Penny will work as intended.    
-- Upload Penny's lambda functions to AWS.   
-- And at last, deploy her on AWS ECR.   
+Whenever there is an update to Penny's repository, the CI will:
 
-We still have a lot in mind for Penny, but for now she can:   
-- Intelligently grant coins to members when they thank each other.   
-- Ping members when a keyword is used, like Slackbot.   
-- Manage sponsor/backer status of Github users.   
-- And as of today, keep you updated on Swift's evolution.   
+* Run the tests to make sure Penny will work as intended.    
+* Upload Penny's lambda functions to AWS.   
+* And at last, deploy her on AWS ECR.   
+
+We still have a lot in mind for Penny, but for now she can:
+
+* Intelligently grant coins to members when they thank each other.   
+* Ping members when a keyword is used, like Slackbot.   
+* Manage sponsor/backer status of Github users.   
+* And as of today, keep you updated on Swift's evolution.   
 
 Keep an eye out for the upcoming features.   
 You might find some sneak peaks on the [Github repository](https://github.com/vapor/penny-bot) 😉
