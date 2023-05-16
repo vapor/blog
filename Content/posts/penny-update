@@ -7,7 +7,7 @@ authorImageURL: /author-images/mahdi.jpg
 ---
 # Penny
 
-We just released yet another update for Penny - our beloved Discord bot - and she can now keep you updated on Swift's evolution.    
+We just released yet another update for [Penny](https://github.com/vapor/penny-bot) - our beloved Discord bot - and she can now keep you updated on Swift's evolution.    
 Anytime there is a proposal change, Penny will post a message in the [#swift-evolution](https://discord.gg/vapor) channel so you don't fall behind on the news.   
 Small Bonus is, you can receive all the updates on your own server! Just go to the #swift-evolution channel and click "Follow".
 
@@ -29,3 +29,5 @@ We still have a lot in mind for Penny, but for now she can:
 * Ping members when a keyword is used, like Slackbot.
 * Manage sponsor/backer status of Github users.
 * And as of today, keep you updated on Swift's evolution.
+
+Keep an eye out for the new features. You might find some sneak peaks on the [Github reporitory](https://github.com/vapor/penny-bot) 😉
