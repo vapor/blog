@@ -12,20 +12,19 @@ Anytime there is a new proposal change, Penny will inform Vapor's Discord server
 
 ## Some Story
 For a long time, Penny used to have problems giving coins to members.   
-That wasn't good because how else were we supposed to thanks another helpful member when they've shown use a solution to our problem which would have otherwise took us hours or days to figure out!?
+That wasn't good because how else were we supposed to pay another helpful member when they've shown use a solution to our problem which would have otherwise took us hours or days to figure out!?
 That's exactly why Tim and Benny started working on rewriting Penny and updating it with all the recent advancement the Server-Side Swift community has made.  
-About 9 months ago, I noticed Tim mentioning Penny is having problems staying connected to Discord Gateway. Long story short, I released [DiscordBM](https://github.com/MahdiBM/DiscordBM) for this reason.
-Before this, I was using DiscordBM in one of my projects as a private library, and I decided to release it to the public so everyone else can also use it.
-It helped us get Penny rolling and now she's been working pretty nicely for the last 8 months.
+It was about 9 months ago that I noticed Tim mentioning Penny is having problems staying connected to Discord Gateway. Long story short, I released [DiscordBM](https://github.com/MahdiBM/DiscordBM) for this reason.
+It helped us get Penny rolling and now she's been working pretty nicely for the last 8+ months.
 
 ## How is she looking right now?
-Penny currently uses a fully-automated process for deployments. * Whenever there is an update to Penny's repository, the CI will:
+Penny uses a fully-automated process for deployments. Whenever there is an update to Penny's repository, the CI will:
 * Run the tests to make sure Penny will work as intended. 
 * Upload Penny's lambda functions to AWS.
-* And at last deploy the bot on AWS ECR.
+* And at last, deploy her on AWS ECR.
 
 We still have a lot in mind for Penny, but for now she can:
-* Intelligently grant members coins when they thank each other.
+* Intelligently grant coins to members when they thank each other.
 * Ping members when a keyword is used, like Slackbot.
 * Manage sponsor/backer status of Github users.
 * And as of today, keep you updated on Swift's evolution.
