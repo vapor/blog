@@ -5,7 +5,7 @@ tags: penny, bot, discord
 author: Mahdi
 authorImageURL: /author-images/mahdi.jpg
 ---
-# Penny Update - Keep Up With Swift's Evolution
+# Penny Update - Keep Up With Swift's Evolution and More
 
 We just released yet another update for [Penny](https://github.com/vapor/penny-bot) - our beloved Discord bot - and she now keeps you updated on Swift's evolution.    
 Anytime there is a proposal change, Penny will post a message in the [#swift-evolution](https://discord.gg/vapor) channel so you don't fall behind on the news.   
