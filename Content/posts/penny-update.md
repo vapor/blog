@@ -1,11 +1,11 @@
 ---
 date: 2023-05-16 20:00
-description: Penny Update - Keep Up With Swift's Evolution
+description: Vapor's Penny Discord bot has been getting better and better. She can not only give coin to members, but also ping members for keywords, and keep users up to date with Swift's evolution.
 tags: penny, bot, discord
 author: Mahdi
 authorImageURL: /author-images/mahdi.jpg
 ---
-# Penny
+# Penny Update - Keep Up With Swift's Evolution
 
 We just released yet another update for [Penny](https://github.com/vapor/penny-bot) - our beloved Discord bot - and she now keeps you updated on Swift's evolution.    
 Anytime there is a proposal change, Penny will post a message in the [#swift-evolution](https://discord.gg/vapor) channel so you don't fall behind on the news.   
@@ -18,7 +18,7 @@ That's exactly why Tim and Benny started working on rewriting Penny and updating
 It was 9 months ago that I noticed Tim mention Penny is having problems staying connected to Discord Gateway. Long story short, I released [DiscordBM](https://github.com/MahdiBM/DiscordBM) for this reason.   
 DiscordBM helped us get Penny rolling and now she's been working pretty nicely for the last 8+ months.   
 
-## How is she looking right now?
+## How Is She Looking Right Now?
 Penny uses an automated process for deployments. Whenever there is an update to Penny's repository, the CI will:
 * Run the tests to make sure Penny will work as intended. 
 * Upload Penny's lambda functions to AWS.
