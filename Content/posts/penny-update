@@ -8,14 +8,15 @@ authorImageURL: /author-images/mahdi.jpg
 # Penny
 
 We just released yet another update for Penny - our beloved Discord bot - and she can now keep you updated on Swift's evolution.    
-Anytime there is a new proposal change, Penny will inform Vapor's Discord server members about it so you don't fall behind on the news.
+Anytime there is a proposal change, Penny will post a message in the [#swift-evolution](https://discord.gg/vapor) channel so you don't fall behind on the news.   
+Small Bonus is, you can receive all the updates on your own server! Just go to the #swift-evolution channel and click "Follow".
 
 ## Some Story
 For a long time, Penny used to have problems giving coins to members.   
-That wasn't good because how else were we supposed to pay another helpful member when they've shown use a solution to our problem which would have otherwise took us hours or days to figure out!?
-That's exactly why Tim and Benny started working on rewriting Penny and updating it with all the recent advancement the Server-Side Swift community has made.  
-It was about 9 months ago that I noticed Tim mentioning Penny is having problems staying connected to Discord Gateway. Long story short, I released [DiscordBM](https://github.com/MahdiBM/DiscordBM) for this reason.
-It helped us get Penny rolling and now she's been working pretty nicely for the last 8+ months.
+That wasn't good because how else were we supposed to pay another helpful member when they've shown use a solution which would have otherwise took us hours or days to figure out!?   
+That's exactly why Tim and Benny started working on rewriting Penny and updating it with all the recent advancement the Server-Side Swift community has made.    
+It was about 9 months ago that I noticed Tim mention that Penny is having problems staying connected to Discord Gateway. Long story short, I released [DiscordBM](https://github.com/MahdiBM/DiscordBM) for this reason.   
+DiscordBM helped us get Penny rolling and now she's been working pretty nicely for the last 8+ months.   
 
 ## How is she looking right now?
 Penny uses a fully-automated process for deployments. Whenever there is an update to Penny's repository, the CI will:
