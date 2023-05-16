@@ -1,5 +1,5 @@
 ---
-date: 2023-05-16 
+date: 2023-05-16 20:00
 description: Penny Update - Keep Up With Swift's Evolution
 tags: penny, bot, discord
 author: Mahdi
