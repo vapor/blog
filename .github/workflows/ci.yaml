@@ -16,7 +16,7 @@ jobs:
       AWS_REGION: 'us-east-1'
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Setup cloudformation lint
       uses: ScottBrenner/cfn-lint-action@v2
     - name: Run cloudformation lint
