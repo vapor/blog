@@ -5,7 +5,7 @@ tags: framework, security update
 author: Tim
 authorImageURL: /author-images/tim.jpg
 ---
-# Vapor Error Handing Security Vulnerability
+# Vapor HTTP Error Handling Security Vulnerability
 
 We've just released [Vapor 4.84.2](https://github.com/vapor/vapor/releases/tag/4.84.2) which contains a fix for a security vulnerability in Vapor's error handling. An attacker could crash a Vapor application by sending invalid requests, such as a GET request with a body and `Content-Length` that was incorrect, which under certain scenarios could lead to a Denial of Service attack. This has been designated as CVE-2023-44386. 
 
