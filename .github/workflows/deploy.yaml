@@ -33,11 +33,24 @@ jobs:
           S3BucketName=vapor-blog-site,
           AcmCertificateArn=${{ secrets.CERTIFICATE_ARN }}
       if: steps.cred.outcome == 'success'
-    - name: Deploy to S3
+    - name: Deploy Main Site to S3
       id: s3deploy
       uses: jakejarvis/s3-sync-action@master
       with:
-        args: --acl public-read --follow-symlinks --delete
+        args: --acl public-read --follow-symlinks --delete --exclude 'feed.rss'
+      env:
+        AWS_S3_BUCKET: 'vapor-blog-site'
+        AWS_ACCESS_KEY_ID: ${{ secrets.BLOG_DEPLOYER_AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.BLOG_DEPLOYER_AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: 'eu-west-2'
+        SOURCE_DIR: 'Output'
+      if: steps.clouddeploy.outcome == 'success'
+    # This is done as a separate step to ensure the RSS feed is served with the correct content type
+    - name: Deploy RSS Feed to S3
+      id: s3deploy-rss
+      uses: jakejarvis/s3-sync-action@master
+      with:
+        args: --acl public-read --follow-symlinks --delete --exclude '*' --include 'feed.rss' --content-type 'application/rss+xml'
       env:
         AWS_S3_BUCKET: 'vapor-blog-site'
         AWS_ACCESS_KEY_ID: ${{ secrets.BLOG_DEPLOYER_AWS_ACCESS_KEY_ID }}

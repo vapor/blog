@@ -35,7 +35,7 @@ jobs:
               --website-configuration '{"IndexDocument":{"Suffix":"index.html"},"ErrorDocument":{"Key":"404.html"}}'
           fi
     - name: Deploy S3 Website
-      uses: danburtenshaw/s3-website-pr-action@v2
+      uses: rishabhrao/s3-website-https-pr-action@v1
       if: ${{ github.event.pull_request.head.repo.full_name == 'vapor/blog' }}
       with:
         bucket-prefix: "vapor-blog-pull"
