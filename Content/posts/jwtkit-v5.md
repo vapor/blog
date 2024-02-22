@@ -13,6 +13,10 @@ Besides removing the C-based internals, the package got a number of upgrades. JW
 
 We also added a new signing algorithm: `PSS` padded `RSA`. While `RSA` is not recommended anymore, having to use RSA with `PKCS1-v1_5` is even worse, that's why we added the (slightly) safer (but still not safe enough) version of the key. If you want to try it but can't find it, it's likely because the `RSA` key is now gated behind the `Insecure` namespace to discourage new users from using it. 
 
+## Upgrading
+
+### JWTKit
+
 Since the internal structure has changed _quite a lot_, some changes to the API were necessary. Following is a quick tour of what's changed. To test out the new API, in your `Package.swift` file you can simply update your dependency line to:
 
 ```swift
@@ -41,6 +45,50 @@ All of the parameters you used to pass into the `sign` method such as `kid`, `ct
 - let payload = signers.verify(token, as: YourPayload.self)
 + let payload = try await keyCollection.verify(token, as: YourPayload.self)
 ```
+
+### JWT
+
+If you want to try out version 5 using the Vapor integration, you need to update your dependency to:
+
+```swift
+.package(url: "https://github.com/vapor/jwt", from: "5.0.0-beta.1"),
+```
+
+and then migrate to the new API:
+
+```diff
+- app.jwt.signers.use(.hs256(key: "secret"), kid: "foo")
++ await app.jwt.keys.addHS256(key: "secret", kid: "foo")
+```
+
+After adding a key, you can create your payload like:
+
+```diff
+struct SomePayload: JWTPayload {
+    var exampleName: String
+    
+    // the claims did not change
+
+-   func verify(using signer: JWTSigner) throws {
++   func verify(using signer: JWTAlgorithm) async throws {
+        // ... 
+    }
+}
+```
+
+Adn then you can sign and verify your tokens like this:
+
+```diff
+- let token = try signers.sign(SomePayload(exampleName: "bob"), kid: "foo")
++ let token = try await app.jwt.keys.sign(SomePayload(exampleName: "bob"), header: ["kid": "foo"])
+
+- let payload = try signers.verify(token, as: SomePayload.self)
++ let payload = try await app.jwt.keys.verify(token, as: SomePayload.self)
+```
+
+The rest of the methods are basically the same, but asynchronous.
+
+## Customisation
 
 Then, we've added some cool customisation features which weren't available before. Custom headers are now a thing, as the header is now a dictionary which you can fill however you want. To access custom fields you don't even need to use the dictionary syntax as the header is accessible using `@_dynamicMemberLookup`. For more traditional users, the usual fields are type-safely provided as extensions. A cool example of custom header use is the [Openbanking spec](// https://openbanking.atlassian.net/wiki/spaces/DZ/pages/937656404/Read+Write+Data+API+Specification+-+v3.1):
 
