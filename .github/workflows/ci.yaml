@@ -24,6 +24,7 @@ jobs:
     - name: Build site
       run: swift run
     - name: Create Bucket with correct permissions
+      if: ${{ github.event.pull_request.head.repo.full_name == 'vapor/blog' && github.actor != 'dependabot[bot]' }}
       run: |
           if aws s3api head-bucket --bucket vapor-blog-pull-pr${{github.event.number}} 2>/dev/null; then
             echo "Bucket already exists"
@@ -36,7 +37,7 @@ jobs:
           fi
     - name: Deploy S3 Website
       uses: rishabhrao/s3-website-https-pr-action@v1
-      if: ${{ github.event.pull_request.head.repo.full_name == 'vapor/blog' }}
+      if: ${{ github.event.pull_request.head.repo.full_name == 'vapor/blog' && github.actor != 'dependabot[bot]' }}
       with:
         bucket-prefix: "vapor-blog-pull"
         folder-to-copy: "./Output"
