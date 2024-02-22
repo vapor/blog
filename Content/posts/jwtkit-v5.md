@@ -1,3 +1,10 @@
+---
+date: 2024-02-22 16:00
+description: We've released a new version of JWTKit, and it's a big one!
+tags: jwt, security, vapor
+author: Paul
+authorImageURL: /author-images/paul.jpg
+--- 
 # JWTKit is no longer Boring!
 
 During the last few months you might have noticed an open pull request in the JWTKit repository called "V5". As you have probably already guessed, this pull request brings a new version, namely number 5, to JWTKit. Until version 4, our belowed JWT library was based mostly on a vendored copy of BoringSSL, a cryptographic library written in plain old C. While it did _work_, maintaining a wrapper around C is not modern anymore, let alone "Swifty". That's why we decided to eradicate BoringSSL from JWTKit and replace it with Swift-only internals, namely Apple's SwiftCrypto. Available as of today in a beta version is major release 5 for JWTKit.
