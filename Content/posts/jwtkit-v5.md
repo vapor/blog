@@ -2,12 +2,22 @@
 date: 2024-02-22 16:00
 description: We've released a new version of JWTKit, and it's a big one!
 tags: jwt, security, vapor
-author: Paul
+author: Paul; Tim
 authorImageURL: /author-images/paul.jpg
 --- 
 # JWTKit is no longer Boring!
 
-During the last few months you might have noticed an open pull request in the JWTKit repository called "V5". As you have probably already guessed, this pull request brings a new version, namely number 5, to JWTKit. Until version 4, our belowed JWT library was based mostly on a vendored copy of BoringSSL, a cryptographic library written in plain old C. While it did _work_, maintaining a wrapper around C is not modern anymore, let alone "Swifty". That's why we decided to eradicate BoringSSL from JWTKit and replace it with Swift-only internals, namely Apple's SwiftCrypto. Available as of today in a beta version is major release 5 for JWTKit.
+## Swift 6 is on the Horizon
+
+If you follow the Swift forums carefully you might have noticed [the announcement](https://forums.swift.org/t/progress-toward-the-swift-6-language-mode/68315/33) that Swift 5.10 will be the last release before Swift 6. This provides Vapor a timeline for a future Vapor 5 release and we can start planning as to what that will look like.
+
+A large part of that will be updating and migrating all of our packages to use modern Swift features and paradigms like `Sendable`, actors and making use of new APIs. The first package to be updated is JWTKit, which has been in the works for a while now.
+
+A future post will discuss Vapor 5, so let's have a look at what's new in JWTKit.
+
+## JWTKit V5
+
+During the last few months you might have noticed an open pull request in the JWTKit repository called "V5". As you have probably already guessed, this pull request brings a new version, namely number 5, to JWTKit. Until version 4, our beloved JWT library was based mostly on a vendored copy of BoringSSL, a cryptographic library written in plain old C. While it did _work_, maintaining a wrapper around C is not modern anymore, let alone "Swifty". That's why we decided to eradicate BoringSSL from JWTKit and replace it with Swift-only internals, namely Apple's SwiftCrypto. Available as of today in a beta version is major release 5 for JWTKit.
 
 Besides removing the C-based internals, the package got a number of upgrades. JWTKit is now fully `Sendable` and builds without warning with strict concurrency settings. 
 
@@ -88,9 +98,9 @@ Adn then you can sign and verify your tokens like this:
 
 The rest of the methods are basically the same, but asynchronous.
 
-## Customisation
+## Customization
 
-Then, we've added some cool customisation features which weren't available before. Custom headers are now a thing, as the header is now a dictionary which you can fill however you want. To access custom fields you don't even need to use the dictionary syntax as the header is accessible using `@_dynamicMemberLookup`. For more traditional users, the usual fields are type-safely provided as extensions. A cool example of custom header use is the [Openbanking spec](// https://openbanking.atlassian.net/wiki/spaces/DZ/pages/937656404/Read+Write+Data+API+Specification+-+v3.1):
+Then, we've added some cool customization features which weren't available before. Custom headers are now a thing, as the header is now a dictionary which you can fill however you want. To access custom fields you don't even need to use the dictionary syntax as the header is accessible using `@_dynamicMemberLookup`. For more traditional users, the usual fields are type-safely provided as extensions. A cool example of custom header use is the [Open Banking spec](// https://openbanking.atlassian.net/wiki/spaces/DZ/pages/937656404/Read+Write+Data+API+Specification+-+v3.1):
 
 ```swift
 let customFields: JWTHeader = [
@@ -108,7 +118,7 @@ let customFields: JWTHeader = [
 let token = try await keyCollection.sign(payload, header: customFields)
 ```
 
-Parsing and serialising are now also customisable, meaning that you can define your own implementation for parsers and serialisers using the custom headers you defined, for example compressing them with `zip` or `deflate` or using a non-encoded payload by setting the `b64` header to false. Rather than implementing the whole JOSE standard, we decided to let users extend the package however they want to. In the tests there's an example which shows how to set the `b64` header to `false` (which by default is non present, meaning `true`):
+Parsing and serializing are now also customizable, meaning that you can define your own implementation for parsers and serializers using the custom headers you defined, for example compressing them with `zip` or `deflate` or using a non-encoded payload by setting the `b64` header to false. Rather than implementing the whole JOSE standard, we decided to let users extend the package however they want to. In the tests there's an example which shows how to set the `b64` header to `false` (which by default is non present, meaning `true`):
 
 ```swift
 struct CustomSerializer: JWTSerializer {
@@ -153,7 +163,7 @@ struct CustomParser: JWTParser {
 }
 ```
 
-Then, you can simply use your new parser and serialiser like this:
+Then, you can simply use your new parser and serializer like this:
 
 ```swift
 let keyCollection = await JWTKeyCollection()
