@@ -21,7 +21,7 @@ Over the last few months, you may have noticed an open pull request in the JWTKi
 
 Besides removing the C-based internals, the package got a number of upgrades. JWTKit is now fully `Sendable`-correct and builds with zero warnings in strict concurrency mode. 
 
-We also added a new signing algorithm: `PSS` padded `RSA`. While `RSA` is not recommended anymore, having to use RSA with `PKCS1-v1_5` is even worse, that's why we added the (slightly) safer (but still not safe enough) version of the key. If you want to try it but can't find it, it's likely because the `RSA` key is now gated behind the `Insecure` namespace to discourage new users from using it. 
+We also added a new signing algorithm: `PSS`-padded `RSA` (aka `RSA-PSS`). Although `RSA` is no longer considered future-proof and should be avoided whenever possible, using RSA with the much older PKCS#1 v1.5 padding is _known_ to be unsafe today - so we added support for the safer (though still not recommended) padding mode. If you want to try it but can't find it, it's likely because `RSA` key types are now nested within the `Insecure` namespace, to discourage new users from using it. 
 
 ## Upgrading
 
