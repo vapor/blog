@@ -35,7 +35,7 @@ Since the internal structure has changed _quite a lot_, some changes to the API 
 .package(url: "https://github.com/vapor/jwt-kit.git", from: "5.0.0-beta.1"),
 ```
 
-Afterwards you can start upgrading your code to conform to the new APIs: the `JWTSigners` class has been upgraded to an actor called `JWTKeyCollection`:
+Afterwards you can start upgrading your code to conform to the new APIs. Firstly, the `JWTSigners` class has been redesigned as an `actor`, and is now named `JWTKeyCollection`:
 
 ```diff
 - let signers = JWTSigners()
