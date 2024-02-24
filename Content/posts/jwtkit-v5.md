@@ -120,7 +120,7 @@ let customFields: JWTHeader = [
 let token = try await keyCollection.sign(payload, header: customFields)
 ```
 
-Parsing and serializing are now also customizable, meaning that you can define your own implementation for parsers and serializers using the custom headers you defined, for example compressing them with `zip` or `deflate` or using a non-encoded payload by setting the `b64` header to false. Rather than implementing the whole JOSE standard, we decided to let users extend the package however they want to. In the tests there's an example which shows how to set the `b64` header to `false` (which by default is non present, meaning `true`):
+Parsing and serializing are now also customizable, meaning that you can define your own implementation for parsers and serializers using the custom headers you defined, for example compressing them with `zip` or `deflate`, or using an unencoded payload by setting the `b64` header to `false`. Rather than implementing the entire JOSE standard, we decided to let users extend the package as desired. The tests include an example which shows how to set the `b64` header (which by default is not present and thus assumed to have the value `true`):
 
 ```swift
 struct CustomSerializer: JWTSerializer {
