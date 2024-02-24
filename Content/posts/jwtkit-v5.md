@@ -11,7 +11,7 @@ authorImageURL: /author-images/paul.jpg
 
 If you follow the Swift forums carefully you might have noticed [the announcement](https://forums.swift.org/t/progress-toward-the-swift-6-language-mode/68315/33) that Swift 5.10 will be the last release before Swift 6. This provides Vapor a timeline for a future Vapor 5 release and we can start planning as to what that will look like.
 
-A large part of that will be updating and migrating all of our packages to use modern Swift features and paradigms like `Sendable`, actors and making use of new APIs. The first package to be updated is JWTKit, which has been in the works for a while now.
+A large part of that will be updating and migrating all of our packages to take advantage of modern Swift language features and design patterns, foremost among which is structured concurrency. The first package to be updated is JWTKit, which has been in the works for a while now.
 
 Future posts will discuss Vapor 5, Fluent 5, and other future directions, so let's have a look at what's new in JWTKit.
 
