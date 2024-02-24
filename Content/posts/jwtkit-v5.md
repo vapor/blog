@@ -27,7 +27,7 @@ We also added a new signing algorithm: `PSS`-padded `RSA` (aka `RSA-PSS`). Altho
 
 ### JWTKit
 
-> **Note:** most people using JWTs in Vapor should update the `vapor/jwt` integration package, discussed below
+> **Note:** Most people using JWT support with Vapor will need to update the [vapor/jwt](https://github.com/vapor/jwt) integration package, as discussed below.
 
 Since the internal structure has changed _quite a lot_, some changes to the API were necessary. Following is a quick tour of what's changed. To test out the new API, in your `Package.swift` file you can simply update your dependency line to:
 
