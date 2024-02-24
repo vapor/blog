@@ -13,7 +13,7 @@ If you follow the Swift forums carefully you might have noticed [the announcemen
 
 A large part of that will be updating and migrating all of our packages to use modern Swift features and paradigms like `Sendable`, actors and making use of new APIs. The first package to be updated is JWTKit, which has been in the works for a while now.
 
-A future post will discuss Vapor 5, so let's have a look at what's new in JWTKit.
+Future posts will discuss Vapor 5, Fluent 5, and other future directions, so let's have a look at what's new in JWTKit.
 
 ## JWTKit V5
 
