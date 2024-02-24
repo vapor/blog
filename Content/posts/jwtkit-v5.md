@@ -17,7 +17,7 @@ A future post will discuss Vapor 5, so let's have a look at what's new in JWTKit
 
 ## JWTKit V5
 
-During the last few months you might have noticed an open pull request in the JWTKit repository called "V5". As you have probably already guessed, this pull request brings a new version, namely number 5, to JWTKit. Until version 4, our beloved JWT library was based mostly on a vendored copy of BoringSSL, a cryptographic library written in plain old C. While it did _work_, maintaining a wrapper around C is not modern anymore, let alone "Swifty". That's why we decided to eradicate BoringSSL from JWTKit and replace it with Swift-only internals, namely Apple's SwiftCrypto. Available as of today in a beta version is major release 5 for JWTKit.
+During the last few months you might have noticed an open pull request in the JWTKit repository called "V5". As you have probably already guessed, this pull request brings a new version, namely number 5, to JWTKit. Until version 4, our beloved JWT library was based mostly on a vendored copy of BoringSSL, a cryptographic library written in plain old C. While it did _work_, maintaining a wrapper around C is not modern anymore, let alone "Swifty". It introduced potential safety issues calling through to C code and could add a significant amount to your app's compile time, when Swift Crypto already compiles another copy! That's why we decided to eradicate BoringSSL from JWTKit and replace it with Swift-only internals, namely Apple's SwiftCrypto. Available as of today in a beta version is major release 5 for JWTKit.
 
 Besides removing the C-based internals, the package got a number of upgrades. JWTKit is now fully `Sendable` and builds without warning with strict concurrency settings. 
 
