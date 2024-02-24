@@ -102,7 +102,7 @@ The rest of the methods are basically the same, but asynchronous.
 
 ## Customization
 
-Then, we've added some cool customization features which weren't available before. Custom headers are now a thing, as the header is now a dictionary which you can fill however you want. To access custom fields you don't even need to use the dictionary syntax as the header is accessible using `@_dynamicMemberLookup`. For more traditional users, the usual fields are type-safely provided as extensions. A cool example of custom header use is the [Open Banking spec](// https://openbanking.atlassian.net/wiki/spaces/DZ/pages/937656404/Read+Write+Data+API+Specification+-+v3.1):
+As if that wasn't enough, we've also added some cool new customization features. Custom headers are now supported; the token header is now a dictionary which you can fill however you want. Accessing custom fields doesn't even require dictionary subscript syntax - the header provides direct property access via `@_dynamicMemberLookup`. For more traditional users, the usual fields are provided as type-safe extensions. A cool example of custom header use is the [Open Banking spec](https://openbanking.atlassian.net/wiki/spaces/DZ/pages/937656404/Read+Write+Data+API+Specification+-+v3.1):
 
 ```swift
 let customFields: JWTHeader = [
