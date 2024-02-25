@@ -2,8 +2,8 @@
 date: 2024-02-22 16:00
 description: We've released a new version of JWTKit, and it's a big one!
 tags: jwt, security, vapor
-author: Paul; Tim
-authorImageURL: /author-images/paul.jpg
+authors: Paul; Tim
+authorImageURLs: /author-images/paul.jpg; /author-images/tim.jpg
 --- 
 # JWTKit is no longer Boring!
 
