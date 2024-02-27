@@ -29,11 +29,11 @@ jobs:
     - name: Build site
       run: swift run
     - name: Install AWS CLI
-      uses: unfor19/install-aws-cli-action@v1
-      with:
-        version: 2
-        verbose: false
-        arch: amd64 
+      run: |
+        apt-get update && apt-get install -y unzip
+        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+        unzip awscliv2.zip
+        ./aws/install
     - name: Create Bucket with correct permissions
       if: ${{ github.event.pull_request.head.repo.full_name == 'vapor/blog' && github.actor != 'dependabot[bot]' }}
       run: |
