@@ -18,12 +18,26 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    - name: Install dependencies
+      run: |
+        apt-get update
+        apt-get install -y curl
     - name: Setup cloudformation lint
       uses: ScottBrenner/cfn-lint-action@v2
     - name: Run cloudformation lint
       run: cfn-lint -t stack.yaml
     - name: Build site
       run: swift run
+    - name: Install AWS CLI
+      run: |
+        apt-get update && apt-get install -y unzip
+        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+        unzip awscliv2.zip
+        ./aws/install
     - name: Create Bucket with correct permissions
       if: ${{ github.event.pull_request.head.repo.full_name == 'vapor/blog' && github.actor != 'dependabot[bot]' }}
       run: |
