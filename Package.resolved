@@ -59,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/johnsundell/publish.git",
       "state" : {
-        "revision" : "1c8ad00d39c985cb5d497153241a2f1b654e0d40",
-        "version" : "0.9.0"
+        "branch" : "master",
+        "revision" : "58e943047882a5a6d8135ae2711be8ba7fba57c4"
       }
     },
     {

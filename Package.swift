@@ -9,10 +9,10 @@ let package = Package(
         .executable(
             name: "Blog",
             targets: ["Blog"]
-        )
+        ),
     ],
     dependencies: [
-        .package(url: "https://github.com/johnsundell/publish.git", from: "0.8.0"),
+        .package(url: "https://github.com/johnsundell/publish.git", branch: "master"),
         .package(url: "https://github.com/alexito4/ReadingTimePublishPlugin.git", from: "0.3.0"),
         .package(url: "https://github.com/vapor/design.git", branch: "main"),
     ],
@@ -24,6 +24,6 @@ let package = Package(
                 .product(name: "ReadingTimePublishPlugin", package: "ReadingTimePublishPlugin"),
                 .product(name: "VaporDesign", package: "design"),
             ]
-        )
+        ),
     ]
 )
