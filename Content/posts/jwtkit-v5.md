@@ -1,5 +1,5 @@
 ---
-date: 2024-02-22 16:00
+date: 2024-02-28 16:00
 description: We've released a new version of JWTKit, and it's a big one!
 tags: jwt, security, vapor
 authors: Paul; Tim
