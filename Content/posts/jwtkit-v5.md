@@ -7,6 +7,8 @@ authorImageURLs: /author-images/paul.jpg; /author-images/tim.jpg
 --- 
 # JWTKit is no longer Boring!
 
+> Updated for JWTKit Beta 3.
+
 ## Swift 6 is on the Horizon
 
 If you follow the Swift forums carefully you might have noticed [the announcement](https://forums.swift.org/t/progress-toward-the-swift-6-language-mode/68315/33) that Swift 5.10 will be the last release before Swift 6. This provides Vapor a timeline for a future Vapor 5 release and we can start planning as to what that will look like.
@@ -32,7 +34,7 @@ We also added a new signing algorithm: `PSS`-padded `RSA` (aka `RSA-PSS`). Altho
 Since the internal structure of the package has changed _considerably_, some changes to the API were necessary (along with a few changes that have been waiting their turn for far too long). Following is a quick tour of what's changed. To test out the new API, simply update the dependency in your package manifest (`Package.swift`):
 
 ```swift
-.package(url: "https://github.com/vapor/jwt-kit.git", from: "5.0.0-beta.1"),
+.package(url: "https://github.com/vapor/jwt-kit.git", from: "5.0.0-beta.3"),
 ```
 
 Afterwards you can start upgrading your code to conform to the new APIs. Firstly, the `JWTSigners` class has been redesigned as an `actor`, and is now named `JWTKeyCollection`:
@@ -40,7 +42,7 @@ Afterwards you can start upgrading your code to conform to the new APIs. Firstly
 ```diff
 - let signers = JWTSigners()
 - signers.use(.hs256(key: "bar".bytes), kid: "foo")
-+ let keyCollection = await JWTKeyCollection().addHS256("secret", kid: "foo")
++ let keyCollection = await JWTKeyCollection().addHMAC("secret", digestAlgorithm: .sha256, kid: "foo")
 ```
 
 Signing now works like this:
@@ -63,14 +65,14 @@ All of the parameters you used to pass into the `sign` method such as `kid`, `ct
 If you want to try out version 5 using the Vapor integration, you need to update your dependency to:
 
 ```swift
-.package(url: "https://github.com/vapor/jwt", from: "5.0.0-beta.1"),
+.package(url: "https://github.com/vapor/jwt", from: "5.0.0-beta.3"),
 ```
 
 and then migrate to the new API:
 
 ```diff
 - app.jwt.signers.use(.hs256(key: "secret"), kid: "foo")
-+ await app.jwt.keys.addHS256(key: "secret", kid: "foo")
++ await app.jwt.keys.addHMAC(key: "secret", digestAlgorithm: .sha256, kid: "foo")
 ```
 
 After adding a key, you can create your payload like:
@@ -82,7 +84,7 @@ struct SomePayload: JWTPayload {
     // the claims did not change
 
 -   func verify(using signer: JWTSigner) throws {
-+   func verify(using signer: JWTAlgorithm) async throws {
++   func verify(using signer: some JWTAlgorithm) async throws {
         // ... 
     }
 }
@@ -168,8 +170,12 @@ struct CustomParser: JWTParser {
 Then, you can simply use your new parser and serializer like this:
 
 ```swift
-let keyCollection = await JWTKeyCollection()
-            .addHS256(key: "secret", parser: CustomParser(), serializer: CustomSerializer())
+let keyCollection = await JWTKeyCollection().addHMAC(
+    key: "secret", 
+    digestAlgorithm: .sha256, 
+    parser: CustomParser(), 
+    serializer: CustomSerializer()
+)
 ```
 
 and 
