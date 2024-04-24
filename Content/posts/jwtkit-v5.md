@@ -65,7 +65,7 @@ All of the parameters you used to pass into the `sign` method such as `kid`, `ct
 If you want to try out version 5 using the Vapor integration, you need to update your dependency to:
 
 ```swift
-.package(url: "https://github.com/vapor/jwt", from: "5.0.0-beta.2"),
+.package(url: "https://github.com/vapor/jwt", from: "5.0.0-beta.3"),
 ```
 
 and then migrate to the new API:
