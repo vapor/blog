@@ -1,4 +1,4 @@
-name: Pull Request Testing
+name: PR
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -12,22 +12,25 @@ jobs:
     name: Test, Build, and Deploy
     runs-on: ubuntu-latest
     steps:
-      - uses: aws-actions/configure-aws-credentials@v4
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
         if: ${{ github.event.pull_request.head.repo.full_name == 'vapor/blog' && github.actor != 'dependabot[bot]' }}
         with:
           aws-access-key-id: ${{ secrets.BLOG_DEPLOYER_AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.BLOG_DEPLOYER_AWS_SECRET_ACCESS_KEY }}
           aws-region: 'us-east-1'
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          node-version: 18
-          cache: npm
-      - uses: ScottBrenner/cfn-lint-action@v2
-      - run: swift run
-      - run: npm install
-      - run: cfn-lint -t stack.yml
-      - run: npm run build
+          python-version: '3.10'
+      - name: Setup CloudFormation linter
+        uses: ScottBrenner/cfn-lint-action@v2
+      - name: Run CloudFormation linter
+        run: cfn-lint -t stack.yml
+      - name: Build site   
+        run: swift run
       - name: Create S3 Bucket
         if: ${{ github.event.pull_request.head.repo.full_name == 'vapor/blog' && github.actor != 'dependabot[bot]' }}
         env:
