@@ -1,56 +1,53 @@
-name: PR - Deploy to S3
+name: Pull Request Testing
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 on:
   pull_request:
     branches:
-    - main
+      - main
 
 jobs:
-  deploy:
-    name: Build and Deploy
+  build:
+    name: Test, Build, and Deploy
     runs-on: ubuntu-latest
-    container: swift:5.10-jammy
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.BLOG_DEPLOYER_AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.BLOG_DEPLOYER_AWS_SECRET_ACCESS_KEY }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      AWS_REGION: 'us-east-1'
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.10'
-    - name: Install dependencies
-      run: |
-        apt-get update
-        apt-get install -y curl
-    - name: Setup cloudformation lint
-      uses: ScottBrenner/cfn-lint-action@v2
-    - name: Run cloudformation lint
-      run: cfn-lint -t stack.yaml
-    - name: Build site
-      run: swift run
-    - name: Install AWS CLI
-      run: |
-        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-        unzip awscliv2.zip
-        ./aws/install
-    - name: Create Bucket with correct permissions
-      if: ${{ github.event.pull_request.head.repo.full_name == 'vapor/blog' && github.actor != 'dependabot[bot]' }}
-      run: |
-          if aws s3api head-bucket --bucket vapor-blog-pull-pr${{github.event.number}} 2>/dev/null; then
-            echo "Bucket already exists"
-          else
-            aws s3 mb s3://vapor-blog-pull-pr${{github.event.number}}
-            aws s3api delete-public-access-block --bucket vapor-blog-pull-pr${{github.event.number}}
-            aws s3api delete-bucket-ownership-controls --bucket vapor-blog-pull-pr${{github.event.number}}
-            aws s3api put-bucket-website --bucket vapor-blog-pull-pr${{github.event.number}}  \
-              --website-configuration '{"IndexDocument":{"Suffix":"index.html"},"ErrorDocument":{"Key":"404.html"}}'
-          fi
-    - name: Deploy S3 Website
-      uses: brokenhandsio/s3-website-https-pr-action@1.0.0
-      with:
-        bucket-prefix: "vapor-blog-pull"
-        folder-to-copy: "./Output"
-        bucket-region: "us-east-1"
+      - uses: aws-actions/configure-aws-credentials@v4
+        if: ${{ github.event.pull_request.head.repo.full_name == 'vapor/blog' && github.actor != 'dependabot[bot]' }}
+        with:
+          aws-access-key-id: ${{ secrets.BLOG_DEPLOYER_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.BLOG_DEPLOYER_AWS_SECRET_ACCESS_KEY }}
+          aws-region: 'us-east-1'
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: npm
+      - uses: ScottBrenner/cfn-lint-action@v2
+      - run: swift run
+      - run: npm install
+      - run: cfn-lint -t stack.yml
+      - run: npm run build
+      - name: Create S3 Bucket
+        if: ${{ github.event.pull_request.head.repo.full_name == 'vapor/blog' && github.actor != 'dependabot[bot]' }}
+        env:
+          BUCKET: ${{ format('vapor-blog-pulls-pr{0}', github.event.number) }}
+        run: |
+            if aws s3api head-bucket --bucket ${BUCKET} 2>/dev/null; then
+              echo "Bucket already exists"
+            else
+              aws s3 mb s3://${BUCKET}
+              aws s3api delete-public-access-block --bucket ${BUCKET}
+              aws s3api delete-bucket-ownership-controls --bucket ${BUCKET}
+              aws s3api put-bucket-website --bucket ${BUCKET}  \
+                --website-configuration '{"IndexDocument":{"Suffix":"index.html"},"ErrorDocument":{"Key":"404.html"}}'
+            fi
+      - name: Deploy S3 Website
+        if: ${{ github.event.pull_request.head.repo.full_name == 'vapor/blog' && github.actor != 'dependabot[bot]' }}
+        uses: brokenhandsio/s3-website-https-pr-action@1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          bucket-prefix: "vapor-blog-pulls"
+          folder-to-copy: "./Output"
+          bucket-region: "us-east-1"
