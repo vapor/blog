@@ -1,15 +1,14 @@
-name: Build and deploy blog.vapor.codes
-
+name: PR - Deploy to S3
 on:
   pull_request:
     branches:
     - main
 
 jobs:
-  build:
-    name: Build
+  deploy:
+    name: Build and Deploy
     runs-on: ubuntu-latest
-    container: swift:5.9-jammy
+    container: swift:5.10-jammy
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.BLOG_DEPLOYER_AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.BLOG_DEPLOYER_AWS_SECRET_ACCESS_KEY }}
@@ -18,14 +17,10 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.10'
     - name: Install dependencies
       run: |
         apt-get update
-        apt-get install -y curl
+        apt-get install -y curl unzip
     - name: Setup cloudformation lint
       uses: ScottBrenner/cfn-lint-action@v2
     - name: Run cloudformation lint
@@ -34,7 +29,6 @@ jobs:
       run: swift run
     - name: Install AWS CLI
       run: |
-        apt-get update && apt-get install -y unzip
         curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
         unzip awscliv2.zip
         ./aws/install
@@ -51,8 +45,8 @@ jobs:
               --website-configuration '{"IndexDocument":{"Suffix":"index.html"},"ErrorDocument":{"Key":"404.html"}}'
           fi
     - name: Deploy S3 Website
-      uses: rishabhrao/s3-website-https-pr-action@v1
-      if: ${{ github.event.pull_request.head.repo.full_name == 'vapor/blog' && github.actor != 'dependabot[bot]' }}
+      uses: brokenhandsio/s3-website-https-pr-action@1.0.0
       with:
         bucket-prefix: "vapor-blog-pull"
         folder-to-copy: "./Output"
+        bucket-region: "us-east-1"
