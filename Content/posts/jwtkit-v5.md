@@ -42,7 +42,7 @@ Afterwards you can start upgrading your code to conform to the new APIs. Firstly
 ```diff
 - let signers = JWTSigners()
 - signers.use(.hs256(key: "bar".bytes), kid: "foo")
-+ let keyCollection = await JWTKeyCollection().addHMAC("secret", digestAlgorithm: .sha256, kid: "foo")
++ let keyCollection = await JWTKeyCollection().add(hmac: "secret", digestAlgorithm: .sha256, kid: "foo")
 ```
 
 Signing now works like this:
@@ -72,7 +72,7 @@ and then migrate to the new API:
 
 ```diff
 - app.jwt.signers.use(.hs256(key: "secret"), kid: "foo")
-+ await app.jwt.keys.addHMAC(key: "secret", digestAlgorithm: .sha256, kid: "foo")
++ await app.jwt.keys.add(hmac: "secret", digestAlgorithm: .sha256, kid: "foo")
 ```
 
 After adding a key, you can create your payload like:
@@ -170,8 +170,8 @@ struct CustomParser: JWTParser {
 Then, you can simply use your new parser and serializer like this:
 
 ```swift
-let keyCollection = await JWTKeyCollection().addHMAC(
-    key: "secret", 
+let keyCollection = await JWTKeyCollection().add(
+    hmac: "secret", 
     digestAlgorithm: .sha256, 
     parser: CustomParser(), 
     serializer: CustomSerializer()
