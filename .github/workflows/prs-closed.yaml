@@ -20,5 +20,5 @@ jobs:
       - name: Delete Website Bucket
         uses: brokenhandsio/s3-website-pr-action@v2
         with:
-          bucket-prefix: "vapor-blog-pull"
+          bucket-prefix: "vapor-blog-pulls"
           bucket-region: "us-east-1"
