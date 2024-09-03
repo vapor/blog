@@ -12,7 +12,7 @@ After nearly 4 and a half years, and nearly 400 releases of the main Vapor proje
 
 Those changes in the ecosystem were substantial. `async`/`await` was introduced, `Sendable` support was added with the use of lots of locks. It wasn't pretty but it worked. We added async streaming bodies for the request and response, we have 0 warnings with Swift 6 strict concurrency checking.
 
-Now, it's time to look forward.
+Now, with the release time of Swift 6 known, it's time to look forward.
 
 ## Vapor 5
 
@@ -20,9 +20,9 @@ Now, it's time to look forward.
 
 Work has [now begun](https://github.com/vapor/vapor/pull/3229) on the next version of Vapor, Vapor 5. Whilst the APIs are very much up for change, we have some high-level goals we want to hit. Our absolute goal is for Vapor to not only be one of the de facto frameworks when building Swift applications, but a de facto choice for building a backend in _any_ language.
 
-Other goals include:
+The main goals include:
 
-* The same Vapor experience
+* The same, great, Vapor experience
 * Full structured concurrency
 * Full up-to-date ecosystem integration
 * Provide a foundation for a modern backend
@@ -30,13 +30,13 @@ Other goals include:
 
 ### The Same Vapor Experience
 
-Vapor has always been known for providing a great developer experience with an API that's easy to work with and _feels_ Swifty. We want to keep the same Vapor experience and make it even better. This includes APIs that make sense, documentation that is clear and tutorials that are easy to follow, based on our fantastic community.
+Vapor has always been known for providing a great developer experience with an API that's easy to work with and _feels_ Swifty. We want to ensure this stays the same and make it even better. This includes APIs that make sense, documentation that is clear and tutorials that are easy to follow, based on our fantastic community.
 
-This is what has made Vapor so popular and that is not going to change. And we want to try and build on Swift's ethos of progressive disclosure, so whilst it's easy to get started with Vapor and simple to write a basic API, the hooks to write more complicated and complex applications are there are you're not constrained by the framework.
+This is what has made Vapor so popular and that is not going to change. We want to try and build on Swift's ethos of progressive disclosure, so whilst it's easy to get started with Vapor and simple to write a basic API, the hooks to write more complicated and complex applications are there are you're not constrained by the framework.
 
 ### Full Structured Concurrency
 
-Vapor 3 introduced the `EventLoopFuture` and whilst it was the right direction to go it and set us up for the next several years, it was a hard learning curve. I remember writing the original Vapor book and trying to understand these new APIs and really struggling! Thankfully `async`/`await` arrived and solved the usability problem. But it was always bolted on to the existing `EventLoopFuture` APIs and not full structured concurrency.
+Vapor 3 introduced the `EventLoopFuture` and whilst it was the right direction to go in and set us up for the next several years, it was a hard learning curve. I remember writing the original Vapor book and trying to understand these new APIs and really struggling at the start! Thankfully `async`/`await` arrived and solved the usability problem. But it was always bolted on to the existing `EventLoopFuture` APIs and not full structured concurrency.
 
 With a new major version, we can change all of that! There will be no APIs in Vapor that return `EventLoopFuture` and we can provide a full structured concurrency experience. This will make it easier to write and reason about your code, provide a way more performant framework and make it safer to work in an async world.
 
@@ -44,7 +44,7 @@ This will start with Swift Service Lifecycle, which Vapor will integrate nativel
 
 ### Full Up-to-Date Ecosystem Integration
 
-As well as Swift service lifecycle, there are a number of new libraries we can take advantage of. There's a new HTTP Server we can build on top of, based on Adam's great work from Hummingbird. There's also a new Middleware package being worked on that will make it easy for us to share middlewares between different frameworks.
+As well as Swift service lifecycle, there are a number of new libraries we can take advantage of. There's a new HTTP Server we can build on top of, based on Adam's great work from Hummingbird. There's a new Middleware package being worked on that will make it easy for us to share middlewares between different frameworks.
 
 There's also the [new HTTP Types library](https://github.com/apple/swift-http-types) and Swift Argument Parser we can build on. Less stuff for Vapor to maintain and better integration with the rest of the Swift ecosystem - a win-win.
 
@@ -52,9 +52,21 @@ There's also the [new HTTP Types library](https://github.com/apple/swift-http-ty
 
 Vapor is used by companies big and small powers some very large applications. We want to ensure that Vapor not only works well for small, simple APIs but also the most demanding backends. This includes ensuring we have a full observability journey, with logging, metrics and tracing all supported out of the box.
 
-The new HTTP server will also allow us to provide first class support for gRPC, async body streaming and SSE. OpenAPI will also be a first class system, both from generating documentation from routes and generating routes from an OpenAPI spec.
+The new HTTP server will allow us to easily provide first class support for gRPC, async body streaming and SSE. OpenAPI will also be a first class system, both from generating documentation from routes and generating routes from an OpenAPI spec.
 
 And of course, with structured concurrency and Sendable, threading issues and data races are a thing of the past. Vapor 5 will provide a highly performant foundation to satisfy the most demanding users.
+
+### Rewrite of the Websocket and MultiparkKit APIs
+
+MultipartKit was split out into a separate package in the early days of Vapor 4 but before Swift Concurrency was a thing. Whilst it works well, we don't currently provide an API for streaming multipart bodies, either parsing requests or streaming responses. Which can make it hard to work with either very large files, or with APIs like `NIOFileSystem`. As part for Vapor 5, we'll be releasing a new version of MultipartKit that will provide a streaming API for multipart bodies.
+
+Websockets in Vapor have always been difficult when working with asynchronous code. That only got harder with Swift Concurrency and currently it does not work well in an async world. So we'll also be providing a new WebsocketKit release with an updated API. With committing to anything, I'd love to be able to do something like:
+
+```swift
+for await message in websocket {
+    // do something with message
+}
+```
 
 ## Next Steps and Timescales
 
