@@ -48,6 +48,8 @@ As well as Swift service lifecycle, there are a number of new libraries we can t
 
 There's also the [new HTTP Types library](https://github.com/apple/swift-http-types) and Swift Argument Parser we can build on. Less stuff for Vapor to maintain and better integration with the rest of the Swift ecosystem - a win-win.
 
+Finally, the new Swift Foundation will provide an even smaller footprint for applications and we can migrate to primarily using `FoundationEssentials`. Additionally, it will finally provide consistent behaviour across all platforms, reducing confusion for developers and furthering the goal of making Vapor a great choice for building backends in any language.
+
 ### Provide a Foundation for a Modern Backend
 
 Vapor is used by companies big and small and powers some very large applications. We want to ensure that Vapor not only works well for small, simple APIs but also the most demanding backends. This includes ensuring we have a full observability journey, with logging, metrics and tracing all supported out of the box.
