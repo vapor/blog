@@ -50,13 +50,13 @@ There's also the [new HTTP Types library](https://github.com/apple/swift-http-ty
 
 ### Provide a Foundation for a Modern Backend
 
-Vapor is used by companies big and small powers some very large applications. We want to ensure that Vapor not only works well for small, simple APIs but also the most demanding backends. This includes ensuring we have a full observability journey, with logging, metrics and tracing all supported out of the box.
+Vapor is used by companies big and small and powers some very large applications. We want to ensure that Vapor not only works well for small, simple APIs but also the most demanding backends. This includes ensuring we have a full observability journey, with logging, metrics and tracing all supported out of the box.
 
 The new HTTP server will allow us to easily provide first class support for gRPC, async body streaming and SSE. OpenAPI will also be a first class system, both from generating documentation from routes and generating routes from an OpenAPI spec.
 
 And of course, with structured concurrency and Sendable, threading issues and data races are a thing of the past. Vapor 5 will provide a highly performant foundation to satisfy the most demanding users.
 
-### Rewrite of the Websocket and MultiparkKit APIs
+### Rewrite of the WebSocket and MultipartKit APIs
 
 MultipartKit was split out into a separate package in the early days of Vapor 4 but before Swift Concurrency was a thing. Whilst it works well, we don't currently provide an API for streaming multipart bodies, either parsing requests or streaming responses. Which can make it hard to work with either very large files, or with APIs like `NIOFileSystem`. As part for Vapor 5, we'll be releasing a new version of MultipartKit that will provide a streaming API for multipart bodies.
 
@@ -78,7 +78,7 @@ The journey to Vapor 5 will follow a rough plan:
 3. Switch out the HTTP server to provide a full async stack
 4. Migrate to Swift Service Lifecycle
 5. Migrate to Swift Testing
-6. Rewrite the Websocket and MultiparkKit APIs
+6. Rewrite the WebSocket and MultipartKit APIs
 7. Investigate new APIs for routing, validation and any other areas we want to touch
 
 Note that Fluent 5 is a separate thing that Gwynne will discuss in a separate post, but it's likely that FluentKit 4 will work with Vapor 5.
