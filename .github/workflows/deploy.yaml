@@ -9,7 +9,6 @@ jobs:
   build:
     name: Build and deploy
     runs-on: ubuntu-latest
-    container: swift:5.9-jammy
     steps:
     - name: Checkout
       uses: actions/checkout@v4
