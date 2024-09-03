@@ -32,7 +32,7 @@ The main goals include:
 
 Vapor has always been known for providing a great developer experience with an API that's easy to work with and _feels_ Swifty. We want to ensure this stays the same and make it even better. This includes APIs that make sense, documentation that is clear and tutorials that are easy to follow, based on our fantastic community.
 
-This is what has made Vapor so popular and that is not going to change. We want to try and build on Swift's ethos of progressive disclosure, so whilst it's easy to get started with Vapor and simple to write a basic API, the hooks to write more complicated and complex applications are there are you're not constrained by the framework.
+This is what has made Vapor so popular and that is not going to change. We want to try and build on Swift's ethos of progressive disclosure, so whilst it's easy to get started with Vapor and simple to write a basic API, the hooks to write more complicated and complex applications are there and you're not constrained by the framework.
 
 ### Full Structured Concurrency
 
