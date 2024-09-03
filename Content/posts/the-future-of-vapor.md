@@ -26,7 +26,7 @@ The main goals include:
 * Full structured concurrency
 * Full up-to-date ecosystem integration
 * Provide a foundation for a modern backend
-* Rewrite of the Websocket and the MutliparkKit APIs
+* Rewrite of the WebSocket and the MultipartKit APIs
 
 ### The Same Vapor Experience
 
