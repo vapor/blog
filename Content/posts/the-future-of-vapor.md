@@ -62,7 +62,7 @@ And of course, with structured concurrency and Sendable, threading issues and da
 
 MultipartKit was split out into a separate package in the early days of Vapor 4 but before Swift Concurrency was a thing. Whilst it works well, we don't currently provide an API for streaming multipart bodies, either parsing requests or streaming responses. Which can make it hard to work with either very large files, or with APIs like `NIOFileSystem`. As part for Vapor 5, we'll be releasing a new version of MultipartKit that will provide a streaming API for multipart bodies.
 
-Websockets in Vapor have always been difficult when working with asynchronous code. That only got harder with Swift Concurrency and currently it does not work well in an async world. So we'll also be providing a new WebsocketKit release with an updated API. With committing to anything, I'd love to be able to do something like:
+Websockets in Vapor have always been difficult when working with asynchronous code. That only got harder with Swift Concurrency and currently it does not work well in an async world. So we'll also be providing a new WebsocketKit release with an updated API. Without committing to anything, I'd love to be able to do something like:
 
 ```swift
 for await message in websocket {
