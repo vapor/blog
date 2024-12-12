@@ -1,5 +1,5 @@
 ---
-date: 2024-12-08 14:00
+date: 2024-12-12 23:00
 description: Embracing more parts of the Swift on Server ecosystem as we progress towards Vapor 5
 tags: framework, vapor5, ecosystem
 image: /static/images/posts/Vapor5.png
