@@ -11,6 +11,7 @@ jobs:
   deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
+    container: swift:5.10
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
