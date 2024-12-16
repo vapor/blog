@@ -2,7 +2,7 @@
 date: 2024-12-16 14:00
 description: Getting started with Vapor 4 and OpenTelemetry
 tags: vapor, otel, prometheus, grafana
-image: /static/images/posts/otel-integration.svg
+image: /static/images/posts/otel-integration-arch.svg
 author: Paul
 authorImageURL: /author-images/paul.jpg
 ---
@@ -23,7 +23,7 @@ In more practical terms, observability is made up of
 
 Before starting, let's give a small overview of our end goal. In Vapor 4, logging is automatic, and this post's aim is to add metrics collection to our system, but collecting tracing data is not much different. 
 
-![Vapor OTel Architecture](/static/images/posts/otel-integration.svg)
+![Vapor OTel Architecture](/static/images/posts/otel-integration-arch.svg)
 
 As you can see here there's a bunch of things going on, but we'll get into each of them. 
 
