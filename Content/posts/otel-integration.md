@@ -1,11 +1,13 @@
 ---
 date: 2024-12-16 14:00
 description: Getting started with Vapor 4 and OpenTelemetry
-tags: vapor, otel, metrics
+tags: vapor, otel, prometheus, grafana
 image: /static/images/posts/otel-integration-arch.svg
 author: Paul
 authorImageURL: /author-images/paul.jpg
 ---
+
+# Instrumenting Vapor 4 with Swift OTel
 
 This tutorial will guide you through setting up a Vapor 4 application with OpenTelemetry, collecting metrics about the application and its queue workers, and visualizing the data in Grafana.
 
@@ -88,9 +90,9 @@ and finally add the metrics-emitting route:
 
 ```swift
 router.get("metrics") { _ in
-    var buffer = [UInt8]()
-    (MetricsSystem.factory as? PrometheusMetricsFactory)?.registry.emit(into: &buffer)
-    return String(bytes: buffer, encoding: .utf8) ?? ""
+	var buffer = [UInt8]()
+	(MetricsSystem.factory as? PrometheusMetricsFactory)?.registry.emit(into: &buffer)
+	return String(bytes: buffer, encoding: .utf8) ?? ""
 }
 ```
 
