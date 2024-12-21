@@ -9,8 +9,8 @@ on:
 
 jobs:
   deploy:
-    name: Build and Deploy
-    runs-on: ubuntu-latest
+    name: Build and Deploy PR
+    runs-on: ubuntu-22.04
     container: swift:5.10
     steps:
       - name: Checkout code
