@@ -13,19 +13,21 @@ This tutorial will guide you through setting up a Vapor 4 application with OpenT
 
 ## Observability
 
-In complex systems it's often a good thing to be able to figure out why the system is behaving in a certain way without having to look into the code. When we want to be able to have a more high level view of what happens in the application without opening up the black box, we're looking for observability. Observability is the concept of collecting data about a system's execution and internal state, based on the data it generates.
+In complex systems it's often a good thing to be able to figure out why the system is behaving in a certain way without having to look into the code. When we want to be able to have a more high level view of what happens in the application without opening up the black box, we're looking for **observability**. Observability is the concept of collecting information about a system's execution and internal state, based on the data it generates.
 
 In more practical terms, observability is made up of 
 
-- Logs: exact details of an event, e.g an HTTP request, its method, time etc.;
-- Metrics: instant measurement representing some system state, such as number of HTTP requests/second;
-- Traces: a series of breadcrumbs which, if tied together, show the flow of data (such as a request) across the application, for instance how it gets routed across various internal components in the application.
+- **Logs**: exact details of an event, e.g an HTTP request, its method, time etc.;
+- **Metrics**: instant measurement representing some system state, such as number of HTTP requests/second;
+- **Traces**: a series of breadcrumbs which, if tied together, show the flow of data (such as a request) across the application, for instance how it gets routed across various internal components in the application.
 
 **Instrumenting** a system means adding observability capabilities. The idea is the code emits the data which then must be collected and sent to a backend observability system. 
 
-Before starting, let's give a small overview of our end goal. In Vapor 4, logging is automatic, and this post's aim is to add metrics collection to our system, but collecting tracing data is not much different. 
+Before starting, let's give a small overview of our end goal. In Vapor 4, logging is integrated in the framework, and this post's aim is to add metrics collection to our system, but collecting tracing data is not much different. 
 
 ![Vapor OTel Architecture](/static/images/posts/otel-integration-arch.svg)
+
+&nbsp;
 
 As you can see here there's a bunch of things going on, but we'll get into each of them. 
 
@@ -51,8 +53,6 @@ Our example uses two different approaches:
 
 1. The first one is the HTTP server which provides a route that the Prometheus instance can periodically make a request to;
 2. The second one is the queue workers periodically pushing the data to a collector, and the Prometheus instance scraping the collector.
-
-Let's dive into both approaches.
 
 #### HTTP Server
 
@@ -225,14 +225,14 @@ This is a bit of a hack to be able to use the swift-service-lifecycle approach s
 This is enough to get the queue workers to start exporting metrics to Prometheus via the OpenTelemetry Collector. However we need to configure the collector to actually collect the data and send it to Prometheus. We can do this by creating a `collector-config.yml` file in the same directory as the `docker-compose.yml` file:
 
 ```yaml
-# Receive metrics on localhost:4317
+# Receive metrics on :4317
 receivers:
   otlp:
     protocols:
       grpc:
         endpoint: otel-collector:4317
 
-# Open up localhost:8888 for Prometheus to scrape
+# Expose :7070 for Prometheus to scrape
 exporters:
   prometheus:
     endpoint: otel-collector:7070
@@ -253,8 +253,8 @@ otel-collector:
   image: otel/opentelemetry-collector-contrib
   command: ["--config=/etc/otel-collector-config.yml"]
   ports:
-    - "4317:4317" # For receiving metrics
-    - "7070:7070" # For Prometheus to scrape
+    - "4317:4317"
+    - "7070:7070"
   volumes:
     - "./otel-collector-config.yml:/etc/otel-collector-config.yml"
 ```
@@ -266,7 +266,6 @@ prometheus:
   image: prom/prometheus
   depends_on:
     - otel-collector
-  # ...
 ```
 
 Now, the queue workers should be exporting metrics to the OpenTelemetry Collector, which in turn should be exporting them to Prometheus. Prometheus should be scraping the `/metrics` endpoint on the HTTP server, and the queue workers should be exporting metrics to Prometheus via the OpenTelemetry Collector.
@@ -300,4 +299,5 @@ grafana:
     - ./grafana.yml:/etc/grafana/provisioning/datasources/grafana.yml
 ```
 
-And that's it! Once we start the Docker Compose stack, we should be able to access Grafana at `http://localhost:3000` and start creating dashboards to visualize the data.
+And that's it! Once the Docker Compose stack is running, you should be able to access Grafana at `http://localhost:3000` and start creating dashboards to visualize the data.
+You'll have to create your own dashboards, but you can find a lot of examples online.
