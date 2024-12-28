@@ -19,7 +19,7 @@ In more practical terms, observability is made up of
 
 - **Logs**: exact details of an event, e.g an HTTP request, its method, time etc.;
 - **Metrics**: instant measurement representing some system state, such as number of HTTP requests/second;
-- **Traces**: a series of breadcrumbs which, if tied together, show the flow of data (such as a request) across the application, for instance how it gets routed across various internal components in the application.
+- **Traces**: a series of breadcrumbs which, if tied together, show the flow of data (such as a request) across the application, for instance how it gets routed across various internal components in the application, or across different services.
 
 **Instrumenting** a system means adding observability capabilities. The idea is the code emits the data which then must be collected and sent to a backend observability system. 
 
