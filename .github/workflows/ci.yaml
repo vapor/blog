@@ -8,10 +8,11 @@ on:
       - main
 
 jobs:
-  deploy:
-    name: Build and Deploy
+  lint:
+    # We need to use 5.10 for Publish (Swift 6 breaks) and that doesn't have an up to date version
+    # of python so run lint in a separate job
+    name: Lint
     runs-on: ubuntu-latest
-    container: swift:5.10
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -23,6 +24,14 @@ jobs:
         uses: ScottBrenner/cfn-lint-action@v2
       - name: Run CloudFormation linter
         run: cfn-lint -t stack.yaml
+  deploy:
+    needs: lint
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    container: swift:5.10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Build site   
         run: swift run
       - name: Deploy S3 Website
