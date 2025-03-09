@@ -48,9 +48,13 @@ The new default console output is much more concise.
 There's also a new **hidden** `--dump-variables` flag, which dumps the template variables as JSON.
 This can be useful when integrating the Toolbox with other tools, say for example a GUI or (spoiler alert!) a VS Code extension.
 
-> Note: the `--dump-variables` flag is experimental and unstable. Future releases may change its behavior or remove it.
+> Note: The `--dump-variables` flag is experimental and unstable. Future releases may change its behavior or remove it.
 
-Despite the fact that the flags and manifest file structure haven't changed and should be mostly backward compatible, this new version of the Toolbox has been released as a major version bump, so we don't guarantee full backwards compatibility.
+Despite the fact that the manifest file structure hasn't changed much and should be mostly backward compatible, there might be some minor changes with the flags, for example the short version of the `--template` flag has changed from `-T` to `-t`.
+
+This new version of the Toolbox has therefore been released as a major version bump and we don't guarantee full backwards compatibility.
+
+Take a look at the `--help` screen for the `new` command to see all the available flags and options.
 
 ## Wrapping up
 
