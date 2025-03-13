@@ -48,7 +48,7 @@ This can be useful when integrating the Toolbox with other tools, say for exampl
 
 > Note: The `--dump-variables` flag is experimental and unstable. Future releases may change its behavior or remove it.
 
-Despite the fact that the manifest file structure hasn't changed much and should be mostly backward compatible, there might be some minor changes with the flags, for example the short version of the `--template` flag has changed from `-T` to `-t`.
+Despite the fact that the manifest file structure hasn't changed much and should be mostly backward compatible, there are some minor changes with the flags; for example, the short version of the `--template` flag has changed from `-T` to `-t`.
 
 This new version of the Toolbox has therefore been released as a major version bump and we don't guarantee full backwards compatibility.
 
