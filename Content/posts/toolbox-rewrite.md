@@ -36,7 +36,7 @@ The new Toolbox is written in Swift 6, so we can use the latest language feature
 
 ## New features and backwards compatibility
 
-All templates that worked with the old Toolbox, including [Vapor's official one](https://github.com/vapor/template) and custom ones, should continue to work with the new rewrite.
+All templates that worked with the old Toolbox, including [Vapor's official template](https://github.com/vapor/template) and all existing custom templates, should continue to work with the new version.
 
 The defining characteristic of a Vapor Toolbox template is the presence of a YAML manifest file, which lists the user input variables and specifies the Mustache template files that will be rendered using those values, and the overall structure of this file hasn't changed.
 
