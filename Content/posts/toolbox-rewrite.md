@@ -57,9 +57,8 @@ Take a look at the `--help` screen for the `new` command to see all the availabl
 ## Wrapping up
 
 The Vapor Toolbox rewrite is available as a new release on macOS (distributed via Homebrew as always) and Linux, where you'll have to build it from source.
-You can find all the instructions on how to install it in the Toolbox's [README](https://github.com/vapor/toolbox/blob/main/README.md).
+You can find all the instructions on how to install it in the Toolbox's [README](https://github.com/vapor/toolbox/blob/main/README.md). There you'll also find instructions on how to create your own custom templates.
 
-There you'll also find the instructions on how to create your own custom templates.
 Toolbox templates are very powerful, and they can be used to scaffold any kind of project, not just Vapor ones.
 If you have a kind of project that you find yourself creating over and over again, consider creating a Toolbox template for it!
 
