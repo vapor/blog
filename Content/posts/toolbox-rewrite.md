@@ -62,6 +62,6 @@ You can find all the instructions on how to install it in the Toolbox's [README]
 Toolbox templates are very powerful, and they can be used to scaffold any kind of project, not just Vapor ones.
 If you have a kind of project that you find yourself creating over and over again, consider creating a Toolbox template for it!
 
-Right now in our official Vapor template we're using just the tip of the iceberg, but with the new functionalities of the Toolbox we can add more features and improvements to it, so expect some updates soon!
+Right now, the official Vapor template is using only the tip of the iceberg feature-wise, but with the new functionality added to the Toolbox in this rewrite we can add more features and improvements to it, so expect some updates soon!
 
 This rewrite is another step towards embracing the Swift ecosystem, while also providing the best tools for the Vapor community.
