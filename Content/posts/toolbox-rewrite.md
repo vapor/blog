@@ -34,6 +34,8 @@ To work around this limitation, we have implemented [a solution](https://www.ack
 
 The new Toolbox is written in Swift 6, so we can use the latest language features and improvements, such as Swift Testing for unit tests and Swift Format for code linting.
 
+This rewrite is another step towards embracing the Swift ecosystem, while also providing the best tools for the Vapor community.
+
 ## New features and backwards compatibility
 
 All templates that worked with the old Toolbox, including [Vapor's official template](https://github.com/vapor/template) and all existing custom templates, should continue to work with the new version.
@@ -63,5 +65,3 @@ Toolbox templates are very powerful, and they can be used to scaffold any kind o
 If you have a kind of project that you find yourself creating over and over again, consider creating a Toolbox template for it!
 
 Right now, the official Vapor template is using only the tip of the iceberg feature-wise, but with the new functionality added to the Toolbox in this rewrite we can add more features and improvements to it, so expect some updates soon!
-
-This rewrite is another step towards embracing the Swift ecosystem, while also providing the best tools for the Vapor community.
