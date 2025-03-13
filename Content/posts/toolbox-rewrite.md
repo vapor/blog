@@ -38,9 +38,7 @@ The new Toolbox is written in Swift 6, so we can use the latest language feature
 
 All templates that worked with the old Toolbox, including [Vapor's official template](https://github.com/vapor/template) and all existing custom templates, should continue to work with the new version.
 
-The defining characteristic of a Vapor Toolbox template is the presence of a YAML manifest file, which lists the user input variables and specifies the Mustache template files that will be rendered using those values, and the overall structure of this file hasn't changed.
-
-However, we have added new functionalities to it, such as allowing nested variables for conditional rendering of files and directories, and the possibility to define a custom path to the manifest file via the new `--manifest` flag (by default it's `manifest.yml`, as before).
+The defining characteristic of a Vapor Toolbox template is the presence of a YAML manifest file, which lists the user input variables and specifies the Mustache template files that will be rendered using those values, and the overall structure of this file hasn't changed. However, we have added new functionality to it, such as allowing nested variables for conditional rendering of files and directories, and the ability to define a custom path to the manifest file via the new `--manifest` flag (the default remains `manifest.yml`, as before).
 
 We have also added a new `--verbose` flag to the `new` command, which when enabled will print output similar to the old Toolbox.
 The new default console output is much more concise.
