@@ -7,7 +7,7 @@ authorImageURLs: /author-images/francesco.jpg
 ---
 # The new Vapor Toolbox
 
-## The state of the Toolbox
+## The Old Toolbox
 
 The Vapor Toolbox is a command line tool that used to help with common tasks when working with Vapor, such as creating, building, running and deploying projects.
 
