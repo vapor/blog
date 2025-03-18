@@ -1,11 +1,13 @@
 ---
-date: 2025-03-07 16:00
+date: 2025-03-18 16:00
 description: The Toolbox has been rewritten using the best tools in the ecosystem, and it's now more powerful than ever!
 tags: toolbox, templates, ecosystem
 authors: Francesco
 authorImageURLs: /author-images/francesco.jpg
 ---
 # The new Vapor Toolbox
+
+We are happy to announce that the Vapor Toolbox [has been rewritten](https://github.com/vapor/toolbox/releases/tag/19.0.0) from the ground up, using the best tools in the ecosystem and the latest Swift features.
 
 ## The Old Toolbox
 
@@ -21,8 +23,6 @@ The Toolbox was built using [`ConsoleKit`](https://github.com/vapor/console-kit)
 The argument handling capabilities of `ConsoleKit` are now considered obsolete, and it's recommended to use Swift Argument Parser instead.
 
 ## Rewriting the Toolbox
-
-We are happy to announce that the Vapor Toolbox [has been rewritten](https://github.com/vapor/toolbox/pull/471) from the ground up, using the best tools in the ecosystem and the latest Swift features.
 
 All deprecated subcommands have been removed, and the only feature left is the `new` command.
 
