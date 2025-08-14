@@ -7,7 +7,7 @@ authorImageURL: /author-images/tim.jpg
 ---
 # How we approach releases at Vapor
 
-I've had some interesting conversations recently at why we do releases the way we do in Vapor so thought it would be worth sharing. 
+I've had some interesting conversations recently about why we do releases the way we do in Vapor, and I thought it would be worth sharing some of the details.
 
 ## Vapor Releases
 
