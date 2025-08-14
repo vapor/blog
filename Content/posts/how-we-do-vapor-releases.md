@@ -14,7 +14,7 @@ I've had some interesting conversations recently about why we do releases the wa
 Our release process is generally pretty simple. For everything outside of new major versions, we treat each pull request as a new release. An accepted pull request will get tagged with one of three labels:
 
 * `no-release-needed` - this usually encompasses things like test changes, API documentation updates, updates to CI or the README, or revisions to governance files. Basically anything that doesn't touch `Sources` and wouldn't result in any changes for people pulling in the code. 
-* `semver-patch` - in following with SemVer guidelines this would be bug fixes that don't have an effect on the public API. 
+* `semver-patch` - in accordance with [SemVer](https://semver.org) guidelines, "patch" releases are typically limited to bug fixes or other functional changes which neither add new public APIs nor break the behavior of existing ones. 
 * `semver-minor` - changes that would introduce new APIs that can be adopted. 
 
 The pull request will go through a review by one of the maintainers/core team, and obviously must pass all the tests in CI across the different platforms and Swift versions we support. Once that's all green, we merge the PR and use [Penny](), Vapor's bot, to create a release. The pull request title and body form the release title and body (which is why you might see us edit them if you submit a PR) and if the PR is tagged with SemVer patch or minor, Penny works out the release number, tags the code, creates a release in GitHub and notifies Discord. The only exception to this is security releases because GH doesn't support automations on security forks yet.
