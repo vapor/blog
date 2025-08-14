@@ -11,7 +11,7 @@ I've had some interesting conversations recently about why we do releases the wa
 
 ## Vapor Releases
 
-Our release process is generally pretty simple. For everything outside of new major versions we treat each pull request as a new release. Each pull request will get tagged with one of three labels:
+Our release process is generally pretty simple. For everything outside of new major versions, we treat each pull request as a new release. An accepted pull request will get tagged with one of three labels:
 
 * `no-release-needed` - this usually encompasses things like test changes, updates to CI or the README or updates to governance files. Basically anything that doesn't touch `Sources` and wouldn't result in any changes for people pulling in the code. 
 * `semver-patch` - in following with SemVer guidelines this would be bug fixes that don't have an effect on the public API. 
