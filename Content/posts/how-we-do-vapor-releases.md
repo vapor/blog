@@ -17,9 +17,9 @@ Our release process is generally pretty simple. For everything outside of new ma
 * `semver-patch` - in accordance with [SemVer](https://semver.org) guidelines, "patch" releases are typically limited to bug fixes or other functional changes which neither add new public APIs nor break the behavior of existing ones. 
 * `semver-minor` - changes that would introduce new APIs that can be adopted. 
 
-The pull request will go through a review by one of the maintainers/core team, and obviously must pass all the tests in CI across the different platforms and Swift versions we support. Once that's all green, we merge the PR and use [Penny](https://github.com/vapor/penny-bot), Vapor's bot, to create a release. The pull request title and body form the release title and body (which is why you might see us edit them if you submit a PR) and if the PR is tagged with SemVer patch or minor, Penny works out the release number, tags the code, creates a release in GitHub and notifies Discord. The only exception to this is security releases because GH doesn't support automations on security forks yet.
+The pull request will go through a review by one of the maintainers/core team, and obviously must pass all the tests in CI across the different platforms and Swift versions we support. Once that's all green, we merge the PR and use [Penny](https://github.com/vapor/penny-bot), Vapor's bot, to create a release. The pull request title and description are used as the release's title and body (which is why you might see us edit them if you submit a PR), and if the PR is tagged with `semver-patch` or `semver-minor`, Penny works out the release number, tags the code, creates a release in GitHub and and posts a message in the Discord server. The only exception to this is security releases because GH doesn't support automations on security forks yet.
 
-When I originally started contributing to Vapor, I really wasn't a fan of how releases were run. With a flurry of activity, we could have a few releases a day, or several in a week. And the numbers could get quite big (at the time of writing Vapor's minor version is on 115). But these days I really value the release process. It provides a lot of benefits and makes life as an open source project easier.
+When I originally started contributing to Vapor, I really wasn't a fan of how releases were run. With a flurry of activity, we could have a few releases a day, or several in a week. And the numbers could get quite big (at the time of writing Vapor's minor version is on 115). But these days I really value the release process. It provides a lot of benefits and makes life as an open source project maintainer easier.
 
 ## What prompted this
 
@@ -27,7 +27,7 @@ Vapor's release process has been this way for several years now. In the beginnin
 
 ## Saving Time
 
-Open source development is always time constrained, let alone when we have 30+ packages to maintain and coordinate releases across. So anything we can do to save time is a win, especially tasks that take us away from actually improving Vapor. Releases are a great candidate to automate and save time and it makes releases such as easy process. Merge a PR and that’s it - it’s almost the holy grail of modern software development and as close as we can get to continuous delivery as possible as a framework. 
+Open source development is always time constrained, let alone when we have 30+ packages to maintain and coordinate releases across. So anything we can do to save time is a win, especially tasks that take us away from actually improving Vapor. Releases are a great candidate to automate and save time and it makes releases such an easy process. Merge a PR and that’s it - it’s almost the holy grail of modern software development and as close as we can get to continuous delivery as possible as a framework. 
 
 ## Catching Bugs
 
