@@ -11,7 +11,7 @@ jobs:
   lint-and-deploy:
     name: Lint, Build, and Deploy
     runs-on: ubuntu-latest
-    permissions: { id-token: write, contents: read }
+    permissions: { id-token: write, deployments: write, contents: read }
     steps:
       - name: Set up Python
         uses: actions/setup-python@v6
