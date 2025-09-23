@@ -10,6 +10,8 @@ jobs:
     name: Build and deploy
     runs-on: ubuntu-latest
     permissions: { id-token: write, contents: read }
+    env:
+      AWS_REGION: 'eu-west-2'
     steps:
       - name: Install latesst Swift
         uses: vapor/swiftly-action@v0.2
@@ -27,6 +29,7 @@ jobs:
           aws-region: ${{ vars.OIDC_ROLE_REGION }}
       - name: Deploy to AWS Cloudformation
         id: clouddeploy
+        if: steps.cred.outcome == 'success'
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
           name: vapor-blog-stack
@@ -36,31 +39,18 @@ jobs:
             DomainName=blog.vapor.codes,
             S3BucketName=vapor-blog-site,
             AcmCertificateArn=${{ secrets.CERTIFICATE_ARN }}
-        if: steps.cred.outcome == 'success'
       - name: Deploy Main Site to S3
-        id: s3deploy
-        uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --acl public-read --follow-symlinks --delete --exclude 'feed.rss'
-        env:
-          AWS_S3_BUCKET: 'vapor-blog-site'
-          AWS_REGION: 'eu-west-2'
-          SOURCE_DIR: 'Output'
         if: steps.clouddeploy.outcome == 'success'
+        run: |
+          aws s3 sync ./Output 's3://vapor-blog-site/' --no-progress --acl public-read --follow-symlinks --delete --exclude 'feed.rss'
       # This is done as a separate step to ensure the RSS feed is served with the correct content type
       - name: Deploy RSS Feed to S3
-        id: s3deploy-rss
-        uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --acl public-read --follow-symlinks --delete --exclude '*' --include 'feed.rss' --content-type 'application/rss+xml'
-        env:
-          AWS_S3_BUCKET: 'vapor-blog-site'
-          AWS_REGION: 'eu-west-2'
-          SOURCE_DIR: 'Output'
         if: steps.clouddeploy.outcome == 'success'
+        run: |
+          aws s3 sync ./Output 's3://vapor-blog-site/' --no-progress --acl public-read --follow-symlinks --delete --exclude '*' --include 'feed.rss' --content-type 'application/rss+xml'
       - name: Invalidate CloudFront
+        if: steps.clouddeploy.outcome == 'success'
         uses: awact/cloudfront-action@master
         env:
           SOURCE_PATH: '/*'
-          AWS_REGION: 'eu-west-2'
           DISTRIBUTION_ID: ${{ secrets.VAPOR_BLOG_DISTRIBUTION_ID }}
