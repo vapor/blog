@@ -21,7 +21,7 @@ It can also be used with VS Code in the browser, but only for some Leaf-related 
 You can create a new Vapor project directly from the Welcome page of VS Code or via the Command Palette.
 Click on the `Create Vapor Project` button on the Welcome page or search for the `Vapor: Create New Project...` command in the Command Palette to get started.
 
-By default it will use [the default template](https://github.com/vapor/template) provided by Vapor, but you can also choose a custom template by providing its URL in the extension settings.
+By default, it will use [the standard template](https://github.com/vapor/template) provided by Vapor, but you can also choose a custom template by providing its URL in the extension settings.
 
 It will prompt you to select a folder where the project will be created and its name, and then it will ask you for the variables defined in the template, such as the database driver to use and whether to include Leaf.
 
