@@ -25,7 +25,7 @@ By default, it will use [the standard template](https://github.com/vapor/templat
 
 You will be prompted for the name and location of a folder where the project will be created, and then it will ask you for the variables defined in the template, such as the database driver to use and whether to include Leaf.
 
-This feature requires the Vapor Toolbox to be installed on your machine. You can find installation instructions in the [Vapor Toolbox page](https://github.com/vapor/toolbox).
+This feature requires the Vapor Toolbox to be installed on your machine. You can find installation instructions on the [Vapor Toolbox page](https://github.com/vapor/toolbox).
 
 ### Leaf Language Support
 
