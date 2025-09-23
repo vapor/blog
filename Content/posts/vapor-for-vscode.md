@@ -7,7 +7,7 @@ authorImageURLs: /author-images/francesco.jpg
 ---
 # Meet Vapor for VS Code
 
-Over the past six months, we have been working on [an extension](https://marketplace.visualstudio.com/items?itemName=Vapor.vapor-vscode) for VS Code to assist in the development of Vapor applications.
+Over the past six months, we have been working on [a Visual Studio Code extension](https://marketplace.visualstudio.com/items?itemName=Vapor.vapor-vscode) to assist in the development of Vapor applications.
 Let's explore its features and how it can enhance your development experience.
 
 ## Features
