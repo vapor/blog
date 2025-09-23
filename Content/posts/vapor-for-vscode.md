@@ -1,0 +1,51 @@
+---
+date: 2025-09-23 16:00
+description: The official Vapor extension for Visual Studio Code is here!
+tags: vapor, toolbox, templates, leaf, fluent, vscode
+authors: Francesco
+authorImageURLs: /author-images/francesco.jpg
+---
+# Meet Vapor for VS Code
+
+Over the past six months, we have been working on [a Visual Studio Code extension](https://marketplace.visualstudio.com/items?itemName=Vapor.vapor-vscode) to assist in the development of Vapor applications.
+Let's explore its features and how it can enhance your development experience.
+
+## Features
+
+The extension offers a variety of features related to Vapor, Fluent, and Leaf.
+It supports all platforms supported by Vapor, including macOS and Linux.
+It can also be used with VS Code in the browser, but only for some Leaf-related features.
+
+### Project Creation
+
+You can create a new Vapor project directly from the Welcome page of VS Code or via the Command Palette.
+Click on the `Create Vapor Project` button on the Welcome page or search for the `Vapor: Create New Project...` command in the Command Palette to get started.
+
+By default, it will use [the standard template](https://github.com/vapor/template) provided by Vapor, but you can also choose a custom template by providing its URL in the extension settings.
+
+You will be prompted for the name and location of a folder where the project will be created, and then it will ask you for the variables defined in the template, such as the database driver to use and whether to include Leaf.
+
+This feature requires the Vapor Toolbox to be installed on your machine. You can find installation instructions on the [Vapor Toolbox page](https://github.com/vapor/toolbox).
+
+### Leaf Language Support
+
+The extension defines the Leaf language in VS Code, adding Leaf file icons and such, and provides several features to assist in [Leaf](https://docs.vapor.codes/leaf/getting-started/) template development:
+
+- **Syntax Highlighting**: Leaf files will have proper syntax highlighting for Leaf tags, added on top of existing HTML syntax highlighting. This makes it easier to read and write HTML templates, even when working with CSS and JavaScript with Leaf tags embedded in them. This feature is available both in local and browser-based VS Code.
+- **Formatter**: You can format your Leaf files using the `Format Document` command in VS Code. This will ensure that your templates are consistent, with the proper indentation and spacing for both Leaf and HTML tags. You can also format just a selected portion of the file using the `Format Selection` command and enable the `Format on Save` option in VS Code settings.
+- **Emmet Support**: The extension supports [Emmet](https://code.visualstudio.com/docs/languages/emmet) abbreviations and snippets in Leaf files, allowing you to quickly generate HTML structures.
+
+### Snippets
+
+The extension includes a collection of snippets for common Vapor, Fluent, and Leaf constructs, such as Vapor endpoints and middleware, Fluent models and migrations, and Leaf default tags and control flow statements.
+
+Snippets will appear as IntelliSense suggestions as you type a snippet prefix in a Swift or Leaf file, or you can search for them using the `Insert Snippet` command in the Command Palette.
+
+## Wrapping Up
+
+The "Vapor for VS Code" extension is available on the Visual Studio Code Marketplace.
+You can find its source code on [GitHub](https://github.com/vapor-community/vapor-vscode).
+
+If you have any feedback or suggestions for new features, please open an issue on the GitHub repository or reach out to us on the [Vapor Discord](https://vapor.team/).
+
+We hope this extension will make your Vapor development experience in Visual Studio Code the best it can be!
