@@ -1,7 +1,7 @@
 ---
 date: 2025-09-23 16:00
 description: The official Vapor extension for Visual Studio Code is here!
-tags: vapor, toolbox, templates, leaf, vscode
+tags: vapor, toolbox, templates, leaf, fluent, vscode
 authors: Francesco
 authorImageURLs: /author-images/francesco.jpg
 ---
@@ -12,7 +12,7 @@ Let's explore its features and how it can enhance your development experience.
 
 ## Features
 
-The extension offers a variety of features related to Vapor and Leaf.
+The extension offers a variety of features related to Vapor, Fluent, and Leaf.
 It supports all platforms supported by Vapor, including macOS and Linux.
 It can also be used with VS Code in the browser, but only for some Leaf-related features.
 
@@ -37,9 +37,9 @@ The extension defines the Leaf language in VS Code, adding Leaf file icons and s
 
 ### Snippets
 
-The extension includes a collection of snippets for common Vapor and Leaf constructs, such as Vapor endpoints and middleware in Swift files, and default tags and control flow statements in Leaf files.
+The extension includes a collection of snippets for common Vapor, Fluent, and Leaf constructs, such as Vapor endpoints and middleware, Fluent models and migrations, and Leaf default tags and control flow statements.
 
-Snippets will appear as IntelliSense suggestions as you type a snippet prefix, or you can search for them using the `Insert Snippet` command in the Command Palette.
+Snippets will appear as IntelliSense suggestions as you type a snippet prefix in a Swift or Leaf file, or you can search for them using the `Insert Snippet` command in the Command Palette.
 
 ## Wrapping Up
 
@@ -48,4 +48,4 @@ You can find its source code on [GitHub](https://github.com/vapor-community/vapo
 
 If you have any feedback or suggestions for new features, please open an issue on the GitHub repository or reach out to us on the [Vapor Discord](https://vapor.team/).
 
-We hope this extension will make your Vapor and Leaf development experience in Visual Studio Code the best it can be!
+We hope this extension will make your Vapor development experience in Visual Studio Code the best it can be!
