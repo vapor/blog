@@ -48,4 +48,4 @@ You can find its source code on [GitHub](https://github.com/vapor-community/vapo
 
 If you have any feedback or suggestions for new features, please open an issue on the GitHub repository or reach out to us on the [Vapor Discord](https://vapor.team/).
 
-We hope this extension will make your Vapor and Leaf development experience on Visual Studio Code the best it can be!
+We hope this extension will make your Vapor and Leaf development experience in Visual Studio Code the best it can be!
