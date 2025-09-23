@@ -8,39 +8,37 @@ on:
       - main
 
 jobs:
-  lint:
-    # We need to use 5.10 for Publish (Swift 6 breaks) and that doesn't have an up to date version
-    # of python so run lint in a separate job
-    name: Lint
+  lint-and-deploy:
+    name: Lint, Build, and Deploy
     runs-on: ubuntu-latest
+    permissions: { id-token: write, deployments: write, contents: read }
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v5
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.10'
+          python-version: '3.12'
+      - name: Install latesst Swift
+        uses: vapor/swiftly-action@v0.2
+        with:
+          toolchain: latest
+      - name: Checkout code
+        uses: actions/checkout@v5
       - name: Setup CloudFormation linter
         uses: ScottBrenner/cfn-lint-action@v2
       - name: Run CloudFormation linter
         run: cfn-lint -t stack.yaml
-  deploy:
-    needs: lint
-    name: Build and Deploy
-    runs-on: ubuntu-latest
-    container: swift:5.10
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v5
       - name: Build site   
         run: swift run
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: ${{ vars.OIDC_ROLE_ARN }}
+          aws-region: ${{ vars.OIDC_ROLE_REGION }}
       - name: Deploy S3 Website
         if: ${{ github.event.pull_request.head.repo.full_name == 'vapor/blog' && github.actor != 'dependabot[bot]' }}
         uses: brokenhandsio/s3-website-pr-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.BLOG_DEPLOYER_AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.BLOG_DEPLOYER_AWS_SECRET_ACCESS_KEY }}
         with:
           bucket-prefix: "vapor-blog-pulls"
           folder-to-copy: "./Output"
