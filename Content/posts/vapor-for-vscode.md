@@ -23,7 +23,7 @@ Click on the `Create Vapor Project` button on the Welcome page or search for the
 
 By default, it will use [the standard template](https://github.com/vapor/template) provided by Vapor, but you can also choose a custom template by providing its URL in the extension settings.
 
-It will prompt you to select a folder where the project will be created and its name, and then it will ask you for the variables defined in the template, such as the database driver to use and whether to include Leaf.
+You will be prompted for the name and location of a folder where the project will be created, and then it will ask you for the variables defined in the template, such as the database driver to use and whether to include Leaf.
 
 This feature requires the Vapor Toolbox to be installed on your machine. You can find installation instructions in the [Vapor Toolbox page](https://github.com/vapor/toolbox).
 
