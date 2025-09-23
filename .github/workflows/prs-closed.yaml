@@ -10,7 +10,7 @@ jobs:
   delete-s3:
     name: Delete S3 Website
     runs-on: ubuntu-latest
-    permissions: { id-token: write, contents: read }
+    permissions: { id-token: write, deployments: write, contents: read }
     if: ${{ github.event.pull_request.head.repo.full_name == 'vapor/blog' && github.actor != 'dependabot[bot]' }}
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
