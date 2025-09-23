@@ -27,13 +27,13 @@ It will prompt you to select a folder where the project will be created and its 
 
 This feature requires the Vapor Toolbox to be installed on your machine. You can find installation instructions in the [Vapor Toolbox page](https://github.com/vapor/toolbox).
 
-### Leaf Support
+### Leaf Language Support
 
-The extension defines the Leaf language, adding Leaf file icons and such, and provides several features to assist in [Leaf](https://docs.vapor.codes/leaf/getting-started/) template development:
+The extension defines the Leaf language in VS Code, adding Leaf file icons and such, and provides several features to assist in [Leaf](https://docs.vapor.codes/leaf/getting-started/) template development:
 
-- **Syntax Highlighting**: Leaf files will have proper syntax highlighting, making it easier to read and write HTML templates, even when working with CSS and JavaScript. This feature is available both in local and browser-based VS Code.
-- **Formatter**: You can format your Leaf files using the `Format Document` command in VS Code. This will ensure consistent indentation and spacing in your templates. You can also format just a selected portion of the file using the `Format Selection` command and enable the `Format on Save` option in VS Code settings.
-- **Emmet Support**: The extension supports Emmet abbreviations in Leaf files, allowing you to quickly generate HTML structures.
+- **Syntax Highlighting**: Leaf files will have proper syntax highlighting for Leaf tags, added on top of existing HTML syntax highlighting. This makes it easier to read and write HTML templates, even when working with CSS and JavaScript with Leaf tags embedded in them. This feature is available both in local and browser-based VS Code.
+- **Formatter**: You can format your Leaf files using the `Format Document` command in VS Code. This will ensure that your templates are consistent, with the proper indentation and spacing for both Leaf and HTML tags. You can also format just a selected portion of the file using the `Format Selection` command and enable the `Format on Save` option in VS Code settings.
+- **Emmet Support**: The extension supports [Emmet](https://code.visualstudio.com/docs/languages/emmet) abbreviations and snippets in Leaf files, allowing you to quickly generate HTML structures.
 
 ### Snippets
 
