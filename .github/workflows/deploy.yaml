@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions: { id-token: write, contents: read }
     steps:
-      - name: Install latesst Swift
+      - name: Install latest Swift
         uses: vapor/swiftly-action@v0.2
         with:
           toolchain: latest
@@ -29,15 +29,15 @@ jobs:
         with:
           name: ${{ vars.VAPOR_BLOG_STACK_NAME }}
           template: stack.yaml
-          no-fail-on-empty-changeset: '1'
+          no-fail-on-empty-changeset: 1
           parameter-overrides: >-
             DomainName=blog.vapor.codes,
-            S3BucketName=${{ vars.VAPOR_BLOG_BUCKET_URL }},
+            S3BucketName=${{ vars.VAPOR_BLOG_BUCKET_NAME }},
             AcmCertificateArn=${{ secrets.CERTIFICATE_ARN }}
       - name: Deploy Site to S3
         run: |
           # Python's mimetypes package now correctly detects the application/rss+xml MIME type for feed.rss, so don't need to handle it separately anymore
-          aws s3 sync ./Output '${{ vars.VAPOR_BLOG_BUCKET_URL }}' --no-progress --acl public-read --follow-symlinks --delete
+          aws s3 sync ./Output 's3://${{ vars.VAPOR_BLOG_BUCKET_NAME }}/' --no-progress --acl public-read --follow-symlinks --delete
       - name: Invalidate CloudFront
         run: |
           aws cloudfront create-invalidation --distribution-id '${{ secrets.VAPOR_BLOG_DISTRIBUTION_ID }}' --paths '/*'
