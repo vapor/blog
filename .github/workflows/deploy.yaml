@@ -10,8 +10,6 @@ jobs:
     name: Build and deploy
     runs-on: ubuntu-latest
     permissions: { id-token: write, contents: read }
-    env:
-      AWS_REGION: 'eu-west-2'
     steps:
       - name: Install latesst Swift
         uses: vapor/swiftly-action@v0.2
@@ -22,35 +20,24 @@ jobs:
       - name: Build site
         run: swift run
       - name: Configure AWS credentials
-        id: cred
         uses: aws-actions/configure-aws-credentials@v5
         with:
           role-to-assume: ${{ vars.OIDC_ROLE_ARN }}
           aws-region: ${{ vars.OIDC_ROLE_REGION }}
       - name: Deploy to AWS Cloudformation
-        id: clouddeploy
-        if: steps.cred.outcome == 'success'
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
-          name: vapor-blog-stack
+          name: ${{ vars.VAPOR_BLOG_STACK_NAME }}
           template: stack.yaml
-          no-fail-on-empty-changeset: "1"
+          no-fail-on-empty-changeset: 1
           parameter-overrides: >-
             DomainName=blog.vapor.codes,
-            S3BucketName=vapor-blog-site,
+            S3BucketName=${{ vars.VAPOR_BLOG_BUCKET_URL }},
             AcmCertificateArn=${{ secrets.CERTIFICATE_ARN }}
-      - name: Deploy Main Site to S3
-        if: steps.clouddeploy.outcome == 'success'
+      - name: Deploy Site to S3
         run: |
-          aws s3 sync ./Output 's3://vapor-blog-site/' --no-progress --acl public-read --follow-symlinks --delete --exclude 'feed.rss'
-      # This is done as a separate step to ensure the RSS feed is served with the correct content type
-      - name: Deploy RSS Feed to S3
-        if: steps.clouddeploy.outcome == 'success'
-        run: |
-          aws s3 sync ./Output 's3://vapor-blog-site/' --no-progress --acl public-read --follow-symlinks --delete --exclude '*' --include 'feed.rss' --content-type 'application/rss+xml'
+          # Python's mimetypes package now correctly detects the application/rss+xml MIME type for feed.rss, so don't need to handle it separately anymore
+          aws s3 sync ./Output '${{ vars.VAPOR_BLOG_BUCKET_URL }}' --no-progress --acl public-read --follow-symlinks --delete
       - name: Invalidate CloudFront
-        if: steps.clouddeploy.outcome == 'success'
-        uses: awact/cloudfront-action@master
-        env:
-          SOURCE_PATH: '/*'
-          DISTRIBUTION_ID: ${{ secrets.VAPOR_BLOG_DISTRIBUTION_ID }}
+        run: |
+          aws cloudfront create-invalidation --distribution-id '${{ secrets.VAPOR_BLOG_DISTRIBUTION_ID }}' --paths '/*'
