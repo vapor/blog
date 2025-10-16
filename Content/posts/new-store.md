@@ -14,6 +14,6 @@ However, we finally have a new store launched! [store.vapor.codes](https://store
 
 Speaking of supporting, Vapor has long had an [amazing group of sponsors](https://github.com/sponsors/vapor). If you sponsor us on GitHub for $10 a month or more, we will send you a set of stickers to say thank you. If you sponsor us $25 a month or more, you'll also get a t-shirt of your choosing! Existing sponsors have been emailed already and new sponsors will hear from me shortly after their sponsorship.
 
-If you want to sponsor us, you can sponsor us on the [GitHub sponsors page](https://github.com/sponsors/vapor). We also support sponsorship via [OpenCollective](https://opencollective.com/vapor) as well.
+If you want to sponsor us, you can do so on the [GitHub sponsors page](https://github.com/sponsors/vapor). We also support sponsorship via [OpenCollective](https://opencollective.com/vapor) as well.
 
 Thank you for all the support!
