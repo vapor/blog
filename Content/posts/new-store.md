@@ -16,4 +16,4 @@ Speaking of supporting, Vapor has long had an [amazing group of sponsors](https:
 
 If you want to sponsor us, you can do so on the [GitHub sponsors page](https://github.com/sponsors/vapor). We also support sponsorship via [OpenCollective](https://opencollective.com/vapor) as well.
 
-Thank you for all the support!
+Thank you for all your support!
