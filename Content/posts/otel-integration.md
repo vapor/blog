@@ -11,7 +11,7 @@ authorImageURL: /author-images/paul.jpg
 
 This tutorial will guide you through setting up a Vapor 4 application with OpenTelemetry, collecting metrics about the application and its queue workers, and visualizing the data in Grafana.
 
-## Observability
+### Observability
 
 In complex systems it's often a good thing to be able to figure out why the system is behaving in a certain way without having to look into the code. When we want to be able to have a more high level view of what happens in the application without opening up the black box, we're looking for **observability**. Observability is the concept of collecting information about a system's execution and internal state, based on the data it generates.
 
@@ -21,196 +21,58 @@ In more practical terms, observability is made up of
 - **Metrics**: instant measurement representing some system state, such as number of HTTP requests/second;
 - **Traces**: a series of breadcrumbs which, if tied together, show the flow of data (such as a request) across the application, for instance how it gets routed across various internal components in the application, or across different services.
 
-**Instrumenting** a system means adding observability capabilities. The idea is the code emits the data which then must be collected and sent to a backend observability system. 
+**Instrumenting** a system means adding observability capabilities. The idea is the code emits the data which then must be collected and sent to a backend observability system. In this blog post we'll focus on metrics, but the same principles apply to logs and traces as well.
 
-Before starting, let's give a small overview of our end goal. In Vapor 4, logging is integrated in the framework, and this post's aim is to add metrics collection to our system, but collecting tracing data is not much different. 
+### Gathering metrics
 
-![Vapor OTel Architecture](/static/images/posts/otel-integration-arch.svg)
+The first step is gathering the metrics from our app's flow. Fortunately for us this is the easiest step, as, just like logs with swift-log, Vapor comes with built-in support for metrics using the [swift-metrics](https://github.com/apple/swift-metrics) package.
 
-&nbsp;
+The metrics created by Vapor include things like request counts, response times, and error rates, all of which are essential for understanding the health and performance of your application. 
 
-As you can see here there's a bunch of things going on, but we'll get into each of them. 
+> You can also emit your own custom metrics using the same package. To do this, check out the [Swift Metrics documentation](https://swiftpackageindex.com/apple/swift-metrics/2.7.1/documentation/coremetrics). Since Vapor already embeds it, you don't need to configure anything, just add your own metrics where you need them and they will be emitted along with the built-in ones.
 
-1. Our Vapor HTTP server (which can be either an API or a web app) directly sends data to Prometheus, the metrics database;
-2. To make matters spicier, we want to collect metrics from our queue workers too, which are separate instances. In this case the OpenTelemetry (OTel) collector collects the data and sends it to the same Prometheus instance;
-3. Along with the collector and the Prometheus DB, inside of the Docker Compose configuration we have Grafana, which provides a nice user interface to interact with the collected data.
+### Emitting Metrics
 
-Let's dive in.
+The next step is sending the emitted metrics to a service that can process and store them. To do that we'll be using something known as a sidecar, which is a separate process that runs alongside your application and collects the metrics emitted by it. In our case, we'll be using the [OpenTelemetry Collector](https://opentelemetry.io/). The OTel Collector is a vendor-agnostic tool to receive, process, and export telemetry data. It can receive data in various formats, process it, and export it to various backends.
 
-### Emitting metrics
+To interact with the OTel Collector we'll need a client that speaks the same language, which is the OpenTelemetry protocol (OTLP). Luckily, at the time of writing, the [swift-otel](https://github.com/swift-otel/swift-otel) package has just hit version 1.0 and is right up our alley.
 
-The first step is to actually emit the metrics. You can think of it as logging: Vapor already logs a lot of internal things when they happen, such as incoming HTTP requests, database interactions or external connection state, and it does this via the Swift Log package. Luckily, such a package exists for metrics too and it's called [Swift Metrics](https://github.com/apple/swift-metrics). Vapor integrates with this package already and provides most of the basic metrics you'll need already, such as number of incoming HTTP requests, number of erroring requests, duration of requests and more. So unless you need anything more specific you should be fine.
-
-In our example we also want to gather job data and, again, the Vapor queues package does this for us. The metrics collected should be enough to understand which jobs are failing, which ones are taking longer than expected, which queues are getting stuck and more. In a bit we'll dive into how we can actually use this data, but for now emitting data works without having to touch anything!
-
-> If you want to add more metrics you'll need to add the Swift Metrics package to your application and just add the needed metrics. You can check out the package's README for more info.
-
-### Collecting metrics
-
-This is probably the most complex part as it's not always clear in which direction the data should go. There's different approaches to collecting data and in this example we actually use both, but the fundamental idea is the same, data goes out of our application and into a backend observability system. More specifically, we need to store this data in a metrics database, and in this example we'll be using Prometheus. 
-
-Our example uses two different approaches:
-
-1. The first one is the HTTP server which provides a route that the Prometheus instance can periodically make a request to;
-2. The second one is the queue workers periodically pushing the data to a collector, and the Prometheus instance scraping the collector.
-
-#### HTTP Server
-
-This first approach is the simplest one, because all we're doing is opening up a `/metrics` endpoint which Prometheus is configured to scrape on its own, every x seconds. This also allows Vapor to ignore the Prometheus instance completely and really just treat it as a normal client, which is good, especially in a distributed system, as we don't want to burden the API more than we have to. However, the catch is obviously that we need to be running an HTTP server to handle the requests.
-
-To implement this approach, we use the [Swift Prometheus](https://github.com/swift-server/swift-prometheus) package. This package is really simple: all it does is collect and export the SwiftMetrics emitted metrics in a Prometheus format. First things first we'll want to add the package to our application in the `Package.swift` file, both in the package's dependencies and in the target's dependencies:
+Let's add the package to our dependencies in the `Package.swift` file:
 
 ```swift
-.package(url: "https://github.com/swift-server/swift-prometheus.git", from: "2.0.0")
-```
-```swift
-.product(name: "Prometheus", package: "swift-prometheus")
+.package(url: "https://github.com/swift-otel/swift-otel.git", from: "1.0.0"),
 ```
 
-Once that's done, we can configure the collector:
+and then add it to our target dependencies:
 
 ```swift
-let factory = PrometheusMetricsFactory()
-MetricsSystem.bootstrap(factory)
+.target(
+    name: "App",
+    dependencies: [
+        .product(name: "OTel", package: "swift-otel"),
+    ]
+),
 ```
 
-And finally add the metrics-emitting route:
+
+While the package is designed to work with swift-service-lifecycle which is not Vapor 4's favourite lunch buddy, we can integrate it manually into our application's lifecycle. To do this we can create a `LifecycleHandler` that will start and stop the OTel metrics exporter when the application starts and stops.
 
 ```swift
-router.get("metrics") { _ in
-	var buffer = [UInt8]()
-	(MetricsSystem.factory as? PrometheusMetricsFactory)?.registry.emit(into: &buffer)
-	return String(bytes: buffer, encoding: .utf8) ?? ""
-}
-```
-
-That's it! Once we build and run we should see some metrics being printed out. This endpoint will be used by our Prometheus instance.
-
-To configure Prometheus, we need to create a `prometheus.yml` configuration file in the same directory as the `docker-compose.yml` file. This is the initial configuration:
-
-```yaml
-scrape_configs:
-  - job_name: 'api'
-    scrape_interval: 30s
-    static_configs:
-      - targets: ["host.docker.internal:8080"]
-```
-
-This configuration tells Prometheus to scrape the `/metrics` endpoint on the host machine every 30 seconds.
-
-> Note: The `host.docker.internal` address is a special address that Docker uses to refer to the host machine from within a container. This supposes that the Vapor application is running on the host machine and not in a container.
-
-Then we can add Prometheus to our `docker-compose.yml` file:
-
-```yaml
-services:
-  prometheus:
-    image: prom/prometheus
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    ports:
-      - 9090:9090
-```
-
-This should be enough to get Prometheus up and running and scraping the Vapor application.
-We'll update both the `docker-compose.yml` and the `prometheus.yml` files later on to include the queue workers.
-
-#### Queue Workers
-
-The second approach is a bit more complex. The idea is that the queue workers are separate instances from the HTTP server, and they don't have an HTTP server running. This means we can't just have Prometheus scrape an endpoint, because there isn't one. Instead, we need to push the data from the queue workers to a collector, and then have Prometheus scrape the collector.
-
-The collector we're using is the OpenTelemetry Collector. This is a an intermediary that can collect data from various sources and send it to various destinations. In our case, we're going to configure it to collect data from the queue workers and send it to Prometheus. To do this, we'll be using the [Swift OTel package](https://github.com/swift-otel/swift-otel). This package is a Swift implementation of the OpenTelemetry specification, which is a standard for collecting observability data. 
-
-First of all we need to add the package to our application in the `Package.swift` file:
-
-```swift
-.package(url: "https://github.com/swift-otel/swift-otel.git", from: "0.1.0")
-```
-```swift
-.product(name: "OTel", package: "swift-otel"),
-.product(name: "OTLPGRPC", package: "swift-otel"),
-```
-
-Configuring OTel will be a bit more complex than Prometheus, as we want to differentiate between the HTTP server and the queue workers. To do this, we can add an extension to Vapor's `Environment`:
-
-```swift
+import OTel
+import ServiceLifecycle
 import Vapor
 
-extension Environment {
-    enum AppMode {
-        case http
-        case queue(name: String)
-    }
+actor OTelMetricsExporterLifecycleHandler: LifecycleHandler {
+    let observability: any Service
+    private var task: Task<Void, any Error>?
     
-    var appMode: AppMode {
-        if
-            CommandLine.arguments.contains("queues") ||
-            CommandLine.arguments.contains("queue")
-        {
-            guard let name = CommandLine.arguments.firstIndex(of: "--queue") else {
-                return .queue(name: "default")
-            }
-            
-            return .queue(name: CommandLine.arguments[name + 1])
-        } else {
-            return .http
-        }
-    }
-}
-```
-
-This extension will allow us to differentiate between the HTTP server and the queue workers. We can then use this in the `configure.swift` file to configure OTel:
-
-```swift
-switch app.environment.appMode {
-case .http:
-    // If running the HTTP server, use swift-prometheus
-    if !app.environment.name.contains("testing") {
-        let factory = PrometheusMetricsFactory()
-        MetricsSystem.bootstrap(factory)
-    }
-case .queue(let name):
-    // If running a queue worker, use swift-otel
-    let environment = OTelEnvironment.detected()
-    let resourceDetection = OTelResourceDetection(detectors: [
-        OTelProcessResourceDetector(),
-        .manual(OTelResource(attributes: ["service.name": "\(name)-queue"]))
-    ])
-    let resource = await resourceDetection.resource(environment: environment)
-    
-    // Configure OTel to export metrics to Prometheus
-    let registry = OTelMetricRegistry()
-    let exporter = try OTLPGRPCMetricExporter(
-        configuration: .init(environment: environment)
-    )
-    let metrics = OTelPeriodicExportingMetricsReader(
-        resource: resource,
-        producer: registry,
-        exporter: exporter,
-        configuration: .init(
-            environment: environment,
-            exportInterval: .seconds(5)
-        )
-    )
-    MetricsSystem.bootstrap(OTLPMetricsFactory(registry: registry))
-    app.lifecycle.use(OTelMetricsExporterLifecycle(metrics: metrics))
-}
-```
-
-Copy-pasting this now will yield an error, as we haven't defined the `OTelMetricsExporterLifecycle` yet. This is a lifecycle that will start and stop the metrics exporter when the application starts and stops. We can define it as follows:
-
-```swift
-actor OTelMetricsExporterLifecycle: LifecycleHandler {
-    let metrics: OTelPeriodicExportingMetricsReader<ContinuousClock>
-    private var task: Task<Void, Error>?
-    
-    init(metrics: OTelPeriodicExportingMetricsReader<ContinuousClock>) {
-        self.metrics = metrics
+    init(observability: some Service) {
+        self.observability = observability
     }
     
     public func didBootAsync(_ application: Application) async throws {
         task = Task {
-            try await metrics.run()
+            try await observability.run()
         }
     }
     
@@ -220,9 +82,26 @@ actor OTelMetricsExporterLifecycle: LifecycleHandler {
 }
 ```
 
-This is a bit of a hack to be able to use the swift-service-lifecycle approach swift-otel uses in Vapor 4, which doesn't implement it.
+Then we can configure OTel in our `configure.swift` file:
 
-This is enough to get the queue workers to start exporting metrics to Prometheus via the OpenTelemetry Collector. However we need to configure the collector to actually collect the data and send it to Prometheus. We can do this by creating a `collector-config.yml` file in the same directory as the `docker-compose.yml` file:
+```swift
+var config = OTel.Configuration.default
+config.serviceName = "your_app_name"
+config.logs.enabled = false
+config.traces.enabled = false
+config.metrics.otlpExporter.protocol = .grpc
+
+let observability = try OTel.bootstrap(configuration: config)
+app.lifecycle.use(OTelMetricsExporterLifecycleHandler(observability: observability))
+```
+
+We'll also need to tell Vapor where to send the metrics to. By default, OTel sends data to `http://localhost:4317`, which is where our OTel Collector will be listening. Although you don't need to, we'll still define it explicitly in an env var, so we can change it easily later if needed:
+
+```
+OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
+```
+
+And that's it! Now our Vapor application is set up to emit metrics to an OpenTelemetry Collector. We can set up a local instance of the OpenTelemetry Collector using Docker Compose. First, let's create a folder called `observability` in the root of our project. Then we need a bit of configuration for the OTel collector, so let's create a file called `otel-collector-config.yaml` in the `observability` folder with the following content:
 
 ```yaml
 # Receive metrics on :4317
@@ -232,43 +111,52 @@ receivers:
       grpc:
         endpoint: otel-collector:4317
 
-# Expose :7070 for Prometheus to scrape
+# Export metrics to Prometheus
 exporters:
-  prometheus:
-    endpoint: otel-collector:7070
-    const_labels:
-      collector: "otel-collector"
+  prometheusremotewrite:
+    endpoint: "http://prometheus:9090/api/v1/write"
 
 service:
   pipelines:
     metrics:
       receivers: [otlp]
-      exporters: [prometheus]
+      exporters: [prometheusremotewrite]
 ```
 
-And finally add the collector to the `docker-compose.yml` file:
+### Storing and using the data with Prometheus
+
+Now that our application is best friends with the collector, we need to tell the collector what to do with the metrics. The collector is only a middleware that receives the data, processes it, and exports it to a backend of our choice. In this case, we'll be using [Prometheus](https://prometheus.io/) as our backend. Prometheus is basically a database that collects and stores metrics data and provides a powerful query language called PromQL to analyze it. We already set up the exporter in the OTel collector configuration in the last snippet (the `prometheusremotewrite` exporter), so now we need to configure Prometheus itself to scrape the metrics from the collector.
+
+In the same `observability` folder, create a file called `prometheus-config.yaml` with the following content:
 
 ```yaml
-otel-collector:
-  image: otel/opentelemetry-collector-contrib
-  command: ["--config=/etc/otel-collector-config.yml"]
-  ports:
-    - "4317:4317"
-    - "7070:7070"
-  volumes:
-    - "./otel-collector-config.yml:/etc/otel-collector-config.yml"
+services:
+  otel-collector:
+    image: public.ecr.aws/aws-observability/aws-otel-collector:latest
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    ports:
+      - "4317:4317"
+      - "7070:7070"
+    volumes:
+      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
+
+  prometheus:
+    image: prom/prometheus
+    entrypoint:
+      - "/bin/prometheus"
+      - "--log.level=debug"
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.console.libraries=/usr/share/prometheus/console_libraries"
+      - "--web.console.templates=/usr/share/prometheus/consoles"
+      - "--web.enable-remote-write-receiver"
+    depends_on:
+      - otel-collector
+    ports:
+      - 9090:9090
 ```
 
-To be sure that Prometheus gets spun up after the collector, we can add a `depends_on` key to the Prometheus service in the `docker-compose.yml` file:
-
-```yaml
-prometheus:
-  image: prom/prometheus
-  depends_on:
-    - otel-collector
-```
-
-Now, the queue workers should be exporting metrics to the OpenTelemetry Collector, which in turn should be exporting them to Prometheus. Prometheus should be scraping the `/metrics` endpoint on the HTTP server, and the queue workers should be exporting metrics to Prometheus via the OpenTelemetry Collector.
+> Note: You can also use the docker-compose.yml file provided by Vapor and just add to it. If you are, you should change the `OTEL_EXPORTER_OTLP_ENDPOINT` environment variable to point to `http://otel-collector:4317` instead of `localhost`, since the services will be running in the same Docker network.
 
 ### Visualizing the data
 
@@ -294,10 +182,117 @@ grafana:
   depends_on:
     - prometheus
   ports:
-    - "3000:3000" # Grafana UI
+    - "3000:3000"
   volumes:
     - ./grafana.yml:/etc/grafana/provisioning/datasources/grafana.yml
 ```
 
-And that's it! Once the Docker Compose stack is running, you should be able to access Grafana at `http://localhost:3000` and start creating dashboards to visualize the data.
-You'll have to create your own dashboards, but you can find a lot of examples online.
+And that's it! Once the Docker Compose stack is running, you should be able to access Grafana at `http://localhost:3000` log in with `admin` as username and password, and start creating dashboards to visualize the data. We will even provide you with a sample dashboard JSON that you can import into Grafana to get started quickly. Just head to the Dashboards section in Grafana, click on "Import", and paste the JSON content:
+
+```json
+{
+  "id": 1,
+  "title": "Test Dashboard",
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "5s",
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Request Rate (req/s)",
+      "id": 1,
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(rate(http_requests_total[1m]))",
+          "legendFormat": "req/s"
+        }
+      ],
+      "gridPos": { "h": 7, "w": 12, "x": 0, "y": 0 }
+    },
+    {
+      "type": "timeseries",
+      "title": "Request Duration (p95)",
+      "id": 2,
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))",
+          "legendFormat": "p95"
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "s" } },
+      "gridPos": { "h": 7, "w": 12, "x": 12, "y": 0 }
+    },
+    {
+      "type": "timeseries",
+      "title": "Total Requests",
+      "id": 3,
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(http_requests_total)",
+          "legendFormat": "total_requests"
+        }
+      ],
+      "gridPos": { "h": 6, "w": 12, "x": 0, "y": 7 }
+    },
+    {
+      "type": "timeseries",
+      "title": "Error Rate (%)",
+      "id": 5,
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "100 * sum(rate(http_request_errors_total[1m])) / clamp_min(sum(rate(http_requests_total[1m])), 1)",
+          "legendFormat": "error_rate"
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "percent" } },
+      "gridPos": { "h": 6, "w": 12, "x": 12, "y": 7 }
+    },
+    {
+      "type": "timeseries",
+      "title": "CPU Usage",
+      "id": 9,
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "rate(process_cpu_seconds_total[1m])",
+          "legendFormat": "cpu"
+        }
+      ],
+      "gridPos": { "h": 6, "w": 12, "x": 0, "y": 25 }
+    },
+    {
+      "type": "timeseries",
+      "title": "Memory Usage",
+      "id": 10,
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "process_resident_memory_bytes",
+          "legendFormat": "memory"
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "bytes" } },
+      "gridPos": { "h": 6, "w": 12, "x": 12, "y": 25 }
+    }
+  ]
+}
+```
+
+Once added, you can start requesting your Vapor application and see the metrics come to life in Grafana! After a while you might see something like this:
+
+![Grafana Dashboard]( /static/images/posts/otel-integration-grafana-dashboard.png)
+
+## Deployment on AWS
+
+TODO 
