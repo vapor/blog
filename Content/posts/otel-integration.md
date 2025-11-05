@@ -62,7 +62,7 @@ import OTel
 import ServiceLifecycle
 import Vapor
 
-actor OTelMetricsExporterLifecycleHandler: LifecycleHandler {
+actor OTelLifecycleHandler: LifecycleHandler {
     let observability: any Service
     private var task: Task<Void, any Error>?
     
@@ -92,7 +92,7 @@ config.traces.enabled = false
 config.metrics.otlpExporter.protocol = .grpc
 
 let observability = try OTel.bootstrap(configuration: config)
-app.lifecycle.use(OTelMetricsExporterLifecycleHandler(observability: observability))
+app.lifecycle.use(OTelLifecycleHandler(observability: observability))
 ```
 
 We'll also need to tell Vapor where to send the metrics to. By default, OTel sends data to `http://localhost:4317`, which is where our OTel Collector will be listening. Although you don't need to, we'll still define it explicitly in an env var, so we can change it easily later if needed:
@@ -109,7 +109,7 @@ receivers:
   otlp:
     protocols:
       grpc:
-        endpoint: otel-collector:4317
+        endpoint: :4317
 
 # Export metrics to Prometheus
 exporters:
@@ -132,7 +132,7 @@ In the same `observability` folder, create a file called `prometheus-config.yaml
 ```yaml
 services:
   otel-collector:
-    image: public.ecr.aws/aws-observability/aws-otel-collector:latest
+    image: otel/opentelemetry-collector-contrib:latest
     command: ["--config=/etc/otel-collector-config.yaml"]
     ports:
       - "4317:4317"
@@ -200,31 +200,43 @@ And that's it! Once the Docker Compose stack is running, you should be able to a
   "panels": [
     {
       "type": "timeseries",
-      "title": "Request Rate (req/s)",
+      "title": "Request Rate (req/s) by Path",
       "id": 1,
       "datasource": "Prometheus",
       "targets": [
         {
           "refId": "A",
-          "expr": "sum(rate(http_requests_total[1m]))",
-          "legendFormat": "req/s"
+          "expr": "sum(rate(http_requests_total[1m])) by (path)",
+          "legendFormat": "{{path}}"
         }
       ],
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "right"
+        }
+      },
       "gridPos": { "h": 7, "w": 12, "x": 0, "y": 0 }
     },
     {
       "type": "timeseries",
-      "title": "Request Duration (p95)",
+      "title": "Request Duration (p95) by Path",
       "id": 2,
       "datasource": "Prometheus",
       "targets": [
         {
           "refId": "A",
-          "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))",
-          "legendFormat": "p95"
+          "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le, path))",
+          "legendFormat": "{{path}} p95"
         }
       ],
       "fieldConfig": { "defaults": { "unit": "s" } },
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "right"
+        }
+      },
       "gridPos": { "h": 7, "w": 12, "x": 12, "y": 0 }
     },
     {
@@ -258,32 +270,49 @@ And that's it! Once the Docker Compose stack is running, you should be able to a
     },
     {
       "type": "timeseries",
-      "title": "CPU Usage",
-      "id": 9,
-      "datasource": "Prometheus",
-      "targets": [
-        {
-          "refId": "A",
-          "expr": "rate(process_cpu_seconds_total[1m])",
-          "legendFormat": "cpu"
-        }
-      ],
-      "gridPos": { "h": 6, "w": 12, "x": 0, "y": 25 }
-    },
-    {
-      "type": "timeseries",
-      "title": "Memory Usage",
+      "title": "Memory Usage (MB)",
       "id": 10,
       "datasource": "Prometheus",
       "targets": [
         {
           "refId": "A",
-          "expr": "process_resident_memory_bytes",
-          "legendFormat": "memory"
+          "expr": "process_resident_memory_bytes / 1024 / 1024",
+          "legendFormat": "memory_mb"
         }
       ],
-      "fieldConfig": { "defaults": { "unit": "bytes" } },
-      "gridPos": { "h": 6, "w": 12, "x": 12, "y": 25 }
+      "fieldConfig": {
+        "defaults": {
+          "unit": "MBs",
+          "min": 0
+        }
+      },
+      "gridPos": { "h": 6, "w": 12, "x": 0, "y": 12 }
+    },
+    {
+      "type": "gauge",
+      "title": "CPU Usage (%)",
+      "id": 9,
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "100 * rate(process_cpu_seconds_total[1m])",
+          "legendFormat": "cpu_percent"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "max": 100
+        }
+      },
+      "options": {
+        "orientation": "vertical",
+        "showThresholdLabels": true,
+        "showThresholdMarkers": true
+      },
+      "gridPos": { "h": 12, "w": 5, "x": 12, "y": 12 }
     }
   ]
 }
@@ -295,4 +324,150 @@ Once added, you can start requesting your Vapor application and see the metrics 
 
 ## Deployment on AWS
 
-TODO 
+In this section we'll briefly cover how to deploy the monitoring setup on AWS using ECS Fargate. This assumes that there's already an existing Fargate stack with a Vapor service running, possibly defined using a JSON task definition.
+
+### AWS Managed Prometheus
+
+To store the metrics on AWS, we can use [AWS Managed Prometheus](https://aws.amazon.com/prometheus/), which is a fully managed service that makes it easy to monitor and alert on your containerized applications and infrastructure. 
+First, we need to create a new Prometheus workspace in the AWS Management Console. A workspace is simply a Prometheus instance we can send data to, tell to scrape data, and query data from.
+
+To create a new workspace, visit https://console.aws.amazon.com/prometheus/home and click on "Create workspace". 
+Give it a name (it doesn't need to be unique) and create the workspace. Once created, navigate to the workspace and copy the "Remote write endpoint" URL, which we'll need later.
+
+You can also create it using the AWS CLI:
+
+```bash
+aws amp create-workspace --alias <your_workspace_name>
+```
+
+### OTel Collector sidecar
+
+Now that we have a Prometheus workspace, we need to set up the OTel Collector as a sidecar in our existing ECS task definition. Adding this to your existing task-definition should do the trick:
+
+```json
+{
+  "name": "aws-otel-collector",
+  "image": "public.ecr.aws/aws-observability/aws-otel-collector:latest",
+  "essential": true,
+  "secrets": [
+    {
+      "name": "AOT_CONFIG_CONTENT",
+      "valueFrom": "otel-collector-config"
+    }
+  ],
+  "logConfiguration": {
+    "logDriver": "awslogs",
+    "options": {
+      "awslogs-group": "researchrabbit/ecs/api-service-otel-collector",
+      "awslogs-region": "{{ region }}",
+      "awslogs-stream-prefix": "ecs",
+      "awslogs-create-group": "True"
+    }
+  }
+}
+```
+
+Just replace the `{{ region }}` placeholder with your AWS region.
+
+Then we need a way to inject the OTel Collector configuration into the sidecar. The recommended way to do this on AWS is via an AWS System Manager parameter. Create a new parameter called `otel-collector-config` with the following content:
+
+```yaml
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: :4317
+  awsecscontainermetrics:
+    collection_interval: 20s
+
+processors:
+  filter:
+    metrics:
+      include:
+        match_type: strict
+        metric_names:
+          - ecs.task.memory.utilized
+          - ecs.task.memory.reserved
+          - ecs.task.cpu.utilized
+          - ecs.task.cpu.reserved
+          - ecs.task.network.rate.rx
+          - ecs.task.network.rate.tx
+          - ecs.task.storage.read_bytes
+          - ecs.task.storage.write_bytes
+
+exporters:
+  prometheusremotewrite:
+    endpoint: "{{ prometheus_remote_write_endpoint }}"
+    auth:
+      authenticator: sigv4auth
+  debug:
+    verbosity: detailed
+extensions:
+  health_check:
+  pprof:
+    endpoint: :1888
+  zpages:
+    endpoint: :55679
+  sigv4auth:
+    region: {{ region }}
+
+service:
+  extensions: [pprof, zpages, health_check, sigv4auth]
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      exporters: [debug, prometheusremotewrite]
+    metrics/ecs:
+      receivers: [awsecscontainermetrics]
+      processors: [filter]
+      exporters: [debug, prometheusremotewrite]
+```
+
+Again, replace the `{{ region }}` and `{{ prometheus_remote_write_endpoint }}` placeholders with your AWS region and the Prometheus remote write endpoint. Make sure the Prometheus endpoint contains the full URL, including the `https://` and `/api/v1/write` parts.
+
+Finally, the ECS task role needs permissions to read the SSM parameter and to write to the Prometheus workspace. Attach the following policy to your ECS task role (or create a new one):
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ssm:GetParameter",
+      ],
+      "Resource": "arn:aws:ssm:{{ region }}:{{ account_id }}:parameter/otel-collector-config"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+          "aps:RemoteWrite"
+      ],
+      "Resource": "arn:aws:aps:{{ region }}:{{ account_id }}:workspace/{{ workspace_id }}"
+    }
+  ]
+}
+```
+
+Replace the `{{ region }}`, `{{ account_id }}`, and `{{ workspace_id }}` placeholders with your AWS region, account ID, and Prometheus workspace ID.
+
+> Note: this is different to the task **execution** role, which is used by ECS to pull the container images. The task role is assumed by the containers themselves.
+
+Now you can deploy the updated task definition to your ECS service. The OTel Collector sidecar will start collecting metrics from your Vapor application and sending them to AWS Managed Prometheus.
+
+### Grafana
+
+For visualizing the metrics, we can use [AWS Managed Grafana](https://aws.amazon.com/grafana/).
+Create a new Grafana workspace in the AWS Management Console. Once created, switch to the "Data sources" tab and add a new data source. Select "Prometheus" as the data source type and enable the "AWS Managed Service for Prometheus" option. 
+
+Now you need to give access to your user to the Grafana workspace. This is really simple: on the "Authentication" tab of your Grafana workspace, just add your IAM user or role and assign it the "Admin" role. This will grant you access to add data sources and create dashboards.
+
+Then, navigate to the workspace and set up a data source for Prometheus using the Prometheus workspace we created earlier.
+
+Finally, you can create dashboards in Grafana just like we did in the local setup. If you want to reuse the same dashboard JSON, just import it into your AWS Managed Grafana, but be sure to change the memory and CPU metrics queries to use the AWS ECS metric names:
+```promql
+ecs_task_memory_utilized
+ecs_task_cpu_utilized
+```
+
+And there you have it! You've successfully instrumented your Vapor 4 application with OpenTelemetry, set up a monitoring stack using Prometheus and Grafana, and deployed it on AWS using ECS Fargate. Now you can monitor your application's performance and health in real-time. Happy monitoring!
