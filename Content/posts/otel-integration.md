@@ -136,7 +136,6 @@ services:
     command: ["--config=/etc/otel-collector-config.yaml"]
     ports:
       - "4317:4317"
-      - "7070:7070"
     volumes:
       - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
 
