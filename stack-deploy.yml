@@ -1,0 +1,7 @@
+template-file-path: stack.yaml
+parameters:
+  DomainName: blog.vapor.codes
+  S3BucketName: vapor-blog-site
+  AcmCertificateArn: >-
+    arn:aws:acm:us-east-1:177420307256:certificate/b3833a52-acf7-4445-9b57-a80ef48e4110
+tags: {}
