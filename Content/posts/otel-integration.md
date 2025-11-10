@@ -1,5 +1,5 @@
 ---
-date: 2024-12-16 14:00
+date: 2025-11-10 10:00
 description: Getting started with Vapor 4 and OpenTelemetry
 tags: vapor, otel, prometheus, grafana
 image: /static/images/posts/otel-integration-arch.svg
