@@ -22,7 +22,7 @@ jobs:
         with:
           toolchain: latest
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Setup CloudFormation linter
         uses: ScottBrenner/cfn-lint-action@v2
       - name: Run CloudFormation linter
