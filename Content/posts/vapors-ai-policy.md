@@ -6,6 +6,8 @@ author: Tim
 authorImageURL: /author-images/tim.jpg
 ---
 
+# Vapor's AI Policy
+
 Today we're releasing our AI Policy for Vapor in the form of an [AGENTS.md file](https://github.com/vapor/vapor/blob/main/AGENTS.md). The growth of AI-assisted coding has accelerated recently, and over the last few weeks we've seen an influx of PRs clearly from AI agents with multiple PRs for the same issue, even from the same account!
 
 If we suspect a PR, issue, or security advisory is written without any human input, we will close it without any discussion. People are going to use AI to help them code, but you should understand what it's doing. Be prepared to answer questions!
