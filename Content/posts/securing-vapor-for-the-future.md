@@ -8,7 +8,7 @@ authorImageURLs: /author-images/tim.jpg
 
 # Securing Vapor for the Future - Our Experience in GitHub's Secure Open Source Fund
 
-6 months ago Vapor was selected to join the 3rd session of GitHub's Secure Open Source Fund, a program helping open source projects ensure they are as secure as possible in the modern world, joining the likes of curl, Node.js, LLVM and many more projects. This is an amazing testament of how far Vapor has come, and a recognition of the maturity of the project and the widespread use it now has.
+6 months ago Vapor [was selected to join the 3rd session of GitHub's Secure Open Source Fund](https://github.blog/open-source/maintainers/securing-the-ai-software-supply-chain-security-results-across-67-open-source-projects/), a program helping open source projects ensure they are as secure as possible in the modern world, joining the likes of curl, Node.js, LLVM and many more projects. This is an amazing testament of how far Vapor has come, and a recognition of the maturity of the project and the widespread use it now has.
 
 [![Open Source Security](/static/images/posts/open-source-security.png)](https://xkcd.com/2347/)
 
