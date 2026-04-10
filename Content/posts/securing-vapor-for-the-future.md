@@ -1,5 +1,5 @@
 ---
-date: 2026-03-27 12:00
+date: 2026-04-10 17:00
 description: Vapor was selected for the 3rd session of the GitHub Secure Open Source Fund
 tags: security
 authors: Tim
