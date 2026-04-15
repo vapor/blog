@@ -11,7 +11,7 @@ authorImageURLs: /author-images/francesco.jpg; /author-images/paul.jpg
 At WWDC25, [post-quantum cryptography](https://developer.apple.com/videos/play/wwdc2025/314/) for the Apple ecosystem was announced.
 This means that with the new version 26 lineup of Apple's operating systems, CryptoKit bundles APIs for using quantum-secure signatures and encryption.
 
-Along with CryptoKit, the server world would get access to those APIs too, via Swift Crypto, and JWTKit seized the opportunity to implement post-quantum flavoured JWTs.
+Along with CryptoKit, the server world also obtains access to those APIs via Swift Crypto, and JWTKit seized the opportunity to implement post-quantum flavoured JWTs.
 
 ## Post Quantum Cryptography
 
