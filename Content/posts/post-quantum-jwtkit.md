@@ -18,6 +18,8 @@ Along with CryptoKit, the server world also obtains access to those APIs via Swi
 Post quantum cryptography is currently a very hot topic, and there are lots of resources available for diving more into it, but the gist of it is that we need to get ahead and prepare ourselves for the time when quantum computers will be widely accessible.
 Some time in the near future, quantum computing will not be limited to universities and certain very specific fields anymore; it will become more and more accessible to the public. The theory behind quantum computing is very different from the machines we are used to today, making them far more powerful in certain respects, with the result that many of the security measures we use today will be obsolete.
 
+> Check out [Google's announcement](https://research.google/blog/safeguarding-cryptocurrency-by-disclosing-quantum-vulnerabilities-responsibly/) about EC keys being broken much sooner than expected.
+
 This is why we have to be ready to implement and utilise stronger safety mechanisms around our data.
 Not just because we'll be vulnerable _someday_, but also because even today data our current computers can’t crack gets [harvested and stored until it can be decrypted](https://en.wikipedia.org/wiki/Harvest_now,_decrypt_later) using quantum computers.
 
