@@ -15,11 +15,11 @@ Along with CryptoKit, the server world would get access to those APIs too, via S
 
 ## Post Quantum Cryptography
 
-Post quantum cryptography is currently a very hot topic, and there are a lot of resources to dive more into it, but the gist of it is that we need to get ahead and prepare ourselves for the time when quantum computers will be widely accessible.
-Some time in the near future, quantum computing will not be limited to universities and certain very specific fields anymore, it will become more and more accessible to the public. The theory behind quantum computing is very different to the machines we are used to today, making them way more powerful in certain aspects and therefore making a lot of the security measures we have set up today look obsolete.
+Post quantum cryptography is currently a very hot topic, and there are lots of resources available for diving more into it, but the gist of it is that we need to get ahead and prepare ourselves for the time when quantum computers will be widely accessible.
+Some time in the near future, quantum computing will not be limited to universities and certain very specific fields anymore; it will become more and more accessible to the public. The theory behind quantum computing is very different from the machines we are used to today, making them far more powerful in certain respects, with the result that many of the security measures we use today will be obsolete.
 
-This is why we have to slowly get ready to implement and utilise stronger safety mechanisms around our data.
-Not just because we'll be vulnerable _some_ day, but also because, even today, data our current computers can’t crack gets [harvested and stored until it can be decrypted](https://en.wikipedia.org/wiki/Harvest_now,_decrypt_later) using quantum computers.
+This is why we have to be ready to implement and utilise stronger safety mechanisms around our data.
+Not just because we'll be vulnerable _someday_, but also because even today data our current computers can’t crack gets [harvested and stored until it can be decrypted](https://en.wikipedia.org/wiki/Harvest_now,_decrypt_later) using quantum computers.
 
 ## Quantum-Secure Digital Signatures
 
@@ -32,12 +32,14 @@ ML-DSA was standardized by NIST in [FIPS 204](https://csrc.nist.gov/pubs/fips/20
 Other post-quantum signature schemes include SLH-DSA ([FIPS 205](https://csrc.nist.gov/pubs/fips/205/final)), which is based on the hardness of cryptographic hash functions, and FN-DSA, which is still in the process of being standardized as FIPS 206.
 
 ## ML-DSA JWTs
-Thanks to Swift Crypto, ML-DSA is now easily accessible in Swift and therefore we seized the moment and implemented ML-DSA based JWT signing. With version 5.3.0, JWTKit can be imported via
+
+Thanks to Swift Crypto, ML-DSA is now easily accessible in Swift; we therefore seized the moment and implemented ML-DSA based JWT signing. With version 5.3.0, JWTKit can be imported via
 ```swift
 @_spi(PostQuantum) import JWTKit
 ```
-> For the time being, we had to gate the new algorithm behind an `@_spi` flag because while the signing algorithm is formalised, its use in JWTs is still in [draft state](https://datatracker.ietf.org/doc/draft-ietf-cose-dilithium/).
-This import unlocks two new signing keys: `MLDSA65PrivateKey`, `MLDSA87PrivateKey` and their public counterparts. These can be created via `seedRepresentation`s and added to the usual key collection via
+> **Note:** For the time being, we had to gate the new algorithm behind an `@_spi` flag, because while the signing algorithm is formalised, its use in JWTs is still in [draft state](https://datatracker.ietf.org/doc/draft-ietf-cose-dilithium/).
+
+This import unlocks two new signing keys: `MLDSA65PrivateKey` and `MLDSA87PrivateKey`, along with their public counterparts. These can be created via `seedRepresentation`s and added to the usual key collection via
 ```swift
 let seedRepresentation = Data(fromHexEncodedString: mldsa87PrivateKeySeedRepresentation)
 let key = try MLDSA87PrivateKey(seedRepresentation: seedRepresentation)
@@ -52,4 +54,5 @@ Decoding it on jwt.io will yield a header similar to this:
 }
 ```
 And there you go, a shiny, post-quantum safe JWT.
+
 Check out the [5.3.0 release](https://github.com/vapor/jwt-kit/releases/tag/5.3.0) for full details, and let’s start protecting our data for the future!
