@@ -1,5 +1,5 @@
 ---
-date: 2026-04-10 12:00
+date: 2026-04-16 12:00
 description: Post quantum JWTs are here!
 tags: jwt, security, vapor
 authors: Francesco; Paul
