@@ -16,7 +16,7 @@ jobs:
         with:
           toolchain: latest
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Build site
         run: swift run
       - name: Configure AWS credentials
