@@ -7,7 +7,7 @@
                 #for(author in authors):#if(author.hasImage):<img class="blog-post-author-image me-2" src="#(author.imageURL)" alt="#(author.name)">#endif#endfor
                 <div class="blog-post-author-date-container">
                     <div class="blog-post-author-name">#(authorNames)</div>
-                    <div class="blog-post-publish-date"><time datetime="#(isoDate)">#(formattedDate)</time> · #(readingTimeText)</div>
+                    <div class="blog-post-publish-date"><time datetime="#(isoDate)">#(formattedDate)</time></div>
                 </div>
             </div>
             #if(hasTags):
