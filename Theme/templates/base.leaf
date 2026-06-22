@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://design.vapor.codes">
     <link rel="preconnect" href="https://design.vapor.codes" crossorigin>
     <meta property="og:site_name" content="#(site.name)">
-    <meta property="og:type" content="#if(page.isHome):website#else:article#endif">
+    <meta property="og:type" content="#if(blogPost):article#else:website#endif">
     <meta property="og:locale" content="#(language.ogLocale)">
     <link rel="canonical" href="#(page.canonicalURL)">
     <meta name="twitter:url" content="#(page.canonicalURL)">
@@ -21,7 +21,14 @@
     #if(site.twitterSite):<meta name="twitter:site" content="#(site.twitterSite)">
     <meta name="twitter:creator" content="#(site.twitterSite)">#endif
     #if(page.imageURL):<meta property="og:image" content="#(page.imageURL)">
-    <meta name="twitter:image" content="#(page.imageURL)">#endif
+    <meta property="og:image:alt" content="#if(page.isHome):#(site.name) Blog#else:#(page.title)#endif">
+    #if(page.imageType):<meta property="og:image:type" content="#(page.imageType)">#endif
+    <meta name="twitter:image" content="#(page.imageURL)">
+    <meta name="twitter:image:alt" content="#if(page.isHome):#(site.name) Blog#else:#(page.title)#endif">#endif
+    #if(blogPost):<meta property="article:published_time" content="#(blogPost.isoDateTime)">
+    #for(author in blogPost.authors):<meta property="article:author" content="#(author.name)">
+    #endfor#for(tag in blogPost.tags):<meta property="article:tag" content="#(tag.name)">
+    #endfor#endif
     <link rel="alternate" type="application/rss+xml" title="#(site.name) Blog" href="/feed.rss">
     <link rel="stylesheet" href="https://design.vapor.codes/main.css" type="text/css">
     <script src="https://design.vapor.codes/js/detectColorScheme.js"></script>
