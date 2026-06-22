@@ -1,61 +1,53 @@
-import Foundation
-import Publish
-import Plot
-import ReadingTimePublishPlugin
+import Kiln
 
-// This type acts as the configuration for your website.
-struct Blog: Website {
-    enum SectionID: String, WebsiteSectionID {
-        // Add the sections that you want your website to contain here:
-        case posts
-    }
+// The Vapor blog (blog.vapor.codes), built with Kiln.
+//
+// Posts are the markdown files in `Content/posts/*.md`; Kiln's blog feature
+// renders each as a post page (`/posts/<slug>/`), generates the paginated index
+// (`/`, `/2/`, …), the tag pages (`/tags/`, `/tags/<slug>/`), and an RSS feed
+// (`/feed.rss`). The look comes from a custom theme under `Theme/` that emits
+// the shared Vapor design-system markup (served from design.vapor.codes).
 
-    static var authorImagePlaceholder: String { "https://design.vapor.codes/images/author-image-placeholder.png" }
+let site = KilnSite(
+    name: "Vapor",
+    // The blog is its own host. Absolute URLs (canonical, og:url, sitemap, feed)
+    // are built from this.
+    url: "https://blog.vapor.codes",
+    description: "Articles, tools and resources for Vapor developers.",
+    // Default OpenGraph/Twitter preview image, used for any post without its own
+    // `image:` front matter. Site-relative to the content directory.
+    image: "static/images/opengraph/blog-og.png",
+    twitterSite: "@codevapor",
+    organization: .init(
+        name: "Vapor",
+        url: "https://www.vapor.codes",
+        logo: "https://design.vapor.codes/favicons/apple-touch-icon.png",
+        sameAs: [
+            "https://twitter.com/codevapor",
+            "https://hachyderm.io/@codevapor",
+            "https://bsky.app/profile/vapor.codes",
+            "https://github.com/vapor",
+        ]
+    ),
+    copyright: "© QuTheory, LLC 2026",
+    theme: .custom(
+        directory: "Theme",
+        palette: .autoLightDark(primary: .black, accent: .blue)
+    ),
+    // The design system ships all blog styling; AI/agent output isn't generated
+    // for the blog (it's nav-driven, and the blog has no navigation tree).
+    llmsText: false,
+    blog: Blog(
+        postsPerPage: 8,
+        feedTitle: "The Vapor Blog",
+        feedDescription: "Articles, tools and resources for Vapor developers.",
+        indexTitle: "Articles, tools & resources for Vapor devs",
+        tagsTitle: "Explore Vapor's articles by tags"
+    )
+)
 
-    struct ItemMetadata: WebsiteItemMetadata {
-        // Add any site-specific metadata that you want to use here.
-        var author: String?
-        var authors: String?
-        var authorImageURL: String?
-        var authorImageURLs: String?
-        
-        var allAuthors: [String] {
-            let authors = ((self.author ?? "").split(separator: ";") + (self.authors ?? "").split(separator: ";"))
-                .map({ $0.trimmingCharacters(in: .whitespaces) })
-            
-            return authors.isEmpty ? ["Unknown"] : authors
-        }
-        
-        var allAuthorImageURLs: [String] {
-            var imageURLs = ((self.authorImageURL ?? "").split(separator: ";") + (self.authorImageURLs ?? "").split(separator: ";"))
-                .map({ $0.trimmingCharacters(in: .whitespaces) })
-            let numAuthors = self.allAuthors.count
-
-            if imageURLs.count < numAuthors {
-                imageURLs.append(contentsOf: Array(repeating: Blog.authorImagePlaceholder, count: numAuthors - imageURLs.count))
-            }
-            return imageURLs
-        }
-    }
-
-    // Update these properties to configure your website:
-    var url = URL(string: "https://blog.vapor.codes")!
-    var name = "The Vapor Blog"
-    var description = "Welcome to the blog of Vapor, the Swift HTTP/Web Framework"
-    var language: Language { .english }
-    var imagePath: Path? { nil }
-    var favicon: Favicon? {
-        Favicon(path: "/favicon.ico", type: "image/x-icon")
-    }
-}
-
-try Blog().publish(using: [
-    .optional(.copyResources()),
-    .addMarkdownFiles(),
-    .installPlugin(.readingTime()),
-    .sortItems(by: \.date, order: .descending),
-    .group([.generatePaginatedPages()]),
-    .generateHTML(withTheme: .vaporBlog),
-    .generateRSSFeed(including: Set(Blog.SectionID.allCases)),
-    .generateSiteMap(),
-])
+try await Kiln.build(
+    site,
+    contentDirectory: "Content",
+    outputDirectory: "site"
+)

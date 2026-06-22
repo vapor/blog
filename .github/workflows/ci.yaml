@@ -41,5 +41,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           bucket-prefix: "vapor-blog-pulls"
-          folder-to-copy: "./Output"
+          folder-to-copy: "./site"
           bucket-region: "us-east-1"

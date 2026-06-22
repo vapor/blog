@@ -27,7 +27,7 @@ jobs:
       - name: Deploy Site to S3
         run: |
           # Python's mimetypes package now correctly detects the application/rss+xml MIME type for feed.rss, so don't need to handle it separately anymore
-          aws s3 sync ./Output 's3://${{ vars.VAPOR_BLOG_BUCKET_NAME }}/' --no-progress --acl public-read --follow-symlinks --delete
+          aws s3 sync ./site 's3://${{ vars.VAPOR_BLOG_BUCKET_NAME }}/' --no-progress --acl public-read --follow-symlinks --delete
       - name: Invalidate CloudFront
         run: |
           aws cloudfront create-invalidation --distribution-id '${{ secrets.VAPOR_BLOG_DISTRIBUTION_ID }}' --paths '/*'
