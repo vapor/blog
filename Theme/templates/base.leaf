@@ -11,7 +11,7 @@
     <link rel="canonical" href="#(page.canonicalURL)">
     <meta name="twitter:url" content="#(page.canonicalURL)">
     <meta property="og:url" content="#(page.canonicalURL)">
-    <title>#if(page.isHome):#(site.name) Blog#else:#(page.title) | #(site.name) Blog#endif</title>
+    <title>#if(page.isHome):#(site.name) Blog#else:#if(page.titleLength > 50):#(page.title)#else:#(page.title) | #(site.name)#endif#endif</title>
     <meta name="twitter:title" content="#if(page.isHome):#(site.name) Blog#else:#(page.title)#endif">
     <meta property="og:title" content="#if(page.isHome):#(site.name) Blog#else:#(page.title)#endif">
     #if(page.description):<meta name="description" content="#(page.description)">

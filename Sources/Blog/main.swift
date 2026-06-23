@@ -34,6 +34,9 @@ let site = KilnSite(
         directory: "Theme",
         palette: .autoLightDark(primary: .black, accent: .blue)
     ),
+    // Posts don't show the permalink "#" anchor next to headings (headings keep
+    // their ids, so direct #fragment links still work).
+    markdown: MarkdownExtensions(tableOfContents: .init(permalink: false)),
     // The design system ships all blog styling; AI/agent output isn't generated
     // for the blog (it's nav-driven, and the blog has no navigation tree).
     llmsText: false,

@@ -1,6 +1,6 @@
 #extend("base"):
 #export("content"):
-<div class="container vapor-container blog-container">
+<article class="container vapor-container blog-container">
     <div class="blog-post-header">
         <div id="blog-time-tag-container">
             <div class="d-flex" id="blog-time-tags">
@@ -50,6 +50,6 @@
         #endif
         <div class="ms-auto blog-share col-lg-6" id="blog-bottom-share">#extend("partials/blog-share")</div>
     </div>
-</div>
+</article>
 #endexport
 #endextend
