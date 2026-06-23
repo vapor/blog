@@ -46,13 +46,6 @@ let site = KilnSite(
         feedDescription: "Articles, tools and resources for Vapor developers.",
         indexTitle: "Articles, tools & resources for Vapor devs",
         tagsTitle: "Explore Vapor's articles by tags",
-        // Author registry. Posts reference an author by `username` (matched
-        // case-insensitively) in their `author:` / `authors:` front matter, e.g.
-        // `author: tim`; legacy `author: Tim` still resolves. Add `url:` (a
-        // profile page) and `sameAs:` (social profiles) to strengthen authorship
-        // signals — they produce a linked byline and JSON-LD `Person` url/sameAs:
-        //   Author(username: "tim", name: "Tim", imageURL: "/author-images/tim.jpg",
-        //          url: "https://...", sameAs: ["https://github.com/...", ...])
         authors: authors
     )
 )
