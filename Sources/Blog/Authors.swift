@@ -1,7 +1,15 @@
 import Kiln
 
 let authors: [Author] = [
-    Author(username: "0xTim", name: "Tim", imageURL: "/author-images/tim.jpg"),
+    Author(
+        username: "0xTim", name: "Tim", imageURL: "/author-images/tim.jpg",
+        url: "https://timc.dev",
+        sameAs: [
+            "https://github.com/0xTim",
+            "https://bsky.app/profile/0xtim.bsky.social",
+            "https://hachyderm.io/@0xTim",
+        ]
+    ),
     Author(username: "gwynne", name: "Gwynne", imageURL: "/author-images/gwynne.jpg"),
     Author(username: "paul", name: "Paul", imageURL: "/author-images/paul.jpg"),
     Author(username: "francesco", name: "Francesco", imageURL: "/author-images/francesco.jpg"),
