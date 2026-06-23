@@ -2,8 +2,7 @@
 date: 2023-05-10 13:30
 description: We've fixed a security issue in PostgresNIO - CVE-2023-31136
 tags: framework, security update
-authors: Tim; Gwynne
-authorImageURLs: /author-images/tim.jpg; /author-images/gwynne.jpg
+authors: 0xTim; Gwynne
 ---
 # PostgresNIO Security Vulnerability
 

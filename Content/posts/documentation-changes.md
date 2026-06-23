@@ -2,12 +2,11 @@
 date: 2022-05-08 01:16
 description: We're updating the documentation site and moving the old docs to a new site
 tags: docs
-author: Tim
-authorImageURL: /author-images/tim.jpg
+author: 0xTim
 ---
 # Vapor Documentation Changes
 
-As part of the [recently announced](/posts/vapor-next-steps/) updates to Vapor and it's developer experience, we're changing the way Vapor documentation works. 
+As part of the [recently announced](/posts/vapor-next-steps/) updates to Vapor and it's developer experience, we're changing the way Vapor documentation works.
 
 First, we've migrated the docs to a more modern stack. Rather than everything running on a single Digital Ocean box, the docs now live in S3 running behind a CDN. This should mean faster loading times for users and more stability. And of course deployments and updates are [all automated](https://github.com/vapor/docs/blob/main/.github/workflows/deploy.yml).
 

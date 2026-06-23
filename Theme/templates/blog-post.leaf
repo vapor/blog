@@ -19,7 +19,7 @@
             <div class="blog-post-author col-lg flex-wrap">
                 <div class="row row-cols-auto g-0">#for(author in blogPost.authors):<div class="col">#if(author.hasImage):<img class="blog-post-author-image me-2" src="#(author.imageURL)" alt="#(author.name)">#endif</div>#endfor</div>
                 <div class="blog-post-author-date-container mt-3">
-                    <div class="blog-post-author-name">#for(author in blogPost.authors):<div>#(author.name)</div>#endfor</div>
+                    <div class="blog-post-author-name">#for(author in blogPost.authors):<div>#if(author.hasURL):<a href="#(author.url)" rel="author">#(author.name)</a>#else:#(author.name)#endif</div>#endfor</div>
                     <div class="blog-post-publish-date">Published <time datetime="#(blogPost.isoDate)">#(blogPost.formattedDate)</time></div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
             <div class="blog-post-author col-lg d-flex">
                 #for(author in blogPost.authors):#if(author.hasImage):<img class="blog-post-author-image me-2" src="#(author.imageURL)" alt="#(author.name)">#endif#endfor
                 <div class="blog-post-author-date-container">
-                    <div class="blog-post-author-name">#for(author in blogPost.authors):#(author.name)#endfor</div>
+                    <div class="blog-post-author-name">#for(author in blogPost.authors):#if(author.hasURL):<a href="#(author.url)" rel="author">#(author.name)</a>#else:#(author.name)#endif#endfor</div>
                     <div class="blog-post-publish-date">Published <time datetime="#(blogPost.isoDate)">#(blogPost.formattedDate)</time></div>
                 </div>
             </div>

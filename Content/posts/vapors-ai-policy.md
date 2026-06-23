@@ -2,8 +2,7 @@
 date: 2026-02-16 13:00
 description: Vapor's adopting a policy for AI contributions and AI agents to ensure we grow sustainably.
 tags: ai, policy, governance
-author: Tim
-authorImageURL: /author-images/tim.jpg
+author: 0xTim
 ---
 
 # Vapor's AI Policy
@@ -16,7 +15,7 @@ Whilst views on AI coding are contentious (even among Vapor maintainers!), there
 
 ## Maintainer Burnout
 
-Running an open source project is hard work and maintainer burnout is a real thing. Dealing with a surge of issues and PRs to triage and review, especially in the midst of working on Vapor 5, is a massive time sink. If every submission was high quality and unique, it would be a net benefit. But seeing yet another PR for the same issue is not a productive use of time. 
+Running an open source project is hard work and maintainer burnout is a real thing. Dealing with a surge of issues and PRs to triage and review, especially in the midst of working on Vapor 5, is a massive time sink. If every submission was high quality and unique, it would be a net benefit. But seeing yet another PR for the same issue is not a productive use of time.
 
 ## Encouraging Contributions
 
@@ -24,4 +23,4 @@ Vapor has a couple of labels we use to triage issues - `good-first-issue` and `h
 
 ## Moving Forward
 
-None of these are problems unique for Vapor. Open source is certainly struggling across all projects, including [curl closing its bug bounty program](https://www.theregister.com/2026/01/21/curl_ends_bug_bounty/) and an [AI agent writing personalised attacks on maintainers](https://theshamblog.com/an-ai-agent-published-a-hit-piece-on-me/). Hopefully this will keep Vapor maintainable and sustainable. 
+None of these are problems unique for Vapor. Open source is certainly struggling across all projects, including [curl closing its bug bounty program](https://www.theregister.com/2026/01/21/curl_ends_bug_bounty/) and an [AI agent writing personalised attacks on maintainers](https://theshamblog.com/an-ai-agent-published-a-hit-piece-on-me/). Hopefully this will keep Vapor maintainable and sustainable.

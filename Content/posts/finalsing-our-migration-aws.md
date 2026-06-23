@@ -2,8 +2,7 @@
 date: 2023-03-01 14:00
 description: The API docs have been migrated to DocC and we've finished migrating all of Vapor's infrastructure to AWS.
 tags: docs, infrastructure
-author: Tim
-authorImageURL: /author-images/tim.jpg
+author: 0xTim
 ---
 # API and Infrastructure Updates
 

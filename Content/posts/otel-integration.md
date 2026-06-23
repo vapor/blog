@@ -4,7 +4,6 @@ description: Getting started with Vapor 4 and OpenTelemetry
 tags: vapor, otel, prometheus, grafana
 image: /static/images/posts/otel-integration-arch.svg
 author: Paul
-authorImageURL: /author-images/paul.jpg
 ---
 
 # Instrumenting Vapor 4 with Swift OTel
@@ -15,7 +14,7 @@ This tutorial will guide you through setting up a Vapor 4 application with OpenT
 
 In complex systems it's often a good thing to be able to figure out why the system is behaving in a certain way without having to look into the code. When we want to be able to have a more high level view of what happens in the application without opening up the black box, we're looking for **observability**. Observability is the concept of collecting information about a system's execution and internal state, based on the data it generates.
 
-In more practical terms, observability is made up of 
+In more practical terms, observability is made up of
 
 - **Logs**: exact details of an event, e.g an HTTP request, its method, time etc.;
 - **Metrics**: instant measurement representing some system state, such as number of HTTP requests/second;
@@ -27,7 +26,7 @@ In more practical terms, observability is made up of
 
 The first step is gathering the metrics from our app's flow. Fortunately for us this is the easiest step, as, just like logs with swift-log, Vapor comes with built-in support for metrics using the [swift-metrics](https://github.com/apple/swift-metrics) package.
 
-The metrics created by Vapor include things like request counts, response times, and error rates, all of which are essential for understanding the health and performance of your application. 
+The metrics created by Vapor include things like request counts, response times, and error rates, all of which are essential for understanding the health and performance of your application.
 
 > You can also emit your own custom metrics using the same package. To do this, check out the [Swift Metrics documentation](https://swiftpackageindex.com/apple/swift-metrics/2.7.1/documentation/coremetrics). Since Vapor already embeds it, you don't need to configure anything, just add your own metrics where you need them and they will be emitted along with the built-in ones.
 
@@ -65,17 +64,17 @@ import Vapor
 actor OTelLifecycleHandler: LifecycleHandler {
     let observability: any Service
     private var task: Task<Void, any Error>?
-    
+
     init(observability: some Service) {
         self.observability = observability
     }
-    
+
     public func didBootAsync(_ application: Application) async throws {
         task = Task {
             try await observability.run()
         }
     }
-    
+
     func shutdownAsync(_ application: Application) async {
         task?.cancel()
     }
@@ -327,10 +326,10 @@ In this section we'll briefly cover how to deploy the monitoring setup on AWS us
 
 ### AWS Managed Prometheus
 
-To store the metrics on AWS, we can use [AWS Managed Prometheus](https://aws.amazon.com/prometheus/), which is a fully managed service that makes it easy to monitor and alert on your containerized applications and infrastructure. 
+To store the metrics on AWS, we can use [AWS Managed Prometheus](https://aws.amazon.com/prometheus/), which is a fully managed service that makes it easy to monitor and alert on your containerized applications and infrastructure.
 First, we need to create a new Prometheus workspace in the AWS Management Console. A workspace is simply a Prometheus instance we can send data to, tell to scrape data, and query data from.
 
-To create a new workspace, visit https://console.aws.amazon.com/prometheus/home and click on "Create workspace". 
+To create a new workspace, visit https://console.aws.amazon.com/prometheus/home and click on "Create workspace".
 Give it a name (it doesn't need to be unique) and create the workspace. Once created, navigate to the workspace and copy the "Remote write endpoint" URL, which we'll need later.
 
 You can also create it using the AWS CLI:
@@ -457,7 +456,7 @@ Now you can deploy the updated task definition to your ECS service. The OTel Col
 ### Grafana
 
 For visualizing the metrics, we can use [AWS Managed Grafana](https://aws.amazon.com/grafana/).
-Create a new Grafana workspace in the AWS Management Console. Once created, switch to the "Data sources" tab and add a new data source. Select "Prometheus" as the data source type and enable the "AWS Managed Service for Prometheus" option. 
+Create a new Grafana workspace in the AWS Management Console. Once created, switch to the "Data sources" tab and add a new data source. Select "Prometheus" as the data source type and enable the "AWS Managed Service for Prometheus" option.
 
 Now you need to give access to your user to the Grafana workspace. This is really simple: on the "Authentication" tab of your Grafana workspace, just add your IAM user or role and assign it the "Admin" role. This will grant you access to add data sources and create dashboards.
 

@@ -2,8 +2,7 @@
 date: 2022-11-14 18:00
 description: The API docs are changing as we finish migrating to AWS
 tags: docs, framework
-author: Tim
-authorImageURL: /author-images/tim.jpg
+author: 0xTim
 ---
 # Vapor's API Docs Are Changing
 

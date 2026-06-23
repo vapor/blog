@@ -2,8 +2,7 @@
 date: 2022-05-11 12:55
 description: See how to add a database table index using SQLKit
 tags: tips, Fluent
-author: Tim
-authorImageURL: /author-images/tim.jpg
+author: 0xTim
 ---
 # Adding a database table index
 
@@ -29,6 +28,6 @@ struct CreateTodoTitleIndex: AsyncMigration {
 }
 ```
 
-This creates an index called `todo_index` on the table named `todos` for the column `title`. 
+This creates an index called `todo_index` on the table named `todos` for the column `title`.
 
 > Note: this code example is for Postgres. For MySQL you need to pass the table name to the statement when reverting with `.on("todos")`

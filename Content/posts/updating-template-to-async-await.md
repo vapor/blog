@@ -2,8 +2,7 @@
 date: 2022-02-22 10:22
 description: We're updating Vapor's template to use async/await
 tags: templates, async/await
-author: Tim
-authorImageURL: /author-images/tim.jpg
+author: 0xTim
 ---
 # Updating Vapor's Template To Use `async`/`await`
 

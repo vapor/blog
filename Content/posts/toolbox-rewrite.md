@@ -3,7 +3,6 @@ date: 2025-03-18 16:00
 description: The Toolbox has been rewritten using the best tools in the ecosystem, and it's now more powerful than ever!
 tags: toolbox, templates, ecosystem
 authors: Francesco
-authorImageURLs: /author-images/francesco.jpg
 ---
 # The new Vapor Toolbox
 

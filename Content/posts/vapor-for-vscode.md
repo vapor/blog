@@ -3,7 +3,6 @@ date: 2025-09-23 16:00
 description: The official Vapor extension for Visual Studio Code is here!
 tags: vapor, toolbox, templates, leaf, fluent, vscode
 authors: Francesco
-authorImageURLs: /author-images/francesco.jpg
 ---
 # Meet Vapor for VS Code
 

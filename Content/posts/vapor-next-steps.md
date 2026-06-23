@@ -2,8 +2,7 @@
 date: 2022-02-21 10:22
 description: Discussing the future of Vapor and the next steps in Vapor's Life
 tags: framework, growth, business
-author: Tim
-authorImageURL: /author-images/tim.jpg
+author: 0xTim
 ---
 # The next steps for Vapor
 
@@ -17,7 +16,7 @@ We're currently in the early stages of planning Vapor 5. This will be the next m
 
 ### Helping the Community
 
-We know that a major release of Vapor can be disruptive and time consuming for everyone. Whether you're learning the framework, writing community packages, building production apps or even writing books and tutorials, migrating to a Vapor 5 will take some time. To help with this we will be releasing a comprehensive migration guide to help everyone get up to speed quickly. 
+We know that a major release of Vapor can be disruptive and time consuming for everyone. Whether you're learning the framework, writing community packages, building production apps or even writing books and tutorials, migrating to a Vapor 5 will take some time. To help with this we will be releasing a comprehensive migration guide to help everyone get up to speed quickly.
 
 We will also be announcing a support timeline for the first time and will commit to support Vapor 5 for _at least_ 2 years. This should provide some reassurances to Vapor users about the stability of Vapor 5 and know they can put the work in early to migrate and it will pay off for the years to come.
 
@@ -32,17 +31,17 @@ Outside of Vapor 5, we also have a number of other initiatives that we are rolli
 The [website for Vapor](https://vapor.codes) is certainly due an overhaul. We are going to expand it and update it with links to more docs, more tutorial sites and more community initiatives. There have been plenty of conference talks on Vapor over the years and we should feature these on the site. We also have several large companies building applications using Vapor with very large user bases. These will be highlighted in a new showcase section to show that Vapor can and does handle large production apps.
 
 This blog is also a part of an increased focus on showing off Vapor and helping people understand it. We're going to be posting regular blog posts about both the development of Vapor and short form tutorials that don't fit into the documentation site. This should also help with people Googling for Vapor answers!
- 
+
 Both the main website and blog will be getting a full redesign in the coming weeks. If you have ideas, then send them our way in the `#design` channel in Discord.
 
 ### Improving the developer experience
- 
+
 Speaking of documentation, there are several fronts where we can improve the developer experience for new and experienced developers. First, we plan on further growing the [documentation](https://docs.vapor.codes) with more expansive docs. Whether it's examples of more complex use cases or more unusual uses of Fluent, they should be easily discoverable. If you have any ideas for what you'd like to see, please [raise an issue on GitHub](https://github.com/vapor/docs/issues/new/choose). And as always, contributions are more than welcome!
- 
+
 We also need to do a better job of aggregating all of the useful information out there. The [SSWG guides](https://github.com/swift-server/guides) for instance contain a ton of useful information, both for deploying applications and measuring performance. There are lots of blog posts, GitHub projects, books, tutorials, videos and many other useful things for learning about Vapor we should link to. Having somewhere either on the website or a regular blog post to link to them would be a great start in helping the community learn about each other.
- 
+
 Currently the Vapor docs are available in English and Chinese. We'd love to expand this to more languages, so if you're interested in translating the docs into another language please get in touch!
- 
+
 Finally, we are planning on adding a jobs section to the website. There are Vapor jobs out there and also Vapor developers out there. We can help facilitate linking these two groups up!
 
 ### Introducing Vapor Evangelists

@@ -3,8 +3,7 @@ date: 2024-09-03 12:00
 description: Discussing what the future holds for Vapor
 tags: framework, vapor5
 image: /static/images/posts/Vapor5.png
-author: Tim
-authorImageURL: /author-images/tim.jpg
+author: 0xTim
 ---
 # The Future of Vapor
 

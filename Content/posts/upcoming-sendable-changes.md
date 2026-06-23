@@ -2,8 +2,7 @@
 date: 2023-05-24 12:00
 description: Advance warning of some upcoming changes to Vapor as we continue our Concurrency journey.
 tags: vapor, framework
-author: Tim
-authorImageURL: /author-images/tim.jpg
+author: 0xTim
 ---
 # Upcoming changes to Vapor with `Sendable`
 

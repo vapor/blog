@@ -2,12 +2,11 @@
 date: 2022-07-13 14:00
 description: Learn how to enable query logging in Fluent to see the generated SQL queries
 tags: Fluent, tips
-author: Tim
-authorImageURL: /author-images/tim.jpg
+author: 0xTim
 ---
 # Enable SQL Query Logging
 
-The Fluent drivers log the SQL they generate at the debug log level. This allows you to opt in to seeing the SQL generated without making it too noisy. This also follow the guidance from the SSWG on [library logging](https://github.com/swift-server/guides/blob/main/docs/libs/log-levels.md). 
+The Fluent drivers log the SQL they generate at the debug log level. This allows you to opt in to seeing the SQL generated without making it too noisy. This also follow the guidance from the SSWG on [library logging](https://github.com/swift-server/guides/blob/main/docs/libs/log-levels.md).
 
 Some drivers, like FluentPostgreSQL, allow this to be configured when you configure the database. For example:
 
