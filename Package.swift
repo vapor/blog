@@ -15,8 +15,8 @@ let package = Package(
         // The blog runs on Kiln (the same generator as the docs and main site).
         // Released builds use the tagged dependency; for local Kiln development
         // (e.g. unreleased blog features) swap to the path dependency below.
-        // .package(url: "https://github.com/brokenhandsio/kiln.git", from: "1.3.0"),
-        .package(path: "../../BH/kiln"),
+        .package(url: "https://github.com/brokenhandsio/kiln.git", from: "1.3.0"),
+        // .package(path: "../../BH/kiln"),
     ],
     targets: [
         .executableTarget(
