@@ -35,7 +35,7 @@
     background: #f0f0f7;                         /* grey-200 */
     border: 1px solid rgba(64, 196, 255, 0.1);  /* blue-300 @ 10% */
     border-radius: 12px;
-    color: #40c4ff;                             /* blue-300 */
+    color: #135b80;                             /* blue-500 (AA on grey-200) */
     text-decoration: none;
     padding: 8px 16px 8px 13px;
     transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
@@ -44,7 +44,7 @@
 .author-back-link .vapor-icon {
     height: 15px;
     width: 15px;
-    background-color: #40c4ff;
+    background-color: #135b80;                   /* blue-500 */
     margin-right: 5px;
     transition: background-color 0.15s ease;
 }
@@ -52,12 +52,12 @@
 .author-back-link:hover {
     background-color: #fafafd;                  /* grey-100 */
     border-color: #dfe0eb;                      /* grey-300 */
-    color: #1e92cc;                             /* blue-400 */
+    color: #135b80;                             /* blue-500 */
     text-decoration: none;
 }
 
 .author-back-link:hover .vapor-icon {
-    background-color: #1e92cc;
+    background-color: #135b80;
 }
 
 /* Dark mode — mirrors the pagination buttons' dark styling. */
@@ -65,6 +65,11 @@
     background: rgba(255, 255, 255, 0.05);
     border-color: rgba(223, 62, 251, 0.1);      /* pink-300 @ 10% */
     color: #40c4ff;
+}
+
+/* Light mode darkens the icon to blue-500 via the base rule; keep it light here. */
+.dark .author-back-link .vapor-icon {
+    background-color: #40c4ff;
 }
 
 .dark .author-back-link:hover {
