@@ -31,6 +31,7 @@
     #endfor#endif
     <link rel="alternate" type="application/rss+xml" title="#(site.name) Blog" href="/feed.rss">
     <link rel="stylesheet" href="https://design.vapor.codes/main.css" type="text/css">
+    <link rel="stylesheet" href="/static/css/blog.css" type="text/css">
     <script src="https://design.vapor.codes/js/detectColorScheme.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="light dark">
