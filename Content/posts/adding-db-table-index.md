@@ -1,6 +1,6 @@
 ---
 date: 2022-05-11 12:55
-description: See how to add a database table index using SQLKit
+description: "Fluent doesn't yet support database indexes natively, but you can add one in a migration by dropping down to SQLKit. Here's how, with examples."
 tags: tips, Fluent
 author: 0xTim
 ---

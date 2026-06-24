@@ -1,6 +1,6 @@
 ---
 date: 2022-05-17 09:00
-description: We need your help to showcase Vapor!
+description: "As we redesign Vapor's sites, we're collecting stories from teams and companies running Vapor in production for a new showcase. Here's how to take part."
 tags: growth, business, redesign
 image: /static/images/posts/we-need-you.jpg
 author: 0xTim

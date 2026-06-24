@@ -1,6 +1,6 @@
 ---
 date: 2022-06-01 13:00
-description: My experiences and contributions during my internship
+description: "Benny, a Computer Science student at HOGENT in Belgium, shares his experience interning with the Vapor core team and the contributions he made."
 tags: story, internship
 author: Benny
 ---

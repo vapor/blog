@@ -1,6 +1,6 @@
 ---
 date: 2022-02-21 10:22
-description: Discussing the future of Vapor and the next steps in Vapor's Life
+description: "Six years in, we're starting to plan Vapor 5 — the next major release completing Vapor's move to async Swift. Here's our early thinking and direction."
 tags: framework, growth, business
 author: 0xTim
 ---

@@ -1,6 +1,6 @@
 ---
 date: 2025-11-10 10:00
-description: Getting started with Vapor 4 and OpenTelemetry
+description: "Instrument a Vapor 4 app with OpenTelemetry: collect metrics from your app and queue workers, then visualize them in Grafana. A step-by-step guide."
 tags: vapor, otel, prometheus, grafana
 image: /static/images/posts/otel-integration-arch.svg
 author: Paul

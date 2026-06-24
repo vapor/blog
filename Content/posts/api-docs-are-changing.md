@@ -1,6 +1,6 @@
 ---
 date: 2022-11-14 18:00
-description: The API docs are changing as we finish migrating to AWS
+description: "Vapor's API reference docs are moving to AWS for better performance and lower hosting costs. Expect some downtime during the migration."
 tags: docs, framework
 author: 0xTim
 ---

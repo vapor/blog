@@ -1,6 +1,6 @@
 ---
 date: 2024-02-28 16:00
-description: We've released a new version of JWTKit, and it's a big one!
+description: "JWTKit is the first Vapor package rebuilt around Swift's structured concurrency ahead of Swift 6. Here's what's new in this major release."
 tags: jwt, security, vapor
 authors: Paul; 0xTim
 ---

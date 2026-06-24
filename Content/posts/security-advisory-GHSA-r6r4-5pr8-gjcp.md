@@ -1,6 +1,6 @@
 ---
 date: 2024-01-03 16:00
-description: We've fixed an issue in Vapor's URI Parsing - CVE-2024-21631
+description: "Vapor 4.90.0 fixes CVE-2024-21631 in URI parsing, replacing the old C parser with a safer Swift implementation. Upgrade if you parse untrusted URIs."
 tags: framework, security update
 author: 0xTim
 ---

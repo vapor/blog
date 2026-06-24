@@ -1,6 +1,6 @@
 ---
 date: 2024-05-19 11:00
-description: The situation with Fluent Models and Sendable warnings
+description: "Since FluentKit 1.48.0, every Fluent Model triggers a Sendable warning. Here's the Swift property-wrapper corner case behind it, and how to handle it."
 tags: fluent, concurrency, warnings, vapor
 author: Gwynne
 ---

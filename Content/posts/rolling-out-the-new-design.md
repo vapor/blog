@@ -1,6 +1,6 @@
 ---
 date: 2023-01-05 18:00
-description: We're starting to roll out Vapor's new Design to the websites!
+description: "Vapor's new design is rolling out across our sites, backed by a new open design repo with shared source files, a build pipeline and a live example."
 tags: redesign, growth
 author: 0xTim
 ---

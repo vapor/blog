@@ -1,6 +1,6 @@
 ---
 date: 2023-05-16 20:00
-description: Vapor's Penny Discord bot has been getting better and better. She can not only give coin to members, but also ping members for keywords, and keep users up to date with Swift's evolution.
+description: "Vapor's Penny Discord bot now tracks Swift Evolution, posting proposal updates in #swift-evolution — and you can follow them from your own server too."
 tags: penny, bot, discord
 author: Mahdi
 ---

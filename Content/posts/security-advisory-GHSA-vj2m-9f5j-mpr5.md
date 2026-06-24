@@ -1,6 +1,6 @@
 ---
 date: 2022-05-31 10:22
-description: We've fixed an issue in Vapor's FileMiddleware - CVE-2022-31005
+description: "Vapor 4.60.3 fixes CVE-2022-31005 in FileMiddleware, where crafted Range headers could crash an app. Upgrade now if you serve files with it."
 tags: framework, security update
 author: 0xTim
 ---

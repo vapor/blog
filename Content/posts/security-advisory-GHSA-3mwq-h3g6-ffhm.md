@@ -1,6 +1,6 @@
 ---
 date: 2023-10-05 11:00
-description: We've fixed an issue in Vapor's Error Handling - CVE-2023-44386
+description: "Vapor 4.84.2 fixes CVE-2023-44386, an error-handling flaw that let an attacker crash an app by triggering a write to a closed channel. Upgrade now."
 tags: framework, security update
 author: 0xTim
 ---

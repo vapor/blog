@@ -1,6 +1,6 @@
 ---
 date: 2022-08-16 18:00
-description: The next steps for embracing async/await in Vapor
+description: "With Vapor 5 still some way off, we're updating Vapor 4 to back-deploy async/await to older OSes and take further steps toward structured concurrency."
 tags: vapor, framework
 author: 0xTim
 ---
