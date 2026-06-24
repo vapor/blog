@@ -2,8 +2,7 @@
 date: 2023-05-10 12:00
 description: You may notice some changes in Vapor's templates - we've updated then for Swift 5.8, with a unified target and using the latest `@main` syntax.
 tags: templates
-authors: Tim; Gwynne
-authorImageURLs: /author-images/tim.jpg; /author-images/gwynne.jpg
+authors: 0xTim; Gwynne
 ---
 # Updating Vapor's Templates for Swift 5.8
 

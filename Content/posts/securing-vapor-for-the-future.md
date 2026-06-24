@@ -2,8 +2,7 @@
 date: 2026-04-10 17:00
 description: Vapor was selected for the 3rd session of the GitHub Secure Open Source Fund
 tags: security
-authors: Tim
-authorImageURLs: /author-images/tim.jpg
+authors: 0xTim
 ---
 
 # Securing Vapor for the Future - Our Experience in GitHub's Secure Open Source Fund

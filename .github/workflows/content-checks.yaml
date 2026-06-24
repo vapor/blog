@@ -1,0 +1,27 @@
+name: Content checks
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+# Least-privilege: this workflow only reads the repo to lint content.
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint post content (descriptions, image alt text)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Lint content
+        run: python3 scripts/check_content.py

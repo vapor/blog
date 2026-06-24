@@ -1,10 +1,9 @@
 ---
 date: 2024-02-28 16:00
-description: We've released a new version of JWTKit, and it's a big one!
+description: "JWTKit is the first Vapor package rebuilt around Swift's structured concurrency ahead of Swift 6. Here's what's new in this major release."
 tags: jwt, security, vapor
-authors: Paul; Tim
-authorImageURLs: /author-images/paul.jpg; /author-images/tim.jpg
---- 
+authors: Paul; 0xTim
+---
 # JWTKit is no longer Boring!
 
 > Updated for JWTKit Beta 4.
@@ -21,9 +20,9 @@ Future posts will discuss Vapor 5, Fluent 5, and other future directions, so let
 
 Over the last few months, you may have noticed an open pull request in the JWTKit repository entitled "V5". As you have probably already guessed, this pull request brings a new major version, namely number 5, to JWTKit. In the past, including in version 4, our beloved JWT library was based mostly on a vendored copy of [BoringSSL](https://boringssl.googlesource.com/boringssl/), a cryptographic library written in plain old C, one of the several spinoffs of the [OpenSSL](https://openssl.org) project. While it did _work_, maintaining a wrapper around C is not modern anymore, let alone "Swifty". It introduced potential safety issues calling through to C code and added a significant amount to your app's compile time - [SwiftCrypto](https://github.com/apple/swift-crypto) includes another entire copy that gets separately compiled, even though it's the same code! That's why we decided to eradicate BoringSSL from JWTKit and replace it with Swift-only internals, namely SwiftCrypto itself. Available as of today in a beta version is major release 5 for JWTKit.
 
-Besides removing the C-based internals, the package got a number of upgrades. JWTKit is now fully `Sendable`-correct and builds with zero warnings in strict concurrency mode. 
+Besides removing the C-based internals, the package got a number of upgrades. JWTKit is now fully `Sendable`-correct and builds with zero warnings in strict concurrency mode.
 
-We also added a new signing algorithm: `PSS`-padded `RSA` (aka `RSA-PSS`). Although `RSA` is no longer considered future-proof and should be avoided whenever possible, using RSA with the much older PKCS#1 v1.5 padding is _known_ to be unsafe today - so we added support for the safer (though still not recommended) padding mode. If you want to try it but can't find it, it's likely because `RSA` key types are now nested within the `Insecure` namespace, to discourage new users from using it. 
+We also added a new signing algorithm: `PSS`-padded `RSA` (aka `RSA-PSS`). Although `RSA` is no longer considered future-proof and should be avoided whenever possible, using RSA with the much older PKCS#1 v1.5 padding is _known_ to be unsafe today - so we added support for the safer (though still not recommended) padding mode. If you want to try it but can't find it, it's likely because `RSA` key types are now nested within the `Insecure` namespace, to discourage new users from using it.
 
 ## Upgrading
 
@@ -80,12 +79,12 @@ After adding a key, you can create your payload like:
 ```diff
 struct SomePayload: JWTPayload {
     var exampleName: String
-    
+
     // the claims did not change
 
 -   func verify(using signer: JWTSigner) throws {
 +   func verify(using signer: some JWTAlgorithm) async throws {
-        // ... 
+        // ...
     }
 }
 ```
@@ -171,18 +170,18 @@ Then, you can simply use your new parser and serializer like this:
 
 ```swift
 let keyCollection = await JWTKeyCollection().add(
-    hmac: "secret", 
-    digestAlgorithm: .sha256, 
-    parser: CustomParser(), 
+    hmac: "secret",
+    digestAlgorithm: .sha256,
+    parser: CustomParser(),
     serializer: CustomSerializer()
 )
 ```
 
-and 
+and
 
 ```swift
 let token = try await keyCollection.sign(payload, header: ["b64": true])
 ```
 
-Wrapping up, while the package is still in beta, we'd love your feedback! So go ahead, try it out and let us know what you love and what you hate. 
+Wrapping up, while the package is still in beta, we'd love your feedback! So go ahead, try it out and let us know what you love and what you hate.
 

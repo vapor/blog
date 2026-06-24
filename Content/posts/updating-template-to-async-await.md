@@ -1,9 +1,8 @@
 ---
 date: 2022-02-22 10:22
-description: We're updating Vapor's template to use async/await
+description: "Vapor's project template now uses async/await for cleaner, easier-to-maintain code. It needs macOS 12 — or use the macos10-15 branch for older setups."
 tags: templates, async/await
-author: Tim
-authorImageURL: /author-images/tim.jpg
+author: 0xTim
 ---
 # Updating Vapor's Template To Use `async`/`await`
 

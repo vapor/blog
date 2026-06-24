@@ -1,0 +1,58 @@
+#extend("base"):
+#export("content"):
+<article class="container vapor-container blog-container">
+    <div class="blog-post-header">
+        <div class="blog-post-toprow d-flex align-items-center flex-wrap">
+            <div id="blog-time-tag-container">
+                <div class="d-flex" id="blog-time-tags">
+                    #if(blogPost.hasTags):
+                    <div class="blog-tags">
+                        <ul class="mx-auto mx-lg-0 flex-wrap">#for(tag in blogPost.tags):<li class="my-1"><a href="#(tag.url)">#(tag.name)</a></li>#endfor</ul>
+                    </div>
+                    #endif
+                    <div id="blog-post-reading-time">#(blogPost.readingTimeText)</div>
+                </div>
+            </div>
+            <div class="ms-auto blog-subscribe-inline">#extend("partials/blog-subscribe")</div>
+        </div>
+        <h1 class="mb-4 mt-4">#(blogPost.title)</h1>
+        #if(blogPost.hasDescription):<div class="mb-4" id="blog-description">#(blogPost.description)</div>#endif
+        <div class="row">
+            #if(count(blogPost.authors) > 1):
+            <div class="blog-post-author col-lg flex-wrap">
+                <div class="row row-cols-auto g-0">#for(author in blogPost.authors):<div class="col">#if(author.hasImage):#if(author.hasPage):<a href="#(author.pageURL)" aria-hidden="true" tabindex="-1"><img class="blog-post-author-image me-2" src="#(author.imageURL)" alt="#(author.name)"></a>#else:<img class="blog-post-author-image me-2" src="#(author.imageURL)" alt="#(author.name)">#endif#endif</div>#endfor</div>
+                <div class="blog-post-author-date-container mt-3">
+                    <div class="blog-post-author-name">#for(author in blogPost.authors):<div>#if(author.hasPage):<a href="#(author.pageURL)" rel="author">#(author.name)</a>#else:#(author.name)#endif</div>#endfor</div>
+                    <div class="blog-post-publish-date">Published <time datetime="#(blogPost.isoDate)">#(blogPost.formattedDate)</time></div>
+                </div>
+            </div>
+            #else:
+            <div class="blog-post-author col-lg d-flex">
+                #for(author in blogPost.authors):#if(author.hasImage):#if(author.hasPage):<a href="#(author.pageURL)" aria-hidden="true" tabindex="-1"><img class="blog-post-author-image me-2" src="#(author.imageURL)" alt="#(author.name)"></a>#else:<img class="blog-post-author-image me-2" src="#(author.imageURL)" alt="#(author.name)">#endif#endif#endfor
+                <div class="blog-post-author-date-container">
+                    <div class="blog-post-author-name">#for(author in blogPost.authors):#if(author.hasPage):<a href="#(author.pageURL)" rel="author">#(author.name)</a>#else:#(author.name)#endif#endfor</div>
+                    <div class="blog-post-publish-date">Published <time datetime="#(blogPost.isoDate)">#(blogPost.formattedDate)</time></div>
+                </div>
+            </div>
+            #endif
+            <div class="ms-auto blog-share col-lg-6 mt-4 mt-lg-0" id="blog-top-share">#extend("partials/blog-share")</div>
+        </div>
+    </div>
+
+    <hr class="blog-post-divider">
+
+    <div class="blog-content">#unsafeHTML(blogPost.content)</div>
+
+    <hr class="blog-post-divider">
+
+    <div class="row align-items-center" id="blog-post-bottom">
+        #if(blogPost.hasTags):
+        <div class="blog-tags col-lg-6 d-flex" id="blog-bottom-tags">
+            <ul class="mx-auto mx-lg-0 flex-wrap">#for(tag in blogPost.tags):<li class="my-1"><a href="#(tag.url)">#(tag.name)</a></li>#endfor</ul>
+        </div>
+        #endif
+        <div class="ms-auto blog-share col-lg-6" id="blog-bottom-share">#extend("partials/blog-share")</div>
+    </div>
+</article>
+#endexport
+#endextend

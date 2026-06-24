@@ -1,10 +1,9 @@
 ---
 date: 2026-04-15 16:00
-description: Post quantum JWTs are here!
+description: "JWTKit now supports post-quantum JWTs, built on the quantum-secure APIs from Swift Crypto, providing future-proof security for the Swift ecosystem"
 tags: jwt, security, vapor
 authors: Francesco; Paul
-authorImageURLs: /author-images/francesco.jpg; /author-images/paul.jpg
---- 
+---
 
 # Post Quantum JWTs
 
@@ -47,7 +46,7 @@ let seedRepresentation = Data(fromHexEncodedString: mldsa87PrivateKeySeedReprese
 let key = try MLDSA87PrivateKey(seedRepresentation: seedRepresentation)
 await keyCollection.add(mldsa: key)
 ```
-Signing a token using this key will produce a _huge_ string: an ML-DSA 87 signature is 4.6 KB, compared to the ~0.1 KB of ES512. 
+Signing a token using this key will produce a _huge_ string: an ML-DSA 87 signature is 4.6 KB, compared to the ~0.1 KB of ES512.
 Decoding it on jwt.io will yield a header similar to this:
 ```json
 {

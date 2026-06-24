@@ -4,7 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "Blog",
-    platforms: [.macOS(.v12)],
+    platforms: [.macOS(.v13)],
     products: [
         .executable(
             name: "Blog",
@@ -12,17 +12,17 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/johnsundell/publish.git", branch: "master"),
-        .package(url: "https://github.com/alexito4/ReadingTimePublishPlugin.git", from: "0.3.0"),
-        .package(url: "https://github.com/vapor/design.git", branch: "main"),
+        // The blog runs on Kiln (the same generator as the docs and main site).
+        // Released builds use the tagged dependency; for local Kiln development
+        // (e.g. unreleased blog features) swap to the path dependency below.
+        .package(url: "https://github.com/brokenhandsio/kiln.git", from: "1.3.0"),
+        // .package(path: "../../BH/kiln"),
     ],
     targets: [
         .executableTarget(
             name: "Blog",
             dependencies: [
-                .product(name: "Publish", package: "publish"),
-                .product(name: "ReadingTimePublishPlugin", package: "ReadingTimePublishPlugin"),
-                .product(name: "VaporDesign", package: "design"),
+                .product(name: "Kiln", package: "kiln"),
             ]
         ),
     ]

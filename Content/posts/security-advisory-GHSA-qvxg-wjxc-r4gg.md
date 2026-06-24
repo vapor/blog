@@ -2,8 +2,7 @@
 date: 2022-06-06 17:22
 description: We've fixed an issue in Vapor's URLEncodedFormDecoder - CVE-2022-31019
 tags: framework, security update
-author: Tim
-authorImageURL: /author-images/tim.jpg
+author: 0xTim
 ---
 # Vapor `URLEncodedFormDecoder` Security Vulnerability
 
@@ -11,6 +10,6 @@ We've just released [Vapor 4.61.1](https://github.com/vapor/vapor/releases/tag/4
 
 We've limited the amount of recursion the decoder can undertake to stop future attacks and audited other code instances where we recursively decode data. You can see more details on the [Security Advisory on GitHub](https://github.com/vapor/vapor/security/advisories/GHSA-qvxg-wjxc-r4gg).
 
-Since this affects anyone calling `req.content.decode()` we recommend you upgrade to this release as soon as possible. 
+Since this affects anyone calling `req.content.decode()` we recommend you upgrade to this release as soon as possible.
 
 Thank you to [Johannes Weiss](https://github.com/weissi) for reporting!

@@ -1,9 +1,8 @@
 ---
 date: 2022-08-16 18:00
-description: The next steps for embracing async/await in Vapor
+description: "With Vapor 5 still some way off, we're updating Vapor 4 to back-deploy async/await to older OSes and take further steps toward structured concurrency."
 tags: vapor, framework
-author: Tim
-authorImageURL: /author-images/tim.jpg
+author: 0xTim
 ---
 # Vapor's Next Steps with `async`/`await`
 
@@ -41,4 +40,4 @@ Setting Swift 5.6 as our minimum supported Swift version makes adopting `Sendabl
 
 ## Schedule
 
-You can see the [initial PR on GitHub](https://github.com/vapor/vapor/pull/2873) where most of the work will be done. We may break it up into multiple PRs, but it won't be released until Swift 5.7 is released. This means Vapor will support Swift 5.6 and Swift 5.7, which should be a good tradeoff between support and maintainability. 
+You can see the [initial PR on GitHub](https://github.com/vapor/vapor/pull/2873) where most of the work will be done. We may break it up into multiple PRs, but it won't be released until Swift 5.7 is released. This means Vapor will support Swift 5.6 and Swift 5.7, which should be a good tradeoff between support and maintainability.

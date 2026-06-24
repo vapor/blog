@@ -1,0 +1,116 @@
+/* Blog-specific author styling. The shared team-card design (.team-card,
+   .team-grid, .team-socials, …) lives in the design system; these rules are
+   only used by the blog's author pages, so they live here. */
+
+/* Clickable author names + avatars on the author cards/bylines. */
+.team-name a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.team-name a:hover {
+    color: #df3efb;
+}
+
+.team-avatar-link {
+    display: inline-block;
+}
+
+/* Author page header — centre the avatar and space the socials. */
+.author-page-header .team-avatar {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.author-page-header .team-socials {
+    margin-top: 16px;
+}
+
+/* "All authors" link — styled like the pagination previous/next buttons (same
+   fill, border, radius and hover) so it stands out from the background. */
+.author-back-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0f0f7;                         /* grey-200 */
+    border: 1px solid rgba(64, 196, 255, 0.1);  /* blue-300 @ 10% */
+    border-radius: 12px;
+    color: #135b80;                             /* blue-500 (AA on grey-200) */
+    text-decoration: none;
+    padding: 8px 16px 8px 13px;
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.author-back-link .vapor-icon {
+    height: 15px;
+    width: 15px;
+    background-color: #135b80;                   /* blue-500 */
+    margin-right: 5px;
+    transition: background-color 0.15s ease;
+}
+
+.author-back-link:hover {
+    background-color: #fafafd;                  /* grey-100 */
+    border-color: #dfe0eb;                      /* grey-300 */
+    color: #135b80;                             /* blue-500 */
+    text-decoration: none;
+}
+
+.author-back-link:hover .vapor-icon {
+    background-color: #135b80;
+}
+
+/* Dark mode — mirrors the pagination buttons' dark styling. */
+.dark .author-back-link {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(223, 62, 251, 0.1);      /* pink-300 @ 10% */
+    color: #40c4ff;
+}
+
+/* Light mode darkens the icon to blue-500 via the base rule; keep it light here. */
+.dark .author-back-link .vapor-icon {
+    background-color: #40c4ff;
+}
+
+.dark .author-back-link:hover {
+    background-color: #1c1c1f;                   /* off-black */
+    border-color: #373953;                       /* grey-800 */
+    color: #1e92cc;
+}
+
+.dark .author-back-link:hover .vapor-icon {
+    background-color: #1e92cc;
+}
+
+/* Subscribe (RSS) button — homepage title row + post-page top tags row. */
+.vapor-blog-page-header {
+    gap: 0.75rem 1.5rem;
+}
+
+/* On desktop the hero heading carries large top/bottom margins (150/90px); move them
+   onto the row so the heading box is just the text and the Subscribe button centres
+   against it (mirrors the design system's hero spacing). */
+@media (min-width: 992px) {
+    .vapor-blog-page-header {
+        margin-top: 150px;
+        margin-bottom: 90px;
+    }
+
+    .vapor-blog-page-header .vapor-blog-page-heading {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+}
+
+.blog-post-toprow {
+    gap: 0.5rem 1rem;
+}
+
+.blog-subscribe-button {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+.blog-subscribe-icon {
+    flex: 0 0 auto;
+}

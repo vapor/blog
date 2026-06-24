@@ -1,9 +1,8 @@
 ---
 date: 2025-10-16 16:00
-description: Vapor has a new merch store to buy stickers, t-shirts, and more! 
+description: "Vapor's merch store is back at store.vapor.codes — grab t-shirts with the new logo, retro designs and more, and help support the framework."
 tags: vapor, community
-authors: Tim
-authorImageURLs: /author-images/tim.jpg
+authors: 0xTim
 image: /static/images/posts/new-store.png
 ---
 # Vapor Has a New Store!

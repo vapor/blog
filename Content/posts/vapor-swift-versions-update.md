@@ -1,9 +1,8 @@
 ---
 date: 2022-04-29 17:00
-description: Updating Vapor's Supported Swift Versions
+description: "Vapor is dropping support for older Swift versions to match SwiftNIO, tracking the current release plus the two previous minors. Here's the new policy."
 tags: vapor, framework
-author: Tim
-authorImageURL: /author-images/tim.jpg
+author: 0xTim
 ---
 # Updating Vapor's Supported Swift Versions
 

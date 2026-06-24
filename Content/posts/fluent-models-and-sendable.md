@@ -1,9 +1,8 @@
 ---
 date: 2024-05-19 11:00
-description: The situation with Fluent Models and Sendable warnings
+description: "Since FluentKit 1.48.0, every Fluent Model triggers a Sendable warning. Here's the Swift property-wrapper corner case behind it, and how to handle it."
 tags: fluent, concurrency, warnings, vapor
 author: Gwynne
-authorImageURL: /author-images/gwynne.jpg
 ---
 # On Fluent Models and Sendable warnings
 
@@ -21,10 +20,10 @@ final class SomeModel: Model {
 // ****** AFTER: ******
 final class SomeModel: Model, @unchecked Sendable {
     static let schema = "some_models"
-    
+
     @ID
     var id: UUID?
-    
+
     // ...
 }
 ```

@@ -1,9 +1,8 @@
 ---
 date: 2022-03-09 17:00
-description: Vapor is looking for a designer to help update our sites and branding
+description: "Vapor is looking for a designer to refresh our sites and standardize our design language across the main site, blog, docs and more. Here's what's involved."
 tags: growth, business
-author: Tim
-authorImageURL: /author-images/tim.jpg
+author: 0xTim
 ---
 # We're looking for a designer!
 
