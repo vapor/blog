@@ -1,7 +1,10 @@
 #extend("base"):
 #export("content"):
 <div class="container blog-container">
-    <h1 class="vapor-blog-page-heading">#(blogListing.heading)</h1>
+    <div class="vapor-blog-page-header d-flex flex-wrap align-items-center justify-content-between">
+        <h1 class="vapor-blog-page-heading">#(blogListing.heading)</h1>
+        #extend("partials/blog-subscribe")
+    </div>
     <div class="row row-cols-1 row-cols-lg-2 g-4 mb-5">
         #for(card in blogListing.posts):<div class="col">#extend("partials/blog-card", card)</div>#endfor
     </div>

@@ -2,15 +2,18 @@
 #export("content"):
 <article class="container vapor-container blog-container">
     <div class="blog-post-header">
-        <div id="blog-time-tag-container">
-            <div class="d-flex" id="blog-time-tags">
-                #if(blogPost.hasTags):
-                <div class="blog-tags">
-                    <ul class="mx-auto mx-lg-0 flex-wrap">#for(tag in blogPost.tags):<li class="my-1"><a href="#(tag.url)">#(tag.name)</a></li>#endfor</ul>
+        <div class="blog-post-toprow d-flex align-items-center flex-wrap">
+            <div id="blog-time-tag-container">
+                <div class="d-flex" id="blog-time-tags">
+                    #if(blogPost.hasTags):
+                    <div class="blog-tags">
+                        <ul class="mx-auto mx-lg-0 flex-wrap">#for(tag in blogPost.tags):<li class="my-1"><a href="#(tag.url)">#(tag.name)</a></li>#endfor</ul>
+                    </div>
+                    #endif
+                    <div id="blog-post-reading-time">#(blogPost.readingTimeText)</div>
                 </div>
-                #endif
-                <div id="blog-post-reading-time">#(blogPost.readingTimeText)</div>
             </div>
+            <div class="ms-auto blog-subscribe-inline">#extend("partials/blog-subscribe")</div>
         </div>
         <h1 class="mb-4 mt-4">#(blogPost.title)</h1>
         #if(blogPost.hasDescription):<div class="mb-4" id="blog-description">#(blogPost.description)</div>#endif

@@ -81,3 +81,36 @@
 .dark .author-back-link:hover .vapor-icon {
     background-color: #1e92cc;
 }
+
+/* Subscribe (RSS) button — homepage title row + post-page top tags row. */
+.vapor-blog-page-header {
+    gap: 0.75rem 1.5rem;
+}
+
+/* On desktop the hero heading carries large top/bottom margins (150/90px); move them
+   onto the row so the heading box is just the text and the Subscribe button centres
+   against it (mirrors the design system's hero spacing). */
+@media (min-width: 992px) {
+    .vapor-blog-page-header {
+        margin-top: 150px;
+        margin-bottom: 90px;
+    }
+
+    .vapor-blog-page-header .vapor-blog-page-heading {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+}
+
+.blog-post-toprow {
+    gap: 0.5rem 1rem;
+}
+
+.blog-subscribe-button {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+.blog-subscribe-icon {
+    flex: 0 0 auto;
+}
