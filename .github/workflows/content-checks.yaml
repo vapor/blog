@@ -1,4 +1,4 @@
-name: Meta descriptions
+name: Content checks
 
 on:
   pull_request:
@@ -9,8 +9,8 @@ on:
       - main
 
 jobs:
-  check:
-    name: Check post meta description lengths
+  lint:
+    name: Lint post content (descriptions, image alt text)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -19,5 +19,5 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: '3.12'
-      - name: Validate meta descriptions
-        run: python3 scripts/check_meta_descriptions.py
+      - name: Lint content
+        run: python3 scripts/check_content.py

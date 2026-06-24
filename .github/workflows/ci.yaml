@@ -27,8 +27,31 @@ jobs:
         uses: ScottBrenner/cfn-lint-action@v2
       - name: Run CloudFormation linter
         run: cfn-lint -t stack.yaml
-      - name: Build site   
-        run: swift run
+      - name: Build site
+        run: |
+          set -o pipefail
+          swift run 2>&1 | tee build.log
+      - name: Check for broken links and post front-matter warnings
+        run: |
+          if grep -nE '\[kiln\] (link check|blog:)' build.log; then
+            echo "::error::Kiln reported broken internal links/images or post front-matter problems (missing/unparseable date, unknown author) — see the matched lines above."
+            exit 1
+          fi
+          echo "No broken links or front-matter warnings."
+      - name: Validate generated sitemap and feed
+        run: |
+          python3 - <<'PY'
+          import sys, xml.dom.minidom
+          ok = True
+          for path in ("site/sitemap.xml", "site/feed.rss"):
+              try:
+                  xml.dom.minidom.parse(path)
+                  print(f"{path}: well-formed XML")
+              except Exception as error:
+                  print(f"::error::{path}: {error}")
+                  ok = False
+          sys.exit(0 if ok else 1)
+          PY
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
