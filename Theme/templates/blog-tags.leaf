@@ -5,7 +5,7 @@
     <div class="row mb-5">
         <div class="col-lg-3 mb-4">
             <div class="blog-tag-list">
-                <h5 class="list-heading d-none d-lg-block">Blog Tags</h5>
+                <h2 class="list-heading d-none d-lg-block">Blog Tags</h2>
                 <button class="d-lg-none vapor-molecule vapor-molecule-list" id="tag-list-mobile-button" type="button" data-bs-toggle="collapse" data-bs-target="#tagListCollapse" aria-expanded="false" aria-controls="tagListCollapse">
                     <div class="d-flex flex-row align-items-center">#if(blogListing.activeTagName):#(blogListing.activeTagName)#else:View All#endif<span class="ms-auto vapor-icon icon-chevron-down"></span></div>
                 </button>
