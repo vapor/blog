@@ -1,6 +1,6 @@
 ---
 date: 2024-09-03 12:00
-description: Discussing what the future holds for Vapor
+description: "After nearly 400 releases, we're now looking to what comes after Vapor 4. With Swift 6 on the horizon, here's our thinking on Vapor 5 and the framework's future"
 tags: framework, vapor5
 image: /static/images/posts/Vapor5.png
 author: 0xTim

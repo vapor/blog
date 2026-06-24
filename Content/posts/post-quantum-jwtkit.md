@@ -1,6 +1,6 @@
 ---
 date: 2026-04-15 16:00
-description: Post quantum JWTs are here!
+description: "JWTKit now supports post-quantum JWTs, built on the quantum-secure APIs from Swift Crypto, providing future-proof security for the Swift ecosystem"
 tags: jwt, security, vapor
 authors: Francesco; Paul
 ---
