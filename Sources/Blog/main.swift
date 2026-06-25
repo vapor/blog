@@ -51,6 +51,15 @@ let site = KilnSite(
                 "footer.supporters": "Supporters",
                 "footer.frameworkDocs": "Framework Docs",
                 "footer.apiDocs": "API Docs",
+                // Shared navbar strings.
+                "nav.brandText": "Vapor Blog",
+                "nav.closeMenu": "Close menu",
+                "nav.documentation": "Documentation",
+                "nav.frameworkDocs": "Framework Docs",
+                "nav.frameworkDocs.caption": "Learn how to use Vapor",
+                "nav.apiDocs": "API Docs",
+                "nav.apiDocs.caption": "Browse the API reference",
+                "nav.selectTheme": "Select theme",
             ]
         )
     ],

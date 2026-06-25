@@ -47,7 +47,7 @@
 </head>
 <body>
     <a class="kiln-skip-link" href="#main-content">#(strings.skipToContent)</a>
-    #extend("partials/header")
+    <header class="vapor-banner">#extend("partials/header")</header>
     <main id="main-content" tabindex="-1">#import("content")</main>
     #extend("partials/footer")
     <script src="https://design.vapor.codes/main.js"></script>
