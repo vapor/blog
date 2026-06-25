@@ -24,17 +24,10 @@ jobs:
         with:
           role-to-assume: ${{ vars.OIDC_ROLE_ARN }}
           aws-region: ${{ vars.OIDC_ROLE_REGION }}
-      - name: Deploy stack to CloudFormation
-        uses: aws-actions/aws-cloudformation-github-deploy@v1
-        with:
-          name: ${{ vars.VAPOR_BLOG_STACK_NAME }}
-          template: stack.yaml
-          # Content-only deploys touch no infra, so an empty change set is fine.
-          no-fail-on-empty-changeset: "1"
-          parameter-overrides: >-
-            DomainName=blog.vapor.codes,
-            S3BucketName=${{ vars.VAPOR_BLOG_BUCKET_NAME }},
-            AcmCertificateArn=${{ secrets.CERTIFICATE_ARN }}
+      # The `vapor-blog-stack` CloudFormation stack is deployed automatically via
+      # CloudFormation Git sync (CodeConnections) when `stack.yaml` changes on main
+      # — so this workflow only ships content. Don't add a `cloudformation deploy`
+      # step here: it races the Git sync and fails with "stack is UPDATE_IN_PROGRESS".
       - name: Deploy Site to S3
         run: |
           # Python's mimetypes package now correctly detects the application/rss+xml MIME type for feed.rss, so don't need to handle it separately anymore
