@@ -1,4 +1,5 @@
 import Kiln
+import VaporDesignTheme
 
 // The Vapor blog (blog.vapor.codes), built with Kiln.
 //
@@ -32,8 +33,27 @@ let site = KilnSite(
     copyright: "© QuTheory, LLC 2026",
     theme: .custom(
         directory: "Theme",
+        // Shared header/footer/cards come from the design package as a theme
+        // layer; anything in this site's own Theme/ still overrides them.
+        sharedLayers: [VaporDesignTheme.directory],
         palette: .autoLightDark(primary: .black, accent: .blue)
     ),
+    // Strings the shared design partials read. `siteId` tells them this is the
+    // blog so footer/nav links point "home" links here and elsewhere absolute.
+    languages: [
+        Language(
+            .english,
+            isDefault: true,
+            customStrings: [
+                "siteId": "blog",
+                "footer.tagline": "Vapor provides a safe, performant and easy to use foundation to build HTTP servers, backends and APIs in Swift.",
+                "footer.joinDiscord": "Join our Discord",
+                "footer.supporters": "Supporters",
+                "footer.frameworkDocs": "Framework Docs",
+                "footer.apiDocs": "API Docs",
+            ]
+        )
+    ],
     // Posts don't show the permalink "#" anchor next to headings (headings keep
     // their ids, so direct #fragment links still work).
     markdown: MarkdownExtensions(tableOfContents: .init(permalink: false)),
