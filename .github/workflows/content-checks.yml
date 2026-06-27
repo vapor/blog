@@ -1,5 +1,4 @@
 name: Content checks
-
 on:
   pull_request:
     branches:
@@ -7,8 +6,6 @@ on:
   push:
     branches:
       - main
-
-# Least-privilege: this workflow only reads the repo to lint content.
 permissions:
   contents: read
 
@@ -22,6 +19,6 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.12'
+          python-version: '3.14'
       - name: Lint content
         run: python3 scripts/check_content.py
