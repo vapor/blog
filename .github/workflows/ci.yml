@@ -16,15 +16,15 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.12'
+          python-version: '3.14'
       - name: Install latesst Swift
-        uses: vapor/swiftly-action@v0.2
+        uses: vapor/swiftly-action@bedb227456c5f495afbef80baebee17a8a02cef4 # v0.2.1
         with:
           toolchain: latest
       - name: Checkout code
         uses: actions/checkout@v7
       - name: Setup CloudFormation linter
-        uses: ScottBrenner/cfn-lint-action@v2
+        uses: ScottBrenner/cfn-lint-action@ed184e91f5085a2932501da8314e899e5e0ef5be # v2.7.1
       - name: Run CloudFormation linter
         run: cfn-lint -t stack.yaml
       - name: Build site
@@ -53,13 +53,13 @@ jobs:
           sys.exit(0 if ok else 1)
           PY
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v6
+        uses: aws-actions/configure-aws-credentials@254c19bd240aabef8777f48595e9d2d7b972184b # v6.2.1
         with:
           role-to-assume: ${{ vars.OIDC_ROLE_ARN }}
           aws-region: ${{ vars.OIDC_ROLE_REGION }}
       - name: Deploy S3 Website
         if: ${{ github.event.pull_request.head.repo.full_name == 'vapor/blog' && github.actor != 'dependabot[bot]' }}
-        uses: brokenhandsio/s3-website-pr-action@v2
+        uses: brokenhandsio/s3-website-pr-action@9461e5d13f1c56290b8a006546dd5e845ef2c671 # v3.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
