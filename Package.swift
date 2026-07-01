@@ -16,7 +16,7 @@ let package = Package(
         // Released builds use the tagged dependency; for local Kiln development
         // (e.g. unreleased blog features) swap to the path dependency below.
         // .package(url: "https://github.com/brokenhandsio/kiln.git", from: "1.3.0"),
-        .package(path: "../../BH/kiln"),
+        .package(path: "../../BrokenHands/kiln"),
         // Shared Vapor design templates (header/footer/cards), pulled in as a
         // Kiln theme layer. Local path during development; a tagged release once
         // the design package is published.
