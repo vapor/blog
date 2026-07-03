@@ -38,6 +38,9 @@ let site = KilnSite(
         sharedLayers: [VaporDesignTheme.directory],
         palette: .autoLightDark(primary: .black, accent: .blue)
     ),
+    // blog.css layers on top of the shared design-system main.css (from the CDN).
+    // The shared head partial renders every entry here after main.css.
+    extraCSS: ["static/css/blog.css"],
     // Strings the shared design partials read. `siteId` tells them this is the
     // blog so footer/nav links point "home" links here and elsewhere absolute.
     languages: [
@@ -46,6 +49,12 @@ let site = KilnSite(
             isDefault: true,
             customStrings: [
                 "siteId": "blog",
+                // Shared head partial (partials/head.leaf) parameters.
+                "head.defaultOgType": "website",
+                "head.homeSuffix": " Blog",
+                "head.titleSeparator": " | ",
+                // Presence of feedURL makes the shared head emit the RSS <link>.
+                "feedURL": "/feed.rss",
                 "footer.tagline": "Vapor provides a safe, performant and easy to use foundation to build HTTP servers, backends and APIs in Swift.",
                 "footer.joinDiscord": "Join our Discord",
                 "footer.supporters": "Supporters",
