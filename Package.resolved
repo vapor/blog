@@ -1,6 +1,24 @@
 {
-  "originHash" : "be9511ce0c362ab9d871de8216b94d497d397e998012020e3aab75a7a5d17008",
+  "originHash" : "35419b9032b0e7d836fe45cd16b3ccaad166b8b65031dec9a99772619165a951",
   "pins" : [
+    {
+      "identity" : "design",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/vapor/design.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "e94e76fb2e691c5a03b755edeaba85a4b400a5a1"
+      }
+    },
+    {
+      "identity" : "kiln",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/brokenhandsio/kiln.git",
+      "state" : {
+        "revision" : "7f45d35a31947122d7a597622b342efe12a3a5cf",
+        "version" : "1.4.1"
+      }
+    },
     {
       "identity" : "leaf-kit",
       "kind" : "remoteSourceControl",
