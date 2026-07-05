@@ -114,3 +114,27 @@
 .blog-subscribe-icon {
     flex: 0 0 auto;
 }
+
+/* Mobile (below the lg breakpoint) subscribe-button placement. */
+@media (max-width: 991.98px) {
+    /* Homepage: the Subscribe button sat flush against the first post card —
+       give it breathing room. */
+    .vapor-blog-page-header {
+        margin-bottom: 1.75rem;
+    }
+
+    /* Post pages: stack the top row so Subscribe sits ABOVE the tags and is
+       left-aligned, rather than pushed to the right below them by `ms-auto`. */
+    .blog-post-toprow {
+        flex-direction: column;
+        /* override Bootstrap's .align-items-center utility (!important) so the
+           stacked items left-align */
+        align-items: flex-start !important;
+    }
+
+    .blog-post-toprow .blog-subscribe-inline {
+        order: -1;
+        margin-left: 0 !important; /* undo Bootstrap's ms-auto right-push */
+        margin-bottom: 0.75rem;
+    }
+}

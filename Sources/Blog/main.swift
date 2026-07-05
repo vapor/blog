@@ -1,4 +1,5 @@
 import Kiln
+import VaporDesignTheme
 
 // The Vapor blog (blog.vapor.codes), built with Kiln.
 //
@@ -32,8 +33,45 @@ let site = KilnSite(
     copyright: "© QuTheory, LLC 2026",
     theme: .custom(
         directory: "Theme",
+        // Shared header/footer/cards come from the design package as a theme
+        // layer; anything in this site's own Theme/ still overrides them.
+        sharedLayers: [VaporDesignTheme.directory],
         palette: .autoLightDark(primary: .black, accent: .blue)
     ),
+    // blog.css layers on top of the shared design-system main.css (from the CDN).
+    // The shared head partial renders every entry here after main.css.
+    extraCSS: ["static/css/blog.css"],
+    // Strings the shared design partials read. `siteId` tells them this is the
+    // blog so footer/nav links point "home" links here and elsewhere absolute.
+    languages: [
+        Language(
+            .english,
+            isDefault: true,
+            customStrings: [
+                "siteId": "blog",
+                // Shared head partial (partials/head.leaf) parameters.
+                "head.defaultOgType": "website",
+                "head.homeSuffix": " Blog",
+                "head.titleSeparator": " | ",
+                // Presence of feedURL makes the shared head emit the RSS <link>.
+                "feedURL": "/feed.rss",
+                "footer.tagline": "Vapor provides a safe, performant and easy to use foundation to build HTTP servers, backends and APIs in Swift.",
+                "footer.joinDiscord": "Join our Discord",
+                "footer.supporters": "Supporters",
+                "footer.frameworkDocs": "Framework Docs",
+                "footer.apiDocs": "API Docs",
+                // Shared navbar strings.
+                "nav.brandText": "Vapor Blog",
+                "nav.closeMenu": "Close menu",
+                "nav.documentation": "Documentation",
+                "nav.frameworkDocs": "Framework Docs",
+                "nav.frameworkDocs.caption": "Learn how to use Vapor",
+                "nav.apiDocs": "API Docs",
+                "nav.apiDocs.caption": "Browse the API reference",
+                "nav.selectTheme": "Select theme",
+            ]
+        )
+    ],
     // Posts don't show the permalink "#" anchor next to headings (headings keep
     // their ids, so direct #fragment links still work).
     markdown: MarkdownExtensions(tableOfContents: .init(permalink: false)),
