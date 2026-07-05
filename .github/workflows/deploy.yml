@@ -1,5 +1,4 @@
 name: Build and deploy blog.vapor.codes
-
 on:
   push:
     branches:
@@ -9,10 +8,12 @@ jobs:
   build:
     name: Build and deploy
     runs-on: ubuntu-latest
-    permissions: { id-token: write, contents: read }
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - name: Install latest Swift
-        uses: vapor/swiftly-action@v0.2
+        uses: vapor/swiftly-action@bedb227456c5f495afbef80baebee17a8a02cef4 # v0.2.1
         with:
           toolchain: latest
       - name: Checkout
@@ -20,7 +21,7 @@ jobs:
       - name: Build site
         run: swift run
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v6
+        uses: aws-actions/configure-aws-credentials@254c19bd240aabef8777f48595e9d2d7b972184b # v6.2.1
         with:
           role-to-assume: ${{ vars.OIDC_ROLE_ARN }}
           aws-region: ${{ vars.OIDC_ROLE_REGION }}

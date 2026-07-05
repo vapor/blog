@@ -23,11 +23,13 @@ let authors: [Author] = [
         linkedin: "https://linkedin.com/in/paultoffoloni"
     ),
     Author(
-        username: "francesco", name: "Francesco", imageURL: "/author-images/francesco.jpg",
+        username: "fpseverino", name: "Francesco", imageURL: "/author-images/francesco.jpg",
         description: "Open source passionate and backend tinkerer.",
         github: "https://github.com/fpseverino",
         mastodon: "https://mastodon.social/@fpseverino",
-        bluesky: "https://bsky.app/profile/fpseverino.bsky.social"
+        bluesky: "https://bsky.app/profile/fpseverino.bsky.social",
+        linkedin: "https://www.linkedin.com/in/fpseverino",
+        website: "https://fpseverino.com"
     ),
     Author(
         username: "mahdi", name: "Mahdi", imageURL: "/author-images/mahdi.jpg",
