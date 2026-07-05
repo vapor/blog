@@ -1,5 +1,5 @@
 {
-  "originHash" : "35419b9032b0e7d836fe45cd16b3ccaad166b8b65031dec9a99772619165a951",
+  "originHash" : "6d4650348cf00c52878468c59e69c66de05e1d30109417e29e244cdcc69cebb8",
   "pins" : [
     {
       "identity" : "design",
@@ -7,7 +7,7 @@
       "location" : "https://github.com/vapor/design.git",
       "state" : {
         "branch" : "main",
-        "revision" : "e94e76fb2e691c5a03b755edeaba85a4b400a5a1"
+        "revision" : "564255854f4ec4b2149263bc7898812fda48e2dc"
       }
     },
     {
