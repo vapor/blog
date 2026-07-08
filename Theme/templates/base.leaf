@@ -8,6 +8,6 @@
     <header class="vapor-banner">#extend("partials/header")</header>
     <main id="main-content" tabindex="-1">#import("content")</main>
     #extend("partials/footer")
-    <script src="https://design.vapor.codes/main.js"></script>
+    <script src="#designResource("main.js")"></script>
 </body>
 </html>
