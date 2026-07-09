@@ -91,5 +91,6 @@ let site = KilnSite(
 try await Kiln.build(
     site,
     contentDirectory: "Content",
-    outputDirectory: "site"
+    outputDirectory: "site",
+    leafTags: VaporDesignTheme.leafTags
 )
