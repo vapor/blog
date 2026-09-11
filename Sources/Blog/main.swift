@@ -49,6 +49,10 @@ let site = KilnSite(
             isDefault: true,
             customStrings: [
                 "siteId": "blog",
+                // Announcement banner (shared partials/announce.leaf). announceMessage
+                // shows the banner; clear it to hide. No pill / link for this notice.
+                "announceId": "vapor-week-2026",
+                "announceMessage": "Vapor Week is coming 14th September!",
                 // Shared head partial (partials/head.leaf) parameters.
                 "head.defaultOgType": "website",
                 "head.homeSuffix": " Blog",
