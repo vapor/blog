@@ -1,6 +1,6 @@
 ---
 date: 2026-09-15 14:00
-description: After 6 and a half years of Vapor 4, and a decade to the day of Vapor 1.0, we're excited to show off the next version of Vapor, Vapor 5 with the first beta release
+description: After 6 and a half years of Vapor 4, and a decade to the day of Vapor 1.0, we're excited to show off the next version of Vapor, with the first beta release
 tags: vapor, 10 years
 author: 0xTim
 image: /static/images/posts/vapor-5-logo.png
