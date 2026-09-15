@@ -6,6 +6,9 @@ author: 0xTim
 ---
 # Ten Years of Vapor
 
+> This is a series of posts for Vapor Week. Also in the series:
+> * [Vapor 5 Beta 1 released](https://blog.vapor.codes/posts/vapor-5-beta/)
+
 Back in early 2016, Tanner Nelson created the very first commit of Vapor. This was only a few months after Swift was open sourced and available on Linux. Tomorrow marks 10 years to the day since Vapor 1.0 was tagged as the first major release of the framework.
 
 ![Vapor's First Commit in the Git log](/static/images/posts/vapor-first-commit.png)
