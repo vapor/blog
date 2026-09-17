@@ -1,12 +1,12 @@
 ---
-date: 2026-09-17 14:00
+date: 2026-09-17 19:00
 description: Now that the Vapor 5 beta is here, let's take a look and see what has actually changed!
 tags: vapor, 10 years, framework
 author: 0xTim
 ---
 # What's New in Vapor 5 Beta
 
-Now that we've [released the Vapor 5 beta](https://blog.vapor.codes/posts/vapor-5-beta/), it's time to look at what has actually changed! In this post, we'll discuss how Vapor 5 works, the changes we made and what you need to do to migrate.
+Now that we've [released the Vapor 5 beta](https://blog.vapor.codes/posts/vapor-5-beta/), it's time to look at what has actually changed! In this post, we'll discuss how Vapor 5 works, the changes we made and what your new code will look like.
 
 > This post is part of a series of posts for Vapor Week. See the [main blog post](https://blog.vapor.codes/posts/ten-years-of-vapor/) for more information.
 
@@ -34,6 +34,8 @@ Again, very familiar! You may notice the added `await` on the `decode` call - si
 Finally let's take a look at using Fluent:
 
 ```swift
+// dbPool is a `Databases` type defined at application configuration
+
 app.get("todos") { req in
     let todos = try await Todo.query(on: dbPool.database).all()
     return todos
@@ -48,9 +50,9 @@ This is probably the biggest difference that most people will notice. The reason
 
 The simple stuff looks pretty similar. And indeed, if you've migrated fully to async/await APIs, it _should_ be a smooth migration process. But some things have changed.
 
-### No More Locks
+### Goodbye Locks
 
-Vapor 4's work to adopt `Sendable` was a huge success, we went from a monthly GitHub issue reporting a data race that was hard to diagnose to **zero** reports of data race crashes! Which is incredible. However to actually make it safe we have to introduce locks _everywhere_, which hampered any performance optimisations. Now, with an API we can break (`Application` has changed a bit, `Request` and `Response` are both structs, some properties are now immutable), we can finally remove them! I think I removed over 50 locks from the codebase and only required a few `Mutex` additions in the place where we truly need some kind of mutable type.
+Vapor 4's work to adopt `Sendable` was a huge success - we went from a monthly GitHub issue reporting a data race that was hard to diagnose to **zero** reports of data race crashes! This was an incredible achievement. However to actually make it safe we had to introduce locks _everywhere_, which hampered any performance optimisations. Now, with an API we can break (`Application` has changed a bit, `Request` and `Response` are both structs, some properties are now immutable), we can finally remove them! I think I removed over 50 locks from the codebase and only required a few `Mutex` additions in the places where we truly need some kind of mutable type.
 
 ### No More `Storage`
 
@@ -58,9 +60,9 @@ This is probably one of the big ones, but unless you write packages for Vapor, y
 
 In Vapor 3 and Vapor 4, the model was that everything related to a `Request` was tied to that request's `EventLoop`. This gave you some semblance of safety - since, in essence, everything was tied to a single thread - and also a good performance boost, since there was no thread hopping when dealing with requests. This did, however, force the introduction of `Storage` so we could store factories and cache types that were tied to the right event loop. With Swift Concurrency, this model goes out the window and you're reliant on the task pool to decide where your code is run (custom executors aside). This frees up the requirement of needing the logger, the client, the database all to be tied to the same event loop and means we can remove `Storage`.
 
-### No More Services
+### Real Service Dependency Injection
 
-Because we no longer need to ensure services use the same event loop as the `Application` and `Request`, services have changed significantly and this will be the change that will affect you the most. Gone are the extensions and computed properties, in favour of simple dependency injection. Vapor's `Application` offers some types, like the `ViewRenderer` and `Client` that are created at initialisation, but if you need the `Databases` (essentially the database connection pool), then you just pass it in! I'm a big fan of clear, direct DI like this as it makes it explicitly clear of what types need what dependency, and it's easy to test with protocols. If you prefer your own favourite DI framework then nothing should stop you for using these to pass the types to your controllers and services.
+Because we no longer need to ensure services use the same event loop as the `Application` and `Request`, services have changed significantly and this will be the change that will affect you the most. Gone are the extensions and computed properties, in favour of simple dependency injection. Vapor's `Application` offers some types, like the `ViewRenderer` and `Client` that are created at initialisation, but if you need the `Databases` (essentially the database connection pool), then you just pass it in! I'm a big fan of clear, direct DI like this as it makes it explicitly clear which of your types, like your controllers, need what dependency, like a client or database, and it's easy to test with protocols. If you prefer your own favourite DI framework then nothing should stop you from using these to pass the types to your controllers and services.
 
 ### Streaming
 
@@ -68,7 +70,6 @@ You no longer need to specify the body collection method when declaring routes s
 
 ```swift
 app.post("upload") { req -> UploadResult in
-    let maximumBytes = 100 * 1024 * 1024
     var bytesReceived = 0
 
     try await req.body.forEachChunk { chunk in
@@ -80,7 +81,7 @@ app.post("upload") { req -> UploadResult in
 }
 ```
 
-Each chunk in this case is `Span<UInt8>`. Because we specify the lifetime, the compiler prevents you from escaping it. Reading the body also support backpressure automatically for you.
+Each chunk in this case is `Span<UInt8>`. Because we specify the lifetime, the compiler prevents you from escaping it. Reading the body also supports backpressure automatically for you.
 
 Response bodies receive a writer to write to:
 
@@ -126,7 +127,7 @@ struct UserController {
 }
 ```
 
-What's really cool with this is that it gives us type-safe routing! So if you define a route with `@GET("users", UUID.self)` you must attach it to a function with a parameter that's a UUID. If you use the wrong type, or forget to specify the `id` parameter, you'll get a compiler error. This should make a big difference to those, like me, who were never a fan of defining strings for all your routes.
+What's really cool with this is that it gives us type-safe routing! So if you define a route with `@GET("users", UUID.self)` you must attach it to a function with a parameter that's a UUID. If you use the wrong type, or forget to specify the `id` parameter, you'll get a compiler error. This should make a big difference to those, like me, who were never a fan of defining strings for all their routes.
 
 We also have macros for authentication:
 
@@ -140,11 +141,11 @@ func me(req: Request, user: User) async throws -> User {
 
 Again, you'll get compiler errors if your route handler is not defined correctly and you will have a type checked user model here. If you only want to see if a user is there, make the parameter optional and it will change from throwing a **401 Unauthorized** if the user doesn't exist, to letting it pass through! This macro is something I'm especially excited by!
 
-Note that this is still very much in active development. We have a prototype for defining middleware and currently are finding the compiler when it comes to being able to pass dependencies into middleware so keep an eye out on the releases for improvements to this.
+Note that this is still very much in active development. We have a prototype for defining middleware and currently are fighting the compiler when it comes to being able to pass dependencies into middleware so keep an eye out on the releases for improvements to this.
 
 ### Partial Route Parameters
 
-One new feature that's quite niche but super important to those that need it (like package registries!), our router now supports partial route parameters! So this now works:
+One new feature our router supports that's quite niche but super important to those that need it (like package registries!) is partial route parameters! So this now works:
 
 ```swift
 app.get("files", ":{file}.json") { req -> String in
@@ -153,7 +154,7 @@ app.get("files", ":{file}.json") { req -> String in
 }
 ```
 
-This should remove a lot of string matching and custom work to make this work.
+This should remove a lot of string matching and custom code to make this work.
 
 ### Deeper Ecosystem Integration
 
