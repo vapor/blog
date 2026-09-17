@@ -14,6 +14,7 @@ image: /static/images/posts/vapor-5-logo.png
 Work started on Vapor 5 over 2 years ago and we've been quietly working on the alphas since the first alpha release in June. Now, after 49,000 lines of code changed, with all of the architectural changes complete, we're ready for more eyes and people to actually try out the new version.
 
 > This post is part of a series of posts for Vapor Week. See the [main blog post](https://blog.vapor.codes/posts/ten-years-of-vapor/) for more information.
+> If you'd like more of a deep dive into some of the changes, check out [What's New in Vapor 5 Beta](whats-new-in-vapor-5-beta), which was released as part of Vapor Week.
 
 ## New Features
 
