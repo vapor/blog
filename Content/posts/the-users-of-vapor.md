@@ -1,6 +1,6 @@
 ---
 date: 2026-09-18 19:00
-description: Take a look at some of the teams, apps and users of Vapor and how they find working with it.
+description: Take a look at some of the teams, apps, and users of Vapor, and how they find working with it.
 tags: vapor, 10 years
 author: 0xTim
 ---
@@ -24,11 +24,11 @@ Another company is [Litmaps](https://www.litmaps.com), a scientific literature g
 
 ![A screenshot of metrics of Litmaps showing millions of requests a minute](/static/images/posts/litmaps-stats.png)
 
-Some well-known users of Vapor include the award-winning Things app by Cultured Code. They gave a talk at the ServerSide.swift conference talking about their migration to Swift using Vapor. I think the talk speaks for itself:
+Another well-known user of Vapor is the award-winning [Things app by Cultured Code](https://culturedcode.com/things/). They gave a talk at the ServerSide.swift conference talking about their migration to Swift using Vapor. I think the talk speaks for itself:
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/oJArLZIQF8w?si=3EGl3f_MENWU0bf4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen class="mb-2"></iframe>
 
-Speaking of migrations, Apple published a post on Swift.org about migrating the monitoring service used in the Passwords app comparing against Java. The [whole post is well worth a read](https://www.swift.org/blog/swift-at-apple-migrating-the-password-monitoring-service-from-java/), but the before and after graph showing hardware utilisation, memory usage and throughput was a standout:
+Speaking of migrations, Apple published a post on Swift.org about migrating the monitoring service used in the Passwords app to Swift, comparing it against Java. The [whole post is well worth a read](https://www.swift.org/blog/swift-at-apple-migrating-the-password-monitoring-service-from-java/), but the before and after graph showing hardware utilisation, memory usage and throughput was a standout:
 
 ![A graph showing Swift against Java with 50% less hardware utilisation, 90% less memory usage and 40% more throughput](/static/images/posts/passwords-monitoring-service-graph.png)
 
