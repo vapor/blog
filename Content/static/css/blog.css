@@ -138,3 +138,12 @@
         margin-bottom: 0.75rem;
     }
 }
+
+/* Embedded videos (YouTube iframes) — keep them within the content column on
+   narrow screens and scale the height to match, rather than using the fixed
+   560x315 embed size. */
+.blog-content iframe {
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+}
