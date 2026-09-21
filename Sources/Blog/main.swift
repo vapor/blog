@@ -52,10 +52,10 @@ let site = KilnSite(
                 // Announcement banner (shared partials/announce.leaf). announceMessage
                 // shows the banner; clear it to hide. Bump announceId when the copy
                 // changes so visitors who dismissed the old notice see the new one.
-                "announceId": "ten-years-of-vapor",
-                "announceMessage": "It's Vapor Week! Celebrating 10 Years of Vapor",
-                "announceLink": "https://blog.vapor.codes/posts/ten-years-of-vapor/",
-                "announceLinkText": "Read more",
+                // "announceId": "ten-years-of-vapor",
+                // "announceMessage": "It's Vapor Week! Celebrating 10 Years of Vapor",
+                // "announceLink": "https://blog.vapor.codes/posts/ten-years-of-vapor/",
+                // "announceLinkText": "Read more",
                 // Shared head partial (partials/head.leaf) parameters.
                 "head.defaultOgType": "website",
                 "head.homeSuffix": " Blog",
