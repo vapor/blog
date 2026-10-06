@@ -40,7 +40,7 @@ To start, we have some exclusive merch on the [Vapor Store](https://store.vapor.
 
 ![Vapor Anniversary Merch T-shirts on sale now](/static/images/posts/vapor-anniversary-merch.png)
 
-These t-shirts will only be available until 30th September, so make sure to grab one before they disappear. For this week only, we are also offering a 15% discount across the entire store with the code `VAPORWEEK`, valid until Sunday 20th September.
+These t-shirts will only be available until 31st October, so make sure to grab one before they disappear. For this week only, we are also offering a 15% discount across the entire store with the code `VAPORWEEK`, valid until Sunday 20th September.
 
 ## Ten More Years
 
